@@ -1,0 +1,19 @@
+<resources>
+
+    <style name="AppTheme.NoActionBar.FullScreen" parent="AppBaseTheme">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+        <item name="android:windowDrawsSystemBarBackgrounds">true</item>
+        <item name="android:statusBarColor">@color/white_ffffff</item>
+    </style>
+
+    <style name="CustomCheckBoxTheme" parent="Widget.AppCompat.CompoundButton.CheckBox">
+        <item name="android:colorButtonNormal">@color/gray_9A9A9A</item>
+
+    </style>
+
+    <style name="DialogCheckVersion" parent="Theme.AppCompat.Light.Dialog.Alert">
+        <item name="android:colorAccent">@color/main_color</item>
+    </style>
+
+</resources>

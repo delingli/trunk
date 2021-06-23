@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical">
+
+    <include layout="@layout/activity_title" />
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white_ffffff"
+        android:orientation="horizontal"
+        android:padding="10dp">
+
+        <com.hkzr.wlwd.ui.view.ClearEditText
+            android:id="@+id/ed_search"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/shape_search_circler"
+            android:hint="请输入姓名或者手机号"
+            android:imeOptions="actionSearch"
+            android:padding="8dp"
+            android:singleLine="true"
+            android:textColor="@color/color_646464"
+            android:textColorHint="@color/color_646464"
+            android:textCursorDrawable="@null"
+            android:textSize="12sp" />
+
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ListView
+            android:id="@+id/lv"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/white_ffffff"
+            android:divider="@color/color_d5d5d5"
+            android:paddingLeft="12dp"
+            android:paddingRight="12dp"
+            android:dividerHeight="0.7dp"
+            android:listSelector="@color/transparency_0"
+            android:scrollbars="none"
+            android:visibility="gone" />
+
+        <TextView
+            android:id="@+id/tv_no"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="暂无搜索结果"
+            android:textColor="@color/gray_666666"
+            android:textSize="@dimen/text_size_14"
+            android:visibility="gone" />
+
+    </RelativeLayout>
+</LinearLayout>

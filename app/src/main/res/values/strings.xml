@@ -1,0 +1,154 @@
+<resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation">
+    <string name="app_name">e云办公</string>
+    <string name="register">注册</string>
+    <string name="login">登录</string>
+    <string name="loading">加载中</string>
+    <string name="more">更多</string>
+    <string name="noMore">没有更多的数据了...</string>
+    <string name="refresh_succeed">刷新成功</string>
+    <string name="refresh_fail">刷新失败</string>
+    <string name="pull_to_refresh">下拉刷新</string>
+    <string name="release_to_refresh">释放立即刷新</string>
+    <string name="refreshing">正在刷新...</string>
+
+    <!-- 登录 -->
+    <string name="back">返回</string>
+    <string name="zh">账&#8195;号</string>
+    <string name="mm">密&#8195;码</string>
+    <string name="fwbh">服务号</string>
+    <string name="q_zh">请输入您的账号</string>
+    <string name="q_mm">请输入您的密码</string>
+    <string name="q_fwbh">请输入您的服务号</string>
+
+    <string name="jzmm">记住密码</string>
+    <string name="wjmm">忘记密码?</string>
+    <string name="tjhy">添加好友</string>
+    <string name="tjqz">添加群组</string>
+    <string name="cjqz">创建群组</string>
+    <string name="sys">扫一扫</string>
+    <string name="message">消息</string>
+    <string name="contacts">通讯录</string>
+    <string name="app">应用</string>
+    <string name="mine">我的</string>
+    <string name="sx">刷新</string>
+    <string name="home">首页</string>
+
+    <!-- 忘记密码、修改密码、注册 -->
+    <string name="q_sjh">请输入您的手机号码</string>
+    <string name="q_yzm">请输入您的验证码</string>
+    <string name="q_xmm">请输入新密码</string>
+    <string name="q_qxmm">请确认新密码</string>
+    <string name="yzm">获取验证码</string>
+    <string name="qr">确认</string>
+    <string name="xzc">新用户注册</string>
+    <string name="qrzc">确认注册</string>
+    <string name="xgmm">修改密码</string>
+    <string name="ljty">立即体验</string>
+    <string name="bdsjh">您绑定的手机号：</string>
+
+    <!-- 我的 -->
+    <string name="mine_wd">我的</string>
+    <string name="mine_pyq">朋友圈</string>
+    <string name="mine_wdrc">我的日程</string>
+    <string name="mine_xgmm">修改密码</string>
+    <string name="mine_xtbz">系统帮助</string>
+    <string name="mine_gywm">关于我们</string>
+    <string name="mine_yjfk">意见反馈</string>
+    <string name="mine_xtsz">系统设置</string>
+    <string name="mine_tcdl">退出登录</string>
+
+    <string name="mine_tx">头像</string>
+    <string name="mine_yx">邮箱</string>
+    <string name="mine_sj">手机</string>
+    <string name="mine_qq">QQ</string>
+    <string name="mine_wx">微信</string>
+    <string name="mine_zj">座机</string>
+    <string name="mine_dw">单位</string>
+    <string name="mine_bm">部门</string>
+    <string name="mine_gw">岗位</string>
+    <string name="mine_bz">备注</string>
+    <string name="mine_grzl">个人资料</string>
+
+    <string name="mine_xxxtx">新消息提醒</string>
+    <string name="mine_qchc">清除缓存</string>
+    <string name="mine_bbsj">版本升级</string>
+    <string name="mine_set">设置</string>
+
+    <string name="mine_about">关于</string>
+    <string name="mine_tjfk">提交反馈</string>
+    <string name="mine_yjfk_ts">感谢您的宝贵意见，我们会尽快处理。</string>
+    <string name="mine_yjfk_hint">请您提出宝贵的意见</string>
+
+    <string name="qx">取消</string>
+    <string name="qd">确定</string>
+
+    <string name="fbpyq">发表朋友圈</string>
+    <string name="zykxf">这一刻的想法...</string>
+    <string name="szwz">所在位置</string>
+    <string name="skyk">谁可以看</string>
+    <string name="txsk">提醒谁看</string>
+    <string name="fs">发送</string>
+
+    <string name="sfjsxx">是否接收消息</string>
+    <string name="sy">声音</string>
+    <string name="zd">震动</string>
+    <string name="xxxtxsz">新消息提醒设置</string>
+    <string name="myschedule">我的日程</string>
+    <string name="zddl">自动登录</string>
+
+
+    <string name="download_precent">下载了%1$s</string>
+    <string name="download_ing_">正在下载"%1$s"</string>
+    <string name="viewfinderview_status_text1">将二维码/条码放入取景框内</string>
+    <string name="viewfinderview_status_text2">即可自动扫描</string>
+    <string name="msg_camera_framework_bug">对不起，Android摄像头遇到了问题。您可能需要重新启动设备。</string>
+    <string name="button_ok">确定</string>
+
+    <string name="de_actionbar_myacc">"个人账号"</string>
+    <string name="de_actionbar_sub_group">"群组"</string>
+    <string name="de_actionbar_sub_private">"我的私人会话"</string>
+    <string name="de_actionbar_sub_discussion">"我的讨论组"</string>
+    <string name="de_actionbar_sub_system">"系统消息"</string>
+    <string name="de_actionbar_sub_defult">"聊天"</string>
+    <string name="de_actionbar_set_public">"公众号"</string>
+    <string name="de_actionbar_system">"系统消息"</string>
+    <string name="kqjl">考勤记录</string>
+    <string name="gzsz">规则设置</string>
+    <string name="help">帮&#8195;&#8195;助</string>
+    <string name="approvalprocess">审批流程</string>
+    <string name="dialog_bottom_picture">拍照</string>
+    <string name="dialog_bottom_import_from_local">从本地导入</string>
+    <string name="share_dialog_cancel">取消</string>
+    <string name="group_info">群组信息</string>
+    <string name="layout_dialog_loading">正在加载</string>
+    <string name="all_group_member">全部群成员</string>
+    <string name="search_message">查找聊天记录</string>
+    <string name="group_portrait">群头像</string>
+    <string name="edit_group_name">填写群名称(2-10字)</string>
+    <string name="message_notice">消息免打扰</string>
+    <string name="group_code">群二维码</string>
+    <string name="group_announcement">群公告</string>
+    <string name="group_name">群名称</string>
+    <string name="clean_message">清除聊天记录</string>
+    <string name="quit_group">删除并退出</string>
+    <string name="dismiss_group">解散并退出</string>
+    <string name="group_member_size">全部群成员</string>
+    <string name="set_top">会话置顶</string>
+    <string name="No_friends">暂无好友</string>
+    <string name="remove_group_member">移除群组成员</string>
+    <string name="add_group_member">添加群组成员</string>
+    <string name="select_group_member">选择群组成员</string>
+    <string name="select_contact">选择联系人</string>
+    <string name="open_persimmion_error">操作失败，请开启相应权限后继续操作</string>
+    <string name="ok">确定</string>
+    <string name="cancel">取消</string>
+    <string-array name="calendar_week">
+        <item>日</item>
+        <item>一</item>
+        <item>二</item>
+        <item>三</item>
+        <item>四</item>
+        <item>五</item>
+        <item>六</item>
+    </string-array>
+</resources>

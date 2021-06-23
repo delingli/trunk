@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <include layout="@layout/activity_title" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white_ffffff"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:padding="10dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="当前考勤组:"
+                    android:textColor="@color/gray_999999"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/tv_group_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:text=""
+                    android:textColor="@color/gray_999999"
+                    android:textSize="14sp" />
+            </LinearLayout>
+
+            <View style="@style/lines_style2" />
+
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white_ffffff"
+                android:gravity="center_vertical"
+                android:padding="10dp">
+
+                <ImageView
+                    android:id="@+id/iv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/office_wifi" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="10dp"
+                    android:layout_toRightOf="@+id/iv"
+                    android:gravity="center_vertical"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="将整个办公室设为考勤范围"
+                        android:textColor="@color/gray_999999"
+                        android:textSize="14sp" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:text="设置办公Wi-Fi,精确到5米的定位方式"
+                        android:textColor="@color/gray_999999"
+                        android:textSize="14sp" />
+                </LinearLayout>
+
+            </RelativeLayout>
+
+            <View style="@style/lines_style2" />
+
+            <com.hkzr.wlwd.ui.view.MyListView
+                android:id="@+id/lv_wifi"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:divider="@color/transparency_0"
+                android:dividerHeight="0.1dp"
+                android:listSelector="@color/transparency_0"
+                android:scrollbars="none" />
+
+
+            <TextView
+                android:id="@+id/tv_add_wifi"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white_ffffff"
+                android:drawableLeft="@drawable/jia"
+                android:drawablePadding="10dp"
+                android:padding="10dp"
+                android:text="添加办公Wi-Fi"
+                android:textColor="@color/main_color"
+                android:textSize="16sp" />
+
+            <View style="@style/lines_style2" />
+
+            <View
+                style="@style/lines_style2"
+                android:layout_marginTop="20dp" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white_ffffff"
+                android:gravity="center_vertical"
+                android:padding="10dp">
+
+                <ImageView
+                    android:id="@+id/iv2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/bangonglou" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="10dp"
+                    android:layout_toRightOf="@+id/iv2"
+                    android:gravity="center_vertical"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="将整个办公楼设为考勤范围"
+                        android:textColor="@color/gray_999999"
+                        android:textSize="14sp" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:text="通过手机定位,精确到50-300米的定位方式"
+                        android:textColor="@color/gray_999999"
+                        android:textSize="14sp" />
+                </LinearLayout>
+
+            </RelativeLayout>
+
+            <View style="@style/lines_style2" />
+
+            <com.hkzr.wlwd.ui.view.MyListView
+                android:id="@+id/lv_address"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:divider="@color/transparency_0"
+                android:dividerHeight="0.1dp"
+                android:listSelector="@color/transparency_0"
+                android:scrollbars="none" />
+
+
+            <TextView
+                android:id="@+id/tv_add_address"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white_ffffff"
+                android:drawableLeft="@drawable/jia"
+                android:drawablePadding="10dp"
+                android:padding="10dp"
+                android:text="添加办公地点"
+                android:textColor="@color/main_color"
+                android:textSize="16sp" />
+
+            <View style="@style/lines_style2" />
+
+        </LinearLayout>
+    </ScrollView>
+
+
+</LinearLayout>

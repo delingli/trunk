@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/color_F5F6F8"
+    android:orientation="vertical">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:id="@+id/rl_head"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/distance_88"
+                android:background="@color/white_ffffff"
+                android:padding="@dimen/distance_10">
+
+                <com.hkzr.wlwd.ui.widget.XCRoundRectImageView
+                    android:id="@+id/iv_head"
+                    android:layout_width="@dimen/distance_66"
+                    android:layout_height="@dimen/distance_66"
+                    android:src="@drawable/morentouxiang"
+                    app:radius="10dp" />
+
+                <TextView
+                    android:id="@+id/tv_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/distance_10"
+                    android:layout_marginTop="@dimen/distance_10"
+                    android:layout_toRightOf="@+id/iv_head"
+                    android:text=" "
+                    android:textColor="@color/black_333333"
+                    android:textSize="@dimen/text_size_14" />
+
+                <TextView
+                    android:id="@+id/tv_phone"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/tv_name"
+                    android:layout_marginLeft="@dimen/distance_10"
+                    android:layout_marginTop="@dimen/distance_10"
+                    android:layout_toRightOf="@+id/iv_head"
+                    android:text=" "
+                    android:textColor="@color/black_333333"
+                    android:textSize="@dimen/text_size_14" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:src="@drawable/more" />
+            </RelativeLayout>
+
+            <View style="@style/space_line"></View>
+
+            <!--<View-->
+            <!--style="@style/space_line"-->
+            <!--android:layout_marginTop="@dimen/distance_15"></View>-->
+
+            <!--<TextView-->
+            <!--android:id="@+id/tv_pyq"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="@dimen/distance_44"-->
+            <!--android:background="@drawable/relativelayout_backgound"-->
+            <!--android:drawableRight="@drawable/more"-->
+            <!--android:gravity="left|center"-->
+            <!--android:paddingLeft="@dimen/distance_15"-->
+            <!--android:paddingRight="@dimen/distance_15"-->
+            <!--android:text="@string/mine_pyq"-->
+            <!--android:textColor="@color/black_333333"-->
+            <!--android:textSize="@dimen/text_size_16"-->
+            <!--android:textStyle="bold" />-->
+
+            <!--<View style="@style/space_line"></View>-->
+
+            <!--<TextView-->
+            <!--android:id="@+id/tv_wdrc"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="@dimen/distance_44"-->
+            <!--android:background="@drawable/relativelayout_backgound"-->
+            <!--android:drawableRight="@drawable/more"-->
+            <!--android:gravity="left|center"-->
+            <!--android:paddingLeft="@dimen/distance_15"-->
+            <!--android:paddingRight="@dimen/distance_15"-->
+            <!--android:text="@string/mine_wdrc"-->
+            <!--android:textColor="@color/black_333333"-->
+            <!--android:textSize="@dimen/text_size_16" />-->
+
+            <View style="@style/space_line"></View>
+
+
+            <View
+                style="@style/space_line"
+                android:layout_marginTop="@dimen/distance_15"></View>
+
+            <com.hkzr.wlwd.ui.view.MyListView
+                android:id="@+id/lv_mine"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:divider="@color/color_F7F2F2"
+                android:background="@color/white_ffffff"
+                android:dividerHeight="0.7dp"
+                android:listSelector="@color/gray_e5e5e5"
+                android:paddingLeft="@dimen/distance_15"
+                android:paddingRight="@dimen/distance_15" />
+            <!--<TextView-->
+            <!--android:id="@+id/tv_xtbz"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="@dimen/distance_44"-->
+            <!--android:background="@drawable/relativelayout_backgound"-->
+            <!--android:drawableRight="@drawable/more"-->
+            <!--android:gravity="left|center"-->
+            <!--android:paddingLeft="@dimen/distance_15"-->
+            <!--android:paddingRight="@dimen/distance_15"-->
+            <!--android:text="@string/mine_xtbz"-->
+            <!--android:textColor="@color/black_333333"-->
+            <!--android:textSize="@dimen/text_size_14" />-->
+
+            <!--<View style="@style/space_line"></View>-->
+
+            <!--<TextView-->
+            <!--android:id="@+id/tv_gywm"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="@dimen/distance_44"-->
+            <!--android:background="@drawable/relativelayout_backgound"-->
+            <!--android:drawableRight="@drawable/more"-->
+            <!--android:gravity="left|center"-->
+            <!--android:paddingLeft="@dimen/distance_15"-->
+            <!--android:paddingRight="@dimen/distance_15"-->
+            <!--android:text="@string/mine_gywm"-->
+            <!--android:textColor="@color/black_333333"-->
+            <!--android:textSize="@dimen/text_size_14" />-->
+
+            <!--<View style="@style/space_line"></View>-->
+
+            <!--<TextView-->
+            <!--android:id="@+id/tv_yjfk"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="@dimen/distance_44"-->
+            <!--android:background="@drawable/relativelayout_backgound"-->
+            <!--android:drawableRight="@drawable/more"-->
+            <!--android:gravity="left|center"-->
+            <!--android:paddingLeft="@dimen/distance_15"-->
+            <!--android:paddingRight="@dimen/distance_15"-->
+            <!--android:text="@string/mine_yjfk"-->
+            <!--android:textColor="@color/black_333333"-->
+            <!--android:textSize="@dimen/text_size_14" />-->
+
+            <View style="@style/space_line"></View>
+
+            <TextView
+                android:id="@+id/tv_xtsz"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/distance_44"
+                android:layout_marginTop="@dimen/distance_15"
+                android:background="@drawable/relativelayout_backgound"
+                android:drawableRight="@drawable/more"
+                android:gravity="left|center"
+                android:paddingLeft="@dimen/distance_15"
+                android:paddingRight="@dimen/distance_15"
+                android:text="@string/mine_xtsz"
+                android:textColor="@color/black_333333"
+                android:textSize="@dimen/text_size_14" />
+
+            <View style="@style/space_line"></View>
+
+            <TextView
+                android:id="@+id/tv_tcdl"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/distance_44"
+                android:layout_marginTop="@dimen/distance_15"
+                android:background="@drawable/relativelayout_backgound"
+                android:gravity="center"
+                android:paddingLeft="@dimen/distance_15"
+                android:paddingRight="@dimen/distance_15"
+                android:text="@string/mine_tcdl"
+                android:textColor="@color/main_color"
+                android:textSize="@dimen/text_size_14" />
+
+            <View
+                style="@style/space_line"
+                android:layout_marginBottom="@dimen/distance_30"></View>
+
+
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

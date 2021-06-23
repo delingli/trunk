@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white_ffffff"
+    android:orientation="vertical">
+
+    <include layout="@layout/activity_title" />
+
+    <com.baidu.mapapi.map.MapView
+        android:id="@+id/map"
+        android:layout_width="match_parent"
+        android:layout_height="214dp" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white_ffffff"
+        android:padding="10dp"
+        android:text="所在位置"
+        android:textColor="@color/gray_666666"
+        android:textSize="16sp" />
+
+    <View style="@style/lines_style2" />
+
+    <com.handmark.pulltorefresh.library.PullToRefreshListView
+        android:id="@+id/lv_address"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:divider="@color/color_d5d5d5"
+        android:dividerHeight="0.7dp"
+        android:listSelector="@color/transparency_0"
+        android:scrollbars="vertical" />
+</LinearLayout>

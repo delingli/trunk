@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<litepal>
+    <dbname value="hs" />
+    <version value="1" />
+
+    <list>
+        <mapping class="com.hkzr.wlwd.model.LoginUserDao" />
+        <mapping class="com.hkzr.wlwd.model.ContactDB" />
+        <mapping class="com.hkzr.wlwd.model.GroupDB" />
+
+    </list>
+    <storage value="external" />
+
+</litepal>

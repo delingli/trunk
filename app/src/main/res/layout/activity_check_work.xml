@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <include layout="@layout/activity_title" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:id="@+id/layout_main_bottom"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_alignParentBottom="true"
+            android:background="@color/white_ffffff"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingBottom="3dp">
+
+            <Button
+                android:id="@+id/btn_check"
+                style="@style/bottom_tab_btn"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="7dp"
+                android:layout_marginRight="7dp"
+                android:layout_marginTop="5dp"
+                android:layout_weight="1"
+                android:drawableTop="@drawable/daka_selecter"
+                android:text="打卡" />
+
+            <Button
+                android:id="@+id/btn_statistics"
+                style="@style/bottom_tab_btn"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="7dp"
+                android:layout_marginRight="7dp"
+                android:layout_marginTop="5dp"
+                android:layout_weight="1"
+                android:drawableTop="@drawable/tongji_selecter"
+                android:text="统计" />
+
+            <Button
+                android:id="@+id/btn_setting"
+                style="@style/bottom_tab_btn"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="7dp"
+                android:layout_marginRight="7dp"
+                android:layout_marginTop="5dp"
+                android:layout_weight="1"
+                android:drawableTop="@drawable/shezhi_selecter"
+                android:text="@string/mine_set" />
+
+
+        </LinearLayout>
+
+        <!-- top fragment -->
+        <View
+            android:id="@+id/line1"
+            style="@style/lines_style2"
+            android:layout_above="@id/layout_main_bottom" />
+
+        <FrameLayout
+            android:id="@+id/fragment_container"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@id/line1" />
+    </RelativeLayout>
+</LinearLayout>

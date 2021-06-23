@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/color_F5F6F8"
+    android:orientation="vertical">
+
+    <include layout="@layout/activity_title" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="match_parent"
+        android:layout_height="88dp"
+        android:gravity="center_vertical"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:text="暴力、色情、非法营销和个人及企业广告是被禁止的。这类群聊将被解散。"
+        android:textColor="@color/gray_999999"
+        android:textSize="14sp"
+        android:visibility="gone" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/distance_81"
+        android:layout_marginTop="@dimen/distance_15"
+        android:background="@color/white_ffffff"
+        android:paddingBottom="@dimen/distance_10"
+        android:paddingLeft="@dimen/distance_15"
+        android:paddingRight="@dimen/distance_15"
+        android:paddingTop="@dimen/distance_10">
+
+        <com.hkzr.wlwd.ui.widget.XCRoundRectImageView
+            android:id="@+id/iv_head"
+            android:layout_width="@dimen/distance_66"
+            android:layout_height="@dimen/distance_66"
+            android:layout_alignParentRight="true"
+            android:src="@drawable/morentouxiang"
+            app:radius="10dp" />
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:gravity="center|left"
+            android:text="@string/group_portrait"
+            android:textColor="@color/black_333333"
+            android:textSize="@dimen/text_size_16" />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:background="@color/white_ffffff"
+        android:orientation="horizontal"
+        android:padding="10dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="10dp"
+            android:gravity="center_vertical"
+            android:text="群名称"
+            android:textColor="@color/black_333333"
+            android:textSize="16sp" />
+
+        <EditText
+            android:id="@+id/ed_group_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@null"
+            android:gravity="center_vertical"
+            android:hint="（必填）14字以内"
+            android:singleLine="true"
+            android:textColor="@color/black_333333"
+            android:textColorHint="@color/gray_999999"
+            android:textCursorDrawable="@drawable/color_cursor"
+            android:textSize="14sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:background="@color/white_ffffff"
+        android:orientation="horizontal"
+        android:padding="10dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="10dp"
+            android:gravity="center_vertical"
+            android:text="群标签"
+            android:textColor="@color/black_333333"
+            android:textSize="16sp" />
+
+        <EditText
+            android:id="@+id/ed_group_tag"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@null"
+            android:gravity="top|left"
+            android:hint="（选填）可填写多个"
+            android:lines="3"
+            android:textColor="@color/black_333333"
+            android:textColorHint="@color/gray_999999"
+            android:textCursorDrawable="@drawable/color_cursor"
+            android:textSize="14sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:background="@color/white_ffffff"
+        android:orientation="horizontal"
+        android:padding="10dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="10dp"
+            android:gravity="center_vertical"
+            android:text="群简介"
+            android:textColor="@color/black_333333"
+            android:textSize="16sp" />
+
+        <EditText
+            android:id="@+id/ed_group_info"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@null"
+            android:gravity="top|left"
+            android:hint="（选填）50字以内"
+            android:lines="3"
+            android:textColor="@color/black_333333"
+            android:textColorHint="@color/gray_999999"
+            android:textCursorDrawable="@drawable/color_cursor"
+            android:textSize="14sp" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/tv_create"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/height_48"
+        android:layout_margin="20dp"
+        android:background="@drawable/bg_blue"
+        android:gravity="center"
+        android:text="创建群组"
+        android:textColor="@color/white_ffffff"
+        android:textSize="@dimen/text_size_16" />
+
+
+</LinearLayout>

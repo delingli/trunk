@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:background="@color/color_F5F6F8"
+              android:orientation="vertical">
+
+    <include layout="@layout/activity_title"></include>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white_ffffff"
+
+        android:paddingTop="@dimen/distance_15"
+        >
+
+        <EditText
+            android:id="@+id/et_content"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center|left|top"
+            android:hint="@string/zykxf"
+            android:minHeight="@dimen/distance_90"
+            android:paddingLeft="@dimen/distance_15"
+            android:paddingRight="@dimen/distance_15"
+            android:textColor="@color/black_333333"
+            android:textCursorDrawable="@drawable/color_cursor"
+            android:textSize="@dimen/text_size_16"/>
+
+        <LinearLayout
+            android:id="@+id/ll_add_iv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/et_content"
+            android:orientation="vertical"
+            android:paddingLeft="@dimen/distance_15"
+            android:paddingRight="@dimen/distance_15"></LinearLayout>
+
+        <View
+            android:id="@+id/v_line"
+            style="@style/space_line"
+            android:layout_below="@+id/ll_add_iv"
+            ></View>
+
+        <LinearLayout
+            android:id="@+id/ll_location"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/v_line"
+
+            android:background="@drawable/relativelayout_backgound"
+            android:orientation="horizontal"
+            android:paddingBottom="@dimen/distance_10"
+            android:paddingLeft="@dimen/distance_15"
+            android:paddingRight="@dimen/distance_15"
+
+            android:paddingTop="@dimen/distance_10">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:drawableLeft="@drawable/lacation"
+                android:drawablePadding="@dimen/distance_15"
+                android:text="@string/szwz"/>
+
+            <TextView
+                android:id="@+id/tv_lacation"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawablePadding="@dimen/distance_10"
+                android:drawableRight="@drawable/more"
+                />
+        </LinearLayout>
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/distance_15"
+        android:background="@color/white_ffffff"
+        android:orientation="vertical"
+        >
+
+        <LinearLayout
+            android:id="@+id/ll_who_see"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/ll_add_iv"
+            android:background="@drawable/relativelayout_backgound"
+            android:orientation="horizontal"
+            android:paddingBottom="@dimen/distance_10"
+            android:paddingLeft="@dimen/distance_15"
+            android:paddingRight="@dimen/distance_15"
+            android:paddingTop="@dimen/distance_10">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:drawableLeft="@drawable/diqiu"
+                android:drawablePadding="@dimen/distance_15"
+                android:text="@string/skyk"/>
+
+            <TextView
+                android:id="@+id/tv_who_see"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawablePadding="@dimen/distance_10"
+                android:drawableRight="@drawable/more"
+                android:text="公开"
+                />
+        </LinearLayout>
+
+        <View
+            style="@style/space_line"
+
+            ></View>
+
+        <LinearLayout
+            android:id="@+id/ll_remind"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/ll_add_iv"
+            android:background="@drawable/relativelayout_backgound"
+            android:orientation="horizontal"
+            android:paddingBottom="@dimen/distance_10"
+            android:paddingLeft="@dimen/distance_15"
+            android:paddingRight="@dimen/distance_15"
+            android:paddingTop="@dimen/distance_10">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:drawableLeft="@drawable/aita"
+                android:drawablePadding="@dimen/distance_15"
+                android:text="@string/txsk"/>
+
+            <TextView
+                android:id="@+id/tv_remind"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawablePadding="@dimen/distance_10"
+                android:drawableRight="@drawable/more"
+                android:text="涂磊  王贤哲  沈小梦"
+                />
+        </LinearLayout>
+    </LinearLayout>
+
+</LinearLayout>

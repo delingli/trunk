@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/color_F5F6F8"
+    android:orientation="vertical">
+
+    <include layout="@layout/layout_main_title" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:id="@+id/layout_main_bottom"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_alignParentBottom="true"
+            android:background="@color/white_ffffff"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingBottom="3dp">
+
+            <Button
+                android:id="@+id/btn_home"
+                style="@style/bottom_tab_btn"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="7dp"
+                android:layout_marginRight="7dp"
+                android:layout_marginTop="5dp"
+                android:layout_weight="1"
+                android:drawableTop="@drawable/home_selecter"
+                android:text="@string/home" />
+
+            <FrameLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="7dp"
+                android:layout_marginRight="7dp"
+                android:layout_marginTop="5dp"
+                android:layout_weight="1"
+                android:visibility="gone">
+
+
+                <TextView
+                    android:id="@+id/btn_message"
+                    style="@style/bottom_tab_btn"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:drawableTop="@drawable/message_selecter"
+                    android:gravity="center"
+                    android:text="@string/message" />
+
+                <TextView
+                    android:id="@+id/tv_count"
+                    android:layout_width="18dp"
+                    android:layout_height="18dp"
+                    android:layout_gravity="right|top"
+                    android:layout_marginRight="15dp"
+                    android:background="@drawable/shap_circle_red"
+                    android:gravity="center"
+                    android:singleLine="true"
+                    android:text="1"
+                    android:textColor="@color/white_ffffff"
+                    android:textSize="11sp"
+                    android:visibility="gone" />
+
+            </FrameLayout>
+
+            <Button
+                android:id="@+id/btn_app"
+                style="@style/bottom_tab_btn"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="7dp"
+                android:layout_marginRight="7dp"
+                android:layout_marginTop="5dp"
+                android:layout_weight="1"
+                android:drawableTop="@drawable/app_selecter"
+                android:text="@string/app" />
+
+            <Button
+                android:id="@+id/btn_contacts"
+                style="@style/bottom_tab_btn"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="7dp"
+                android:layout_marginRight="7dp"
+                android:layout_marginTop="5dp"
+                android:layout_weight="1"
+                android:drawableTop="@drawable/contacts_selecter"
+                android:text="@string/contacts" />
+
+
+            <Button
+                android:id="@+id/btn_mine"
+                style="@style/bottom_tab_btn"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="7dp"
+                android:layout_marginRight="7dp"
+                android:layout_marginTop="5dp"
+                android:layout_weight="1"
+                android:drawableTop="@drawable/mine_selecter"
+                android:text="@string/mine" />
+
+        </LinearLayout>
+
+        <!-- top fragment -->
+        <View
+            android:id="@+id/line1"
+            style="@style/lines_style2"
+            android:layout_above="@id/layout_main_bottom" />
+
+        <FrameLayout
+            android:id="@+id/fragment_container"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@id/line1" />
+    </RelativeLayout>
+</LinearLayout>

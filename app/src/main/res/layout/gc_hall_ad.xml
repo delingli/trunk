@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:id="@+id/rl_banner"
+        android:layout_width="fill_parent"
+        android:layout_height="@dimen/distance_130">
+
+        <com.hkzr.wlwd.ui.widget.MyAdGallery
+            android:id="@+id/adgallery"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/distance_130"
+            android:fadingEdge="none" />
+
+        <LinearLayout
+            android:id="@+id/ovalLayout"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/distance_10"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="@dimen/distance_3"
+            android:layout_marginTop="@dimen/distance_10"
+            android:gravity="center"
+            android:orientation="horizontal"></LinearLayout>
+    </RelativeLayout>
+
+</LinearLayout>

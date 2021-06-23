@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/color_F5F6F8"
+    android:orientation="vertical">
+
+    <include layout="@layout/activity_title" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:gravity="center_vertical"
+        android:padding="10dp"
+        android:text="填写验证信息"
+        android:textColor="@color/gray_666666"
+        android:textSize="15sp" />
+
+    <EditText
+        android:id="@+id/ed_info"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:background="@drawable/edit_bg"
+        android:gravity="top"
+        android:hint="请填写验证信息(最多20字)"
+        android:lines="3"
+        android:maxLength="20"
+        android:textColor="@color/black_333333"
+        android:textColorHint="@color/gray_999999"
+        android:textSize="14sp" />
+
+
+    <TextView
+
+        android:id="@+id/tv_send"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/height_48"
+        android:layout_marginTop="@dimen/height_36"
+        android:background="@drawable/bg_blue"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:gravity="center"
+        android:text="发送"
+        android:textColor="@color/white_ffffff"
+        android:textSize="@dimen/text_size_16" />
+</LinearLayout>

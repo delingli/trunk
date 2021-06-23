@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <include layout="@layout/activity_title" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:id="@+id/ll_ed"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/gray_eeeeee"
+                android:orientation="vertical"
+                android:padding="10dp">
+
+                <EditText
+                    android:id="@+id/tv_search"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/edit_bg"
+                    android:drawableLeft="@drawable/sousuo"
+                    android:drawablePadding="10dp"
+                    android:gravity="center_vertical"
+                    android:hint="请输入姓名"
+                    android:singleLine="true"
+                    android:textColor="@color/black_333333"
+                    android:textColorHint="@color/gray_c7c7cd"
+                    android:textSize="14sp" />
+
+            </LinearLayout>
+
+            <com.hkzr.wlwd.ui.view.MyListView
+                android:id="@+id/lv_friends"
+                android:layout_width="fill_parent"
+                android:layout_height="match_parent"
+                android:background="@color/white_ffffff"
+                android:cacheColorHint="#00000000"
+                android:divider="@color/gray_eeeeee"
+                android:dividerHeight="1dp"
+                android:fadingEdge="none"
+                android:fastScrollEnabled="false"
+                android:footerDividersEnabled="false"
+                android:headerDividersEnabled="false"
+                android:smoothScrollbar="true" />
+
+
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

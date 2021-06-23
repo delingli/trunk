@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white_ffffff"
+   >
+
+    <RelativeLayout
+        android:id="@+id/rl"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true">
+
+        <TextView
+            android:id="@+id/tv_name"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/distance_44"
+            android:gravity="left|center"
+            android:text="@string/mine_xtbz"
+            android:textColor="@color/black_333333"
+            android:textSize="@dimen/text_size_14" />
+
+        <ImageView
+            android:id="@+id/iv_dian"
+            android:layout_width="10dp"
+            android:layout_toRightOf="@id/tv_name"
+            android:layout_height="10dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/shap_circle_red"
+            android:visibility="gone" />
+
+        <TextView
+            android:id="@+id/tv_count"
+            android:layout_width="15dp"
+            android:layout_height="15dp"
+            android:layout_toRightOf="@id/tv_name"
+            android:background="@drawable/shap_circle_red"
+            android:gravity="center"
+            android:layout_marginTop="8dp"
+            android:singleLine="true"
+            android:text="1"
+            android:textColor="@color/white_ffffff"
+            android:textSize="10sp"
+            android:visibility="gone" />
+    </RelativeLayout>
+
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:src="@drawable/more" />
+</RelativeLayout>

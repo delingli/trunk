@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:background="@color/color_F5F6F8"
+              android:orientation="vertical">
+
+    <include layout="@layout/activity_title"></include>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/distance_44"
+        android:layout_marginTop="@dimen/distance_15"
+        android:background="@color/white_ffffff"
+        android:orientation="horizontal"
+        android:paddingLeft="@dimen/distance_15"
+        android:paddingRight="@dimen/distance_15">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center|left"
+            android:text="@string/sfjsxx"
+            android:textColor="@color/black_333333"
+            android:textSize="@dimen/text_size_16"/>
+
+        <CheckBox
+            android:id="@+id/cb_1"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginTop="@dimen/distance_6"
+            android:button="@drawable/checkbox_iphone"/>
+    </LinearLayout>
+
+    <View
+        style="@style/space_line"
+        ></View>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/distance_44"
+        android:background="@color/white_ffffff"
+        android:orientation="horizontal"
+        android:paddingLeft="@dimen/distance_15"
+        android:paddingRight="@dimen/distance_15">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center|left"
+            android:text="@string/sy"
+            android:textColor="@color/black_333333"
+            android:textSize="@dimen/text_size_16"/>
+
+        <CheckBox
+            android:id="@+id/cb_2"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginTop="@dimen/distance_6"
+            android:button="@drawable/checkbox_iphone"/>
+    </LinearLayout>
+
+    <View
+        style="@style/space_line"
+        ></View>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/distance_44"
+        android:background="@color/white_ffffff"
+        android:orientation="horizontal"
+        android:paddingLeft="@dimen/distance_15"
+        android:paddingRight="@dimen/distance_15">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center|left"
+            android:text="@string/zd"
+            android:textColor="@color/black_333333"
+            android:textSize="@dimen/text_size_16"/>
+
+        <CheckBox
+            android:id="@+id/cb_3"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginTop="@dimen/distance_6"
+            android:button="@drawable/checkbox_iphone"/>
+    </LinearLayout>
+</LinearLayout>

@@ -1,0 +1,384 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/color_F5F6F8"
+    android:orientation="vertical">
+
+    <include layout="@layout/activity_title"></include>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/distance_81"
+                android:layout_marginTop="@dimen/distance_15"
+                android:background="@color/white_ffffff"
+                android:paddingBottom="@dimen/distance_10"
+                android:paddingLeft="@dimen/distance_15"
+                android:paddingRight="@dimen/distance_15"
+                android:paddingTop="@dimen/distance_10">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_centerVertical="true"
+                    android:gravity="center|left"
+                    android:text="@string/mine_tx"
+                    android:textColor="@color/black_333333"
+                    android:textSize="@dimen/text_size_16" />
+
+                <com.hkzr.wlwd.ui.widget.XCRoundRectImageView
+                    android:id="@+id/iv_head"
+                    android:layout_width="@dimen/distance_66"
+                    android:layout_height="@dimen/distance_66"
+                    android:layout_alignParentRight="true"
+                    android:src="@drawable/morentouxiang"
+                    app:radius="10dp" />
+            </RelativeLayout>
+
+            <View
+                style="@style/space_line"
+                android:layout_marginLeft="@dimen/distance_15"></View>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/distance_44"
+                android:background="@color/white_ffffff"
+                android:orientation="horizontal"
+                android:paddingLeft="@dimen/distance_15"
+                android:paddingRight="@dimen/text_size_15">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:text="@string/mine_yx"
+                    android:textColor="@color/black_333333"
+                    android:textSize="@dimen/text_size_16" />
+
+                <TextView
+                    android:id="@+id/tv_yx"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:drawablePadding="@dimen/distance_10"
+                    android:drawableRight="@drawable/more"
+                    android:ellipsize="end"
+                    android:gravity="center|right"
+                    android:singleLine="true"
+                    android:text="huakezhilian@168.com"
+                    android:textColor="@color/gray_999999"
+                    android:textSize="@dimen/text_size_15" />
+            </LinearLayout>
+
+            <View
+                style="@style/space_line"
+                android:layout_marginLeft="@dimen/distance_15"></View>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/distance_44"
+                android:background="@color/white_ffffff"
+                android:orientation="horizontal"
+                android:paddingLeft="@dimen/distance_15"
+                android:paddingRight="@dimen/text_size_15">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:text="@string/mine_sj"
+                    android:textColor="@color/black_333333"
+                    android:textSize="@dimen/text_size_16" />
+
+                <TextView
+                    android:id="@+id/tv_sj"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:drawablePadding="@dimen/distance_10"
+                    android:drawableRight="@drawable/more"
+                    android:ellipsize="end"
+                    android:gravity="center|right"
+                    android:singleLine="true"
+                    android:text="13886868686"
+                    android:textColor="@color/gray_999999"
+                    android:textSize="@dimen/text_size_15" />
+            </LinearLayout>
+
+            <View
+                style="@style/space_line"
+                android:layout_marginLeft="@dimen/distance_15"></View>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/distance_44"
+                android:background="@color/white_ffffff"
+                android:orientation="horizontal"
+                android:paddingLeft="@dimen/distance_15"
+                android:paddingRight="@dimen/text_size_15">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:text="@string/mine_qq"
+                    android:textColor="@color/black_333333"
+                    android:textSize="@dimen/text_size_16" />
+
+                <TextView
+                    android:id="@+id/tv_qq"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:drawablePadding="@dimen/distance_10"
+                    android:drawableRight="@drawable/more"
+                    android:ellipsize="end"
+                    android:gravity="center|right"
+                    android:singleLine="true"
+                    android:text="1234567890"
+                    android:textColor="@color/gray_999999"
+                    android:textSize="@dimen/text_size_15" />
+            </LinearLayout>
+
+            <View
+                style="@style/space_line"
+                android:layout_marginLeft="@dimen/distance_15"></View>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/distance_44"
+                android:background="@color/white_ffffff"
+                android:orientation="horizontal"
+                android:paddingLeft="@dimen/distance_15"
+                android:paddingRight="@dimen/text_size_15">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:text="@string/mine_wx"
+                    android:textColor="@color/black_333333"
+                    android:textSize="@dimen/text_size_16" />
+
+                <TextView
+                    android:id="@+id/tv_wx"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:drawablePadding="@dimen/distance_10"
+                    android:drawableRight="@drawable/more"
+                    android:ellipsize="end"
+                    android:gravity="center|right"
+                    android:singleLine="true"
+                    android:text="huakezhilian"
+                    android:textColor="@color/gray_999999"
+                    android:textSize="@dimen/text_size_15" />
+            </LinearLayout>
+
+            <View
+                style="@style/space_line"
+                android:layout_marginLeft="@dimen/distance_15"></View>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/distance_44"
+                android:background="@color/white_ffffff"
+                android:orientation="horizontal"
+                android:paddingLeft="@dimen/distance_15"
+                android:paddingRight="@dimen/text_size_15">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:text="@string/mine_zj"
+                    android:textColor="@color/black_333333"
+                    android:textSize="@dimen/text_size_16" />
+
+                <TextView
+                    android:id="@+id/tv_zj"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:drawablePadding="@dimen/distance_10"
+                    android:drawableRight="@drawable/more"
+                    android:ellipsize="end"
+                    android:gravity="center|right"
+                    android:singleLine="true"
+                    android:text="010-11110000"
+                    android:textColor="@color/gray_999999"
+                    android:textSize="@dimen/text_size_15" />
+            </LinearLayout>
+
+            <View
+                style="@style/space_line"
+                android:layout_marginLeft="@dimen/distance_15"></View>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/distance_44"
+                android:background="@color/white_ffffff"
+                android:orientation="horizontal"
+                android:paddingLeft="@dimen/distance_15"
+                android:paddingRight="@dimen/text_size_15">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:text="@string/mine_dw"
+                    android:textColor="@color/black_333333"
+                    android:textSize="@dimen/text_size_16" />
+
+                <TextView
+                    android:id="@+id/tv_dw"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:drawablePadding="@dimen/distance_10"
+                    android:drawableRight="@drawable/more"
+                    android:ellipsize="end"
+                    android:gravity="center|right"
+                    android:singleLine="true"
+                    android:text="北京华科智睿"
+                    android:textColor="@color/gray_999999"
+                    android:textSize="@dimen/text_size_15" />
+            </LinearLayout>
+
+            <View
+                style="@style/space_line"
+                android:layout_marginLeft="@dimen/distance_15"></View>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/distance_44"
+                android:background="@color/white_ffffff"
+                android:orientation="horizontal"
+                android:paddingLeft="@dimen/distance_15"
+                android:paddingRight="@dimen/text_size_15">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:text="@string/mine_bm"
+                    android:textColor="@color/black_333333"
+                    android:textSize="@dimen/text_size_16" />
+
+                <TextView
+                    android:id="@+id/tv_bm"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:drawablePadding="@dimen/distance_10"
+                    android:drawableRight="@drawable/more"
+                    android:ellipsize="end"
+                    android:gravity="center|right"
+                    android:singleLine="true"
+                    android:text="设计部"
+                    android:textColor="@color/gray_999999"
+                    android:textSize="@dimen/text_size_15" />
+            </LinearLayout>
+
+            <View
+                style="@style/space_line"
+                android:layout_marginLeft="@dimen/distance_15"></View>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/distance_44"
+                android:background="@color/white_ffffff"
+                android:orientation="horizontal"
+                android:paddingLeft="@dimen/distance_15"
+                android:paddingRight="@dimen/text_size_15">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:text="@string/mine_gw"
+                    android:textColor="@color/black_333333"
+                    android:textSize="@dimen/text_size_16" />
+
+                <TextView
+                    android:id="@+id/tv_gw"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:drawablePadding="@dimen/distance_10"
+                    android:drawableRight="@drawable/more"
+                    android:ellipsize="end"
+                    android:gravity="center|right"
+                    android:singleLine="true"
+                    android:text="UI设计师"
+                    android:textColor="@color/gray_999999"
+                    android:textSize="@dimen/text_size_15" />
+            </LinearLayout>
+
+            <View
+                style="@style/space_line"
+                android:layout_marginLeft="@dimen/distance_15"></View>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/distance_44"
+                android:background="@color/white_ffffff"
+                android:orientation="horizontal"
+                android:paddingLeft="@dimen/distance_15"
+                android:paddingRight="@dimen/distance_15">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center|left"
+                    android:text="隐藏联系方式"
+                    android:textColor="@color/black_333333"
+                    android:textSize="@dimen/text_size_16" />
+
+                <CheckBox
+                    android:id="@+id/cb_1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="@dimen/distance_6"
+                    android:button="@drawable/checkbox_iphone" />
+            </LinearLayout>
+
+            <!--<View style="@style/space_line"></View>-->
+
+            <!--<LinearLayout-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="@dimen/distance_44"-->
+                <!--android:background="@color/white_ffffff"-->
+                <!--android:orientation="horizontal"-->
+                <!--android:paddingLeft="@dimen/distance_15"-->
+                <!--android:paddingRight="@dimen/distance_15">-->
+
+                <!--<TextView-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="match_parent"-->
+                    <!--android:layout_weight="1"-->
+                    <!--android:gravity="center|left"-->
+                    <!--android:text="只接收好友聊天"-->
+                    <!--android:textColor="@color/black_333333"-->
+                    <!--android:textSize="@dimen/text_size_16" />-->
+
+                <!--<CheckBox-->
+                    <!--android:id="@+id/cb_2"-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="match_parent"-->
+                    <!--android:layout_marginTop="@dimen/distance_6"-->
+                    <!--android:button="@drawable/checkbox_iphone" />-->
+            <!--</LinearLayout>-->
+
+            <View
+                style="@style/space_line"
+                android:layout_marginBottom="@dimen/distance_80"
+                android:layout_marginLeft="@dimen/distance_15"></View>
+
+
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

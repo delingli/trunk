@@ -1,0 +1,114 @@
+<resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation">
+    <!-- Default screen margins, per the Android Design guidelines. -->
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+    <dimen name="itemPadding">10dp</dimen>
+    <dimen name="orl_padding">1dp</dimen>
+    <dimen name="height_70">70dp</dimen>
+    <dimen name="height_60">60dp</dimen>
+    <dimen name="height_65">65dp</dimen>
+    <dimen name="height_50">50dp</dimen>
+    <dimen name="height_40">40dp</dimen>
+    <dimen name="height_45">45dp</dimen>
+    <dimen name="dp_5">5dp</dimen>
+    <dimen name="commen_space">14dp</dimen>
+    <dimen name="search_edittext_margin_top_bottom">8dp</dimen>
+
+    <dimen name="text_size_12">12sp</dimen>
+    <dimen name="text_size_13">13sp</dimen>
+    <dimen name="text_size_14">14sp</dimen>
+    <dimen name="text_size_15">15sp</dimen>
+    <dimen name="text_size_16">16sp</dimen>
+    <dimen name="text_size_17">17sp</dimen>
+    <dimen name="text_size_18">18sp</dimen>
+    <dimen name="text_size_19">19sp</dimen>
+    <dimen name="text_size_20">20sp</dimen>
+    <dimen name="distance_0">0dp</dimen>
+    <dimen name="distance_1">1dp</dimen>
+    <dimen name="distance_2">2dp</dimen>
+    <dimen name="distance_3">3dp</dimen>
+    <dimen name="distance_0.5">0.5dp</dimen>
+    <dimen name="distance_0.1">0.1dp</dimen>
+    <dimen name="distance_10">10dp</dimen>
+    <dimen name="distance_15">15dp</dimen>
+    <dimen name="distance_5">5dp</dimen>
+    <dimen name="distance_55">55dp</dimen>
+    <dimen name="distance_6">6dp</dimen>
+    <dimen name="distance_8">8dp</dimen>
+    <dimen name="distance_4">4dp</dimen>
+    <dimen name="distance_20">20dp</dimen>
+    <dimen name="distance_50">50dp</dimen>
+    <dimen name="distance_44">44dp</dimen>
+    <dimen name="distance_40">40dp</dimen>
+
+    <dimen name="distance_60">60dp</dimen>
+    <dimen name="distance_80">80dp</dimen>
+    <dimen name="distance_120">120dp</dimen>
+
+    <dimen name="distance_130">130dp</dimen>
+
+    <dimen name="text_size_10">10sp</dimen>
+    <dimen name="text_size_30">30sp</dimen>
+    <dimen name="text_size_26">26sp</dimen>
+    <dimen name="text_size_21">21sp</dimen>
+    <dimen name="text_size_55">55sp</dimen>
+    <dimen name="text_size_50">50sp</dimen>
+    <dimen name="distance_30">30dp</dimen>
+    <dimen name="text_size_23">23sp</dimen>
+    <dimen name="distance_90">90dp</dimen>
+    <dimen name="height_48">48dp</dimen>
+    <dimen name="height_36">36dp</dimen>
+    <dimen name="distance_26">26dp</dimen>
+    <dimen name="distance_46">46dp</dimen>
+    <dimen name="distance_88">88dp</dimen>
+    <dimen name="distance_66">66dp</dimen>
+    <dimen name="distance_81">81dp</dimen>
+    <dimen name="distance_41">41dp</dimen>
+    <dimen name="distance_25">25dp</dimen>
+
+    <dimen name="distance_59">59.5dp</dimen>
+    <dimen name="distance_280">280dp</dimen>
+    <dimen name="distance_190">190dp</dimen>
+
+
+    <!-- 日历 -->
+    <dimen name="calendar_item_layout_padding">0.1dp</dimen>
+    <!-- 日历GridView的Item布局内容填充大小 -->
+    <dimen name="calendar_item_text_size">14sp</dimen>
+    <!-- 日历GridView的Item内间距大小 -->
+    <dimen name="calendar_item_padding">4dp</dimen>
+    <!-- 日历Item日字体大小 -->
+    <dimen name="calendar_week_day_text_size">18sp</dimen>
+    <!-- 日历中的星期的字体大小 -->
+    <dimen name="calendar_week_day_item_marginLeft">5dp</dimen>
+    <!-- 日历中的星期的边距 -->
+    <dimen name="calendar_week_day_item_marginRight">5dp</dimen>
+    <!-- 日历中的星期的边距 -->
+    <dimen name="calendar_week_day_item_marginTop">5dp</dimen>
+    <!-- 日历中的星期的边距 -->
+    <dimen name="calendar_week_day_item_marginBottom">5dp</dimen>
+    <!-- 日历中的星期的边距 -->
+
+
+    <!-- 日程模块日程内容上边距大小 -->
+    <dimen name="leader_schedule_calendar_bar_previours_btn_marginLeft">20dp</dimen>
+    <!-- 日程模块选择时间上一月按钮左边距 -->
+    <dimen name="leader_schedule_calendar_bar_next_btn_marginRight">20dp</dimen>
+    <!-- 日程模块选择时间下一月按钮右边距 -->
+    <dimen name="leader_schedule_view_maring_top_spacing">1dp</dimen>
+    <!-- 日程日程详情内容填充大小 -->
+    <dimen name="leader_schedule_Schedule_Calendar_text_size">14sp</dimen>
+    <dimen name="standard_padding">8dip</dimen>
+    <dimen name="half_padding">4dip</dimen>
+
+    <dimen name="week_bar_height">36dp</dimen>
+    <dimen name="week_calendar_height">48dp</dimen>
+    <dimen name="month_calendar_height">288dp</dimen>
+    <dimen name="calendar_min_distance">5dp</dimen>
+    <dimen name="auto_scroll_distance">15dp</dimen>
+    <integer name="calendar_text_size">13</integer>
+    <dimen name="shadow_width">60dp</dimen>
+    <dimen name="swidth">5dp</dimen>
+
+
+</resources>
