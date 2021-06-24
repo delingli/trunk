@@ -59,7 +59,7 @@ public final class CaptureActivity extends BaseActivity implements
     // 声音、震动控制
     private BeepManager beepManager;
 
-    private LinearLayout left_LL;
+    private LinearLayout left_LL,ll_material_layout;
 
     public ViewfinderView getViewfinderView() {
         return viewfinderView;
@@ -101,6 +101,7 @@ public final class CaptureActivity extends BaseActivity implements
         beepManager = new BeepManager(this);
 
         left_LL = (LinearLayout) findViewById(R.id.left_LL);
+        ll_material_layout = (LinearLayout) findViewById(R.id.ll_material_layout);
         left_LL.setOnClickListener(new View.OnClickListener() {
 
             @Override

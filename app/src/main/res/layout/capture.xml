@@ -12,8 +12,8 @@
     <!-- 扫描取景框 -->
     <com.hkzr.wlwd.zxing.view.ViewfinderView
         android:id="@+id/viewfinder_view"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent" />
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
 
     <RelativeLayout
         android:id="@+id/rl_title"
@@ -64,5 +64,16 @@
             android:textColor="@color/white_ffffff"
             android:textSize="@dimen/text_size_16" />
     </RelativeLayout>
+
+    <include
+        android:id="@+id/ll_material_layout"
+        layout="@layout/tip_material_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginLeft="12dp"
+        android:layout_marginRight="12dp"
+        android:visibility="gone" />
+
 
 </FrameLayout>
