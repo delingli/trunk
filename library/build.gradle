@@ -3,19 +3,19 @@ buildscript {
         mavenCentral()
     }
 }
-apply plugin: 'android-library'
+apply plugin: 'com.android.library'
 
 dependencies {
-    compile 'com.android.support:support-v4:13.0.0'
+    implementation 'com.android.support:support-v4:13.0.0'
 }
 
 android {
-    compileSdkVersion 23
-    buildToolsVersion '25.0.0'
+    compileSdkVersion 30
+    buildToolsVersion '29.0.2'
 
     defaultConfig {
         minSdkVersion 16
-        targetSdkVersion 23
+        targetSdkVersion 30
     }
 
     sourceSets {

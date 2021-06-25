@@ -80,6 +80,11 @@ public class BaseActivity extends AppCompatActivity implements Observer {
         ButterKnife.bind(this);
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        ButterKnife.unbind(this);
+    }
 
     public boolean isStatusBar() {
         return isStatusBar;

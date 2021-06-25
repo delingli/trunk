@@ -3,13 +3,17 @@ buildscript {
     repositories {
         maven { url 'https://maven.aliyun.com/repository/public' }
         maven { url 'https://maven.aliyun.com/repository/google' }
+        maven { url 'https://maven.aliyun.com/repository/gradle-plugin' }
         maven { url "https://jitpack.io" }
-        maven { url 'http://developer.huawei.com/repo/' }
         mavenCentral()
         jcenter()
+        maven { url 'http://developer.huawei.com/repo/' }
+
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:4.0.1'
+        classpath 'com.jakewharton:butterknife-gradle-plugin:7.0.1'
+        classpath 'com.jakewharton:butterknife-gradle-plugin:10.2.3'
         classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:1.8.1'
         classpath 'com.github.dcendents:android-maven-gradle-plugin:2.1'
 
@@ -22,11 +26,12 @@ allprojects {
     repositories {
         maven { url 'https://maven.aliyun.com/repository/public' }
         maven { url 'https://maven.aliyun.com/repository/google' }
+        maven { url 'https://maven.aliyun.com/repository/gradle-plugin' }
         maven { url "https://jitpack.io" }
-        maven { url 'http://developer.huawei.com/repo/' }
-        maven { url ' https://maven.aliyun.com/repository/gradle-plugin' }
         mavenCentral()
         jcenter()
+        maven { url 'http://developer.huawei.com/repo/' }
+
     }
 }
 task clean(type: Delete) {
