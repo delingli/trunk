@@ -255,17 +255,18 @@ public final class CaptureActivity extends BaseActivity implements
                 intent.putExtra("url", url);
                 intent.putExtra("isShowRight", false);
                 startActivity(intent);
+                finish();
             } else {
                 bianma = rawResult.getText();
-                if (tagss.equals(xcbf)) {
+                if (xcbf.equals(tagss)) {
                     if (bianma.length() >= 36) {
                         toLiaoCar(rawResult.getText());//料车
                     } else if (bianma.length() == 12) {
                         toXingCai(rawResult.getText()); //型材
                     }
-                } else if (tagss.equals(zljc)) {
+                } else if (zljc.equals(tagss)) {
 
-                } else if (tagss.equals(cprk)) {
+                } else if (cprk.equals(tagss)) {
 
                 } else {
                     scancode(rawResult.getText());
