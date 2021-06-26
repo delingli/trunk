@@ -17,43 +17,43 @@ import com.hkzr.wlwd.R;
 import com.hkzr.wlwd.ui.base.BaseActivity;
 import com.hkzr.wlwd.ui.utils.IntentHelper;
 
-import butterknife.Bind;
-import butterknife.ButterKnife;
-import butterknife.OnClick;
 
 /**
  * Created by admin on 2017/6/26.
  */
 public class ExternalWebClientActivity extends BaseActivity {
 
-    @Bind(R.id.wv)
     WebView wv;
-    @Bind(R.id.iv_left)
     ImageView ivLeft;
-    @Bind(R.id.tv_left)
     TextView tvLeft;
-    @Bind(R.id.left_LL)
     LinearLayout leftLL;
-    @Bind(R.id.tv_title)
     TextView tvTitle;
-    @Bind(R.id.iv_right)
     ImageView ivRight;
-    @Bind(R.id.tv_right)
     TextView tvRight;
-    @Bind(R.id.right_LL)
     LinearLayout rightLL;
-    @Bind(R.id.rl_title)
     RelativeLayout rlTitle;
 
-    @OnClick(R.id.left_LL)
     public void back() {
         this.finish();
+    }
+
+    private void initViewBind() {
+        wv=   findViewById(R.id.wv);
+        ivLeft=   findViewById(R.id.iv_left);
+        tvLeft=   findViewById(R.id.tv_left);
+        leftLL=   findViewById(R.id.left_LL);
+        tvTitle=   findViewById(R.id.tv_title);
+        ivRight=   findViewById(R.id.iv_right);
+        tvRight=   findViewById(R.id.tv_right);
+        rightLL=   findViewById(R.id.right_LL);
+        rlTitle=   findViewById(R.id.rl_title);
     }
 
     @Override
     protected void initView(Bundle savedInstanceState) {
         super.initView(savedInstanceState);
         setContentView(R.layout.layout_web);
+        initViewBind();
         tvTitle.setText("联系人详情页面");
         String url = getIntent().getStringExtra(IntentHelper.TITLE);
         initWebSetting();
@@ -110,7 +110,6 @@ public class ExternalWebClientActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        ButterKnife.bind(this);
     }
 
     // Web视图

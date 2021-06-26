@@ -25,15 +25,13 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import butterknife.Bind;
-import butterknife.ButterKnife;
+
 
 /**
  * 考勤设置
  */
 
 public class AttendanceSettingFragment extends BaseFragment {
-    @Bind(R.id.lv_setting)
     MyListView lvSetting;
 
     @Override
@@ -43,6 +41,11 @@ public class AttendanceSettingFragment extends BaseFragment {
 
     List<SignSettingBean> list;
     OpenAdapter mMyAdapter;
+
+    @Override
+    public void findView(View parent) {
+        lvSetting=  parent.findViewById(R.id.lv_setting);
+    }
 
     @Override
     public void initWidget(View parent) {
@@ -113,6 +116,5 @@ public class AttendanceSettingFragment extends BaseFragment {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        ButterKnife.unbind(this);
     }
 }

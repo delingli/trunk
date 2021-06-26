@@ -46,32 +46,20 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import butterknife.Bind;
-import butterknife.OnClick;
 
 /**
  * 我的日程
  */
 
-public class CalendarActivity extends BaseActivity implements PopupWindow.OnDismissListener, CalendarExpandableListAdapter.OnChildClickListener, MoreCalendarPopWindow.Go {
-    @Bind(R.id.tv_title)
-    TextView tvTitle;
-    @Bind(R.id.tv_month)
-    TextView tvMonth;
-    @Bind(R.id.tv_day)
-    TextView tvDay;
-    @Bind(R.id.tv_year)
-    TextView tvYear;
-    @Bind(R.id.mcvCalendar)
-    MonthCalendarView mcvCalendar;
-    @Bind(R.id.iv_right)
-    ImageView ivRight;
-    @Bind(R.id.tv_today)
-    TextView tv_today;
-
-
-    @Bind(R.id.expandableListView)
-    MyExpandableListView expandableListView;
+public class CalendarActivity extends BaseActivity implements PopupWindow.OnDismissListener, CalendarExpandableListAdapter.OnChildClickListener, MoreCalendarPopWindow.Go,View.OnClickListener {
+   private TextView tvTitle;
+    private  TextView tvMonth;
+    private   TextView tvDay;
+    private TextView tvYear;
+    private MonthCalendarView mcvCalendar;
+    private ImageView ivRight;
+    private   TextView tv_today;
+    private  MyExpandableListView expandableListView;
     List<CalendarDayEventBean.GroupsBean> mCurrentCalendar;
     CalendarExpandableListAdapter mAdapter;
     private int mCurrentSelectYear, mCurrentSelectMonth, mCurrentSelectDay;
@@ -87,6 +75,7 @@ public class CalendarActivity extends BaseActivity implements PopupWindow.OnDism
     protected void initView(Bundle savedInstanceState) {
         super.initView(savedInstanceState);
         setContentView(R.layout.layout_calendar);
+        initViewBind();
         mcvCalendar.setFocusable(true);
         mcvCalendar.setFocusableInTouchMode(true);
         mcvCalendar.requestFocus();
@@ -97,6 +86,70 @@ public class CalendarActivity extends BaseActivity implements PopupWindow.OnDism
         initMonth();
         initCalendarType();
         initNetData(type, mCurrentSelectYear, mCurrentSelectMonth + 1);
+    }
+
+    private void initViewBind() {
+        tvTitle = findViewById(R.id.tv_title);
+        tvMonth = findViewById(R.id.tv_month);
+        tvDay = findViewById(R.id.tv_day);
+        tvYear = findViewById(R.id.tv_year);
+        mcvCalendar = findViewById(R.id.mcvCalendar);
+        ivRight = findViewById(R.id.iv_right);
+        tv_today = findViewById(R.id.tv_today);
+        expandableListView = findViewById(R.id.expandableListView);
+
+        findViewById(R.id.rl_date).setOnClickListener(this);
+        findViewById(R.id.left_LL).setOnClickListener(this);
+        findViewById(R.id.right_LL).setOnClickListener(this);
+        findViewById(R.id.iv_add).setOnClickListener(this);
+        findViewById(R.id.tv_title).setOnClickListener(this);
+        findViewById(R.id.tv_today).setOnClickListener(this);
+    }
+
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.rl_date:
+                /*
+                    选择日期
+                 */
+                DialogUtil.showTime(this, new TimePickerView.OnTimeSelectListener() {
+                    @Override
+                    public void onTimeSelect(Date date, View v) {
+                        String[] str = TimeUtil.date2String(date, TimeUtil.FORMAT_DATE).split("-");
+                        int year = Integer.parseInt(str[0]);
+                        int month = Integer.parseInt(str[1]);
+                        int day = Integer.parseInt(str[2]);
+                        initData(year, month - 1, day);
+                    }
+                }).show();
+                break;
+            case R.id.left_LL:
+                this.finish();
+                break;
+            case R.id.right_LL:
+                moreCalendarPopWindow.showPopupWindow(ivRight);
+                break;
+            case R.id.tv_title:
+                showPopupWindow();
+                isShow = !isShow;
+                if (isShow) {
+                    mPopupWindow.showAsDropDown(tvTitle, 0, 0);
+                } else {
+                    mPopupWindow.dismiss();
+                }
+                break;
+            case R.id.iv_add:
+                Intent in = new Intent(this, AddCalendarActivity.class);
+                in.putParcelableArrayListExtra("calendarList", adminCalsBeen);
+                in.putExtra("date", mCurrentSelectYear + "-" + (mCurrentSelectMonth + 1) + "-" + mCurrentSelectDay);
+                startActivityForResult(in, 1);
+                break;
+            case R.id.tv_today:
+                String[] str = TimeUtil.getCurrentTime(TimeUtil.FORMAT_DATE).split("-");
+                initData(Integer.parseInt(str[0]), Integer.parseInt(str[1]) - 1, Integer.parseInt(str[2]));
+                break;
+        }
     }
 
     /**
@@ -153,51 +206,6 @@ public class CalendarActivity extends BaseActivity implements PopupWindow.OnDism
     };
 
 
-    @OnClick({R.id.rl_date, R.id.left_LL, R.id.right_LL, R.id.iv_add, R.id.tv_title, R.id.tv_today})
-    public void onViewClicked(View view) {
-        switch (view.getId()) {
-            case R.id.rl_date:
-                /*
-                    选择日期
-                 */
-                DialogUtil.showTime(this, new TimePickerView.OnTimeSelectListener() {
-                    @Override
-                    public void onTimeSelect(Date date, View v) {
-                        String[] str = TimeUtil.date2String(date, TimeUtil.FORMAT_DATE).split("-");
-                        int year = Integer.parseInt(str[0]);
-                        int month = Integer.parseInt(str[1]);
-                        int day = Integer.parseInt(str[2]);
-                        initData(year, month - 1, day);
-                    }
-                }).show();
-                break;
-            case R.id.left_LL:
-                this.finish();
-                break;
-            case R.id.right_LL:
-                moreCalendarPopWindow.showPopupWindow(ivRight);
-                break;
-            case R.id.tv_title:
-                showPopupWindow();
-                isShow = !isShow;
-                if (isShow) {
-                    mPopupWindow.showAsDropDown(tvTitle, 0, 0);
-                } else {
-                    mPopupWindow.dismiss();
-                }
-                break;
-            case R.id.iv_add:
-                Intent in = new Intent(this, AddCalendarActivity.class);
-                in.putParcelableArrayListExtra("calendarList", adminCalsBeen);
-                in.putExtra("date", mCurrentSelectYear + "-" + (mCurrentSelectMonth + 1) + "-" + mCurrentSelectDay);
-                startActivityForResult(in, 1);
-                break;
-            case R.id.tv_today:
-                String[] str = TimeUtil.getCurrentTime(TimeUtil.FORMAT_DATE).split("-");
-                initData(Integer.parseInt(str[0]), Integer.parseInt(str[1]) - 1, Integer.parseInt(str[2]));
-                break;
-        }
-    }
 
     /**
      * 跳转某一天
@@ -521,7 +529,7 @@ public class CalendarActivity extends BaseActivity implements PopupWindow.OnDism
         mParams.put("eventid", id);
         mParams.put("check", type);
         mParams.put("date", mCurrentSelectYear + "-" + (mCurrentSelectMonth + 1) + "-" + mCurrentSelectDay);
-        VolleyFactory.instance().post(this, mParams, GroupEntity.class,   new VolleyFactory.BaseRequest<GroupEntity>() {
+        VolleyFactory.instance().post(this, mParams, GroupEntity.class, new VolleyFactory.BaseRequest<GroupEntity>() {
             @Override
             public void requestSucceed(String object) {
                 mCurrentCalendar.get(groupPosition).getList().get(childPosition).setChecked(type);

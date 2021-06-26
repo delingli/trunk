@@ -51,38 +51,24 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import butterknife.Bind;
-import butterknife.OnClick;
 import cn.jpush.android.api.JPushInterface;
 
 /**
  * 登录
  */
-public class LoginActivity extends BaseActivity implements PopupWindow.OnDismissListener {
-
-    @Bind(R.id.et_zh)
+public class LoginActivity extends BaseActivity implements PopupWindow.OnDismissListener, View.OnClickListener {
     EditText etZh;
-    @Bind(R.id.et_mm)
     EditText etMm;
-    @Bind(R.id.et_bh)
     EditText etBh;
-    @Bind(R.id.tv_dl)
     TextView tvDl;
-    @Bind(R.id.cb_jzmm)
     CheckBox cbJzmm;
-//    @Bind(R.id.tv_wjmm)
+    //    @Bind(R.id.tv_wjmm)
 //    TextView tvWjmm;
-    @Bind(R.id.iv_username)
     ImageView iv_username;
-    @Bind(R.id.ll_zh)
     LinearLayout ll_zh;
-    @Bind(R.id.l_username)
     LinearLayout l_username;
-    @Bind(R.id.cb_zddl)
     CheckBox cb_zddl;//自动登录
-    @Bind(R.id.l_eye)
     LinearLayout l_eye;
-    @Bind(R.id.iv_eye)
     ImageView iv_eye;
 
 
@@ -92,8 +78,10 @@ public class LoginActivity extends BaseActivity implements PopupWindow.OnDismiss
 
     @Override
     protected void initView(Bundle savedInstanceState) {
+        super.initView(savedInstanceState);
         setContentView(R.layout.activity_login_new);
         StatusBarUtil.setTran(this);
+        initViewBind();
         try {
             initData();
             getPersimmions();
@@ -111,6 +99,27 @@ public class LoginActivity extends BaseActivity implements PopupWindow.OnDismiss
         } catch (Exception e) {
 
         }
+    }
+
+    private void initViewBind() {
+        etZh = findViewById(R.id.et_zh);
+        etMm = findViewById(R.id.et_mm);
+        etBh = findViewById(R.id.et_bh);
+        tvDl = findViewById(R.id.tv_dl);
+        cbJzmm = findViewById(R.id.cb_jzmm);
+        //    @Bind(R.id.tv_wjmm)
+//    TextView tvWjmm;
+        iv_username = findViewById(R.id.iv_username);
+        ll_zh = findViewById(R.id.ll_zh);
+        l_username = findViewById(R.id.l_username);
+        cb_zddl = findViewById(R.id.cb_zddl);
+        l_eye = findViewById(R.id.l_eye);
+        iv_eye = findViewById(R.id.iv_eye);
+        findViewById(R.id.tv_dl).setOnClickListener(this);
+        findViewById(R.id.cb_jzmm).setOnClickListener(this);
+        findViewById(R.id.iv_username).setOnClickListener(this);
+        findViewById(R.id.l_username).setOnClickListener(this);
+        findViewById(R.id.l_eye).setOnClickListener(this);
     }
 
     OpenAdapter mMyAdapter;
@@ -183,8 +192,7 @@ public class LoginActivity extends BaseActivity implements PopupWindow.OnDismiss
         progressDialog.setCanceledOnTouchOutside(false);
     }
 
-
-    @OnClick({R.id.tv_dl, R.id.cb_jzmm,   R.id.iv_username, R.id.l_username, R.id.l_eye})
+    @Override
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.tv_dl:
@@ -302,7 +310,7 @@ public class LoginActivity extends BaseActivity implements PopupWindow.OnDismiss
         mParams.put("mtype", "1");
         mParams.put("pass", mm);
         mParams.put("user", zh);
-        mParams.put("uuid", ExampleUtil.getIMEI(LoginActivity.this ));
+        mParams.put("uuid", ExampleUtil.getIMEI(LoginActivity.this));
         mParams.put("ver", App.getInstance().getVersionName());
         VolleyFactory.instance().post(LoginActivity.this, mParams, ServiceEntity.class, new BaseRequest<ServiceEntity>() {
 

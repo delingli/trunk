@@ -21,29 +21,19 @@ import com.hkzr.wlwd.ui.utils.TimeCount;
 import java.util.HashMap;
 import java.util.Map;
 
-import butterknife.Bind;
-import butterknife.OnClick;
 
 /**
  * 忘记密码
  */
 
-public class ForgetPwdActivity extends BaseActivity {
-    @Bind(R.id.tv_title)
+public class ForgetPwdActivity extends BaseActivity implements View.OnClickListener {
     TextView tvTitle;
-    @Bind(R.id.et_server)
     EditText etServer;
-    @Bind(R.id.et_username)
     EditText etUsername;
-    @Bind(R.id.et_mm)
     EditText etMm;
-    @Bind(R.id.tv_yzm)
     TextView tvYzm;
-    @Bind(R.id.et_xmm)
     EditText etXmm;
-    @Bind(R.id.et_qxmm)
     EditText etQxmm;
-    @Bind(R.id.tv_qr)
     TextView tvQr;
     TimeCount timeCount;
 
@@ -51,13 +41,29 @@ public class ForgetPwdActivity extends BaseActivity {
     protected void initView(Bundle savedInstanceState) {
         super.initView(savedInstanceState);
         setContentView(R.layout.activity_forgetpw);
+        initViewBind();
         tvTitle.setText("忘记密码");
 
     }
 
+    private void initViewBind() {
+        tvTitle = findViewById(R.id.tv_title);
+        etServer = findViewById(R.id.et_server);
+        etUsername = findViewById(R.id.et_username);
+        etMm = findViewById(R.id.et_mm);
+        tvYzm = findViewById(R.id.tv_yzm);
+        etXmm = findViewById(R.id.et_xmm);
+        etQxmm = findViewById(R.id.et_qxmm);
+        tvQr = findViewById(R.id.tv_qr);
+        TimeCount timeCount;
 
-    @OnClick({R.id.left_LL, R.id.tv_yzm, R.id.tv_qr})
-    public void onViewClicked(View view) {
+        findViewById(R.id.left_LL).setOnClickListener(this);
+        findViewById(R.id.tv_yzm).setOnClickListener(this);
+        findViewById(R.id.tv_qr).setOnClickListener(this);
+    }
+
+    @Override
+    public void onClick(View view) {
         switch (view.getId()) {
             case R.id.left_LL:
                 this.finish();
@@ -100,13 +106,14 @@ public class ForgetPwdActivity extends BaseActivity {
         }
     }
 
+
     private void updataPwd(String uname1, String yzm, String xmm) {
         Map<String, String> mParams = new HashMap<String, String>();
         mParams.put("t", "forgetpass");
         mParams.put("username", uname1);
         mParams.put("vcode", yzm);
         mParams.put("newpass", xmm);
-        mParams.put("uuid", ExampleUtil.getIMEI(ForgetPwdActivity.this ));
+        mParams.put("uuid", ExampleUtil.getIMEI(ForgetPwdActivity.this));
         VolleyFactory.instance().FirstPost(ForgetPwdActivity.this, targetUrl, mParams, ServiceEntity.class, new VolleyFactory.BaseRequest<ServiceEntity>() {
 
             @Override
@@ -155,7 +162,7 @@ public class ForgetPwdActivity extends BaseActivity {
         Map<String, String> mParams = new HashMap<String, String>();
         mParams.put("t", "sms:pw_forget");
         mParams.put("username", zhStr);
-        mParams.put("uuid", ExampleUtil.getIMEI(ForgetPwdActivity.this ));
+        mParams.put("uuid", ExampleUtil.getIMEI(ForgetPwdActivity.this));
 
         VolleyFactory.instance().FirstPost(ForgetPwdActivity.this, targetUrl, mParams, LoginEntity.class, new VolleyFactory.BaseRequest<LoginEntity>() {
             @Override

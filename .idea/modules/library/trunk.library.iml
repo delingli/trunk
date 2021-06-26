@@ -37,7 +37,7 @@
       <excludeFolder url="file://$MODULE_DIR$/../../../library/.gradle" />
       <excludeFolder url="file://$MODULE_DIR$/../../../library/build" />
     </content>
-    <orderEntry type="jdk" jdkName="Android API 23 Platform" jdkType="Android SDK" />
+    <orderEntry type="jdk" jdkName="Android API 30 Platform" jdkType="Android SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="Gradle: com.android.support:support-v4:13.0.0" level="project" />
   </component>

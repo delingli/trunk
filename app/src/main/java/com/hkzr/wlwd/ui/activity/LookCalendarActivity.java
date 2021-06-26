@@ -27,31 +27,40 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import butterknife.Bind;
-import butterknife.OnClick;
 
 /**
  * 查看他人日程列表
  */
 
 public class LookCalendarActivity extends BaseActivity {
-    @Bind(R.id.tv_title)
     TextView tvTitle;
-    @Bind(R.id.listview)
     ListView listview;
-    @Bind(R.id.filter_edit)
     ClearEditText filterEdit;
-    @Bind(R.id.tv_none)
     TextView tv_none;
 
     OpenAdapter mMyAdapter;
     List<CalendarTypeBean> searchBean;
     List<CalendarTypeBean> calendarBean;
 
+    private void initViewBind() {
+        tvTitle = findViewById(R.id.tv_title);
+        listview = findViewById(R.id.listview);
+        filterEdit = findViewById(R.id.filter_edit);
+        tv_none = findViewById(R.id.tv_none);
+        findViewById(R.id.left_LL).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                finish();
+            }
+        });
+    }
+
     @Override
     protected void initView(Bundle savedInstanceState) {
         super.initView(savedInstanceState);
         setContentView(R.layout.activity_look_calendar);
+        initViewBind();
         tvTitle.setText("查看他人日程");
         calendarBean = new ArrayList<>();
         searchBean = new ArrayList<>();
@@ -134,11 +143,6 @@ public class LookCalendarActivity extends BaseActivity {
                 ToastUtil.t("接口请求失败");
             }
         }, false, false);
-    }
-
-    @OnClick(R.id.left_LL)
-    public void onViewClicked() {
-        this.finish();
     }
 
 

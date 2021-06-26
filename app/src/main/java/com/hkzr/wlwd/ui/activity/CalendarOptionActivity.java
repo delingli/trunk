@@ -24,17 +24,13 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
-import butterknife.Bind;
-import butterknife.OnClick;
 
 /**
  * 选项通用
  */
 
 public class CalendarOptionActivity extends BaseActivity implements AdapterView.OnItemClickListener {
-    @Bind(R.id.tv_title)
     TextView tvTitle;
-    @Bind(R.id.listview)
     ListView mListview;
     int type = 0; //0 提醒 1 重复 2,结束重复
     List<String> list = new ArrayList<>();
@@ -49,10 +45,22 @@ public class CalendarOptionActivity extends BaseActivity implements AdapterView.
     protected void initView(Bundle savedInstanceState) {
         super.initView(savedInstanceState);
         setContentView(R.layout.activity_calendar_option);
+        initViewBind();
         type = getIntent().getExtras().getInt("type");
         index = getIntent().getExtras().getInt("index");
         initListener();
         initData();
+    }
+
+    private void initViewBind() {
+        tvTitle = findViewById(R.id.tv_title);
+        mListview = findViewById(R.id.listview);
+        findViewById(R.id.left_LL).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
     }
 
     private void initData() {
@@ -101,11 +109,6 @@ public class CalendarOptionActivity extends BaseActivity implements AdapterView.
         mListview.setOnItemClickListener(this);
     }
 
-
-    @OnClick(R.id.left_LL)
-    public void onViewClicked() {
-        this.finish();
-    }
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {

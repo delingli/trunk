@@ -22,27 +22,18 @@ import com.hkzr.wlwd.ui.fragment.AttendanceSettingFragment;
 import com.hkzr.wlwd.ui.fragment.AttendanceSignFragment;
 import com.hkzr.wlwd.ui.fragment.WebFragment;
 
-import butterknife.Bind;
-import butterknife.OnClick;
 
 /**
  * 考勤
  */
 
-public class CheckWorkAttendanceActivity extends BaseActivity {
-    @Bind(R.id.tv_title)
+public class CheckWorkAttendanceActivity extends BaseActivity implements View.OnClickListener {
     TextView tvTitle;
-    @Bind(R.id.iv_right)
     ImageView iv_right;
-    @Bind(R.id.right_LL)
     LinearLayout right_LL;
-    @Bind(R.id.btn_check)
     Button btnCheck;
-    @Bind(R.id.btn_statistics)
     Button btnStatistics;
-    @Bind(R.id.btn_setting)
     Button btnSetting;
-    @Bind(R.id.fragment_container)
     FrameLayout fragmentContainer;
 
     private FragmentManager fm;
@@ -61,6 +52,7 @@ public class CheckWorkAttendanceActivity extends BaseActivity {
     protected void initView(Bundle savedInstanceState) {
         super.initView(savedInstanceState);
         setContentView(R.layout.activity_check_work);
+        initViewBind();
         tvTitle.setText("考勤签到");
         iv_right.setImageResource(R.drawable.help);
         fm = getSupportFragmentManager();
@@ -71,6 +63,22 @@ public class CheckWorkAttendanceActivity extends BaseActivity {
         btnTabs[0].setSelected(true);
         btnSetting.setVisibility(View.GONE);
         iniTab();
+    }
+
+    private void initViewBind() {
+        tvTitle = findViewById(R.id.tv_title);
+        iv_right = findViewById(R.id.iv_right);
+        right_LL = findViewById(R.id.right_LL);
+        btnCheck = findViewById(R.id.btn_check);
+        btnStatistics = findViewById(R.id.btn_statistics);
+        btnSetting = findViewById(R.id.btn_setting);
+        fragmentContainer = findViewById(R.id.fragment_container);
+        findViewById(R.id.left_LL).setOnClickListener(this);
+        findViewById(R.id.btn_check).setOnClickListener(this);
+        findViewById(R.id.btn_statistics).setOnClickListener(this);
+        findViewById(R.id.btn_setting).setOnClickListener(this);
+        findViewById(R.id.right_LL).setOnClickListener(this);
+
     }
 
     public void changeSetting(boolean change) {
@@ -106,8 +114,8 @@ public class CheckWorkAttendanceActivity extends BaseActivity {
         ft.show(attendanceSignFragment).commit();
     }
 
-    @OnClick({R.id.left_LL, R.id.btn_check, R.id.btn_statistics, R.id.btn_setting, R.id.right_LL})
-    public void onViewClicked(View view) {
+    @Override
+    public void onClick(View view) {
         switch (view.getId()) {
             case R.id.left_LL:
                 if (index == 1) {
@@ -141,6 +149,7 @@ public class CheckWorkAttendanceActivity extends BaseActivity {
                 break;
         }
     }
+
 
     private void SwitchSkip() {
         ft = fm.beginTransaction();

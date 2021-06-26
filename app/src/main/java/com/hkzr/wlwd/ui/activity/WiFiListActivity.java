@@ -24,26 +24,31 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import butterknife.Bind;
-import butterknife.OnClick;
 
 /**
  * 添加wifi
  */
 
-public class WiFiListActivity extends BaseActivity {
-    @Bind(R.id.tv_title)
+public class WiFiListActivity extends BaseActivity implements View.OnClickListener {
     TextView tvTitle;
-    @Bind(R.id.lv_wifi)
     ListView lvWifi;
     List<ScanResult> list;
     OpenAdapter mMyAdapter;
     int mCurrentPosition = -1;
 
+    private void initViewBind() {
+        tvTitle = findViewById(R.id.tv_title);
+        lvWifi = findViewById(R.id.lv_wifi);
+        findViewById(R.id.left_LL).setOnClickListener(this);
+        findViewById(R.id.tv_submit).setOnClickListener(this);
+
+    }
+
     @Override
     protected void initView(Bundle savedInstanceState) {
         super.initView(savedInstanceState);
         setContentView(R.layout.activity_add_wifi);
+        initViewBind();
         tvTitle.setText("添加办公Wi-Fi");
         WifiManager wifiManager = (WifiManager) getSystemService(Context.WIFI_SERVICE);
         wifiManager.startScan();
@@ -82,8 +87,8 @@ public class WiFiListActivity extends BaseActivity {
         });
     }
 
-    @OnClick({R.id.left_LL, R.id.tv_submit})
-    public void onViewClicked(View view) {
+    @Override
+    public void onClick(View view) {
         switch (view.getId()) {
             case R.id.left_LL:
                 this.finish();
@@ -97,7 +102,6 @@ public class WiFiListActivity extends BaseActivity {
                 break;
         }
     }
-
     private void toAdd() {
         Map<String, String> mParams = new HashMap<String, String>();
         mParams.put("t", "sign:wifi_add");

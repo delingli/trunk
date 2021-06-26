@@ -20,7 +20,6 @@ import com.hkzr.wlwd.ui.app.App;
 import com.hkzr.wlwd.ui.utils.AppManager;
 import com.hkzr.wlwd.ui.utils.SystemBarTintManager;
 
-import butterknife.ButterKnife;
 
 public abstract class BActivity extends AppCompatActivity {
     protected RequestQueue queue = null;
@@ -40,19 +39,16 @@ public abstract class BActivity extends AppCompatActivity {
     @Override
     public void setContentView(int layoutResID) {
         super.setContentView(layoutResID);
-        ButterKnife.bind(this);
     }
 
     @Override
     public void setContentView(View view) {
         super.setContentView(view);
-        ButterKnife.bind(this);
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        ButterKnife.unbind(this);
     }
 
     public void initStatusBar(View view) {

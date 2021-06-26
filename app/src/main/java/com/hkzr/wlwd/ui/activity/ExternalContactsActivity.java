@@ -37,9 +37,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import butterknife.Bind;
-import butterknife.ButterKnife;
-import butterknife.OnClick;
 
 /**
  * Created by admin on 2017/6/24.
@@ -47,35 +44,20 @@ import butterknife.OnClick;
  */
 public class ExternalContactsActivity extends BaseActivity implements MoreExterPopWindow.Go {
 
-    @Bind(R.id.iv_left)
     ImageView ivLeft;
-    @Bind(R.id.tv_left)
     TextView tvLeft;
-    @Bind(R.id.left_LL)
     LinearLayout leftLL;
-    @Bind(R.id.tv_title)
     TextView tvTitle;
-    @Bind(R.id.tv_right)
     TextView tvRight;
-    @Bind(R.id.right_LL)
     LinearLayout rightLL;
-    @Bind(R.id.rl_title)
     RelativeLayout rlTitle;
-    @Bind(R.id.filter_edit)
     ClearEditText filterEdit;
-    @Bind(R.id.country_lvcountry)
     ListView countryLvcountry;
-    @Bind(R.id.title_layout_no_friends)
     TextView titleLayoutNoFriends;
-    @Bind(R.id.title_layout_catalog)
     TextView titleLayoutCatalog;
-    @Bind(R.id.title_layout)
     LinearLayout titleLayout;
-    @Bind(R.id.iv_right)
     ImageView iv_right;
-    @Bind(R.id.dialog)
     TextView dialog;
-    @Bind(R.id.sidrbar)
     SideBar sidrbar;
     private SortGroupExtalMemberAdapter adapter;
     /**
@@ -84,10 +66,45 @@ public class ExternalContactsActivity extends BaseActivity implements MoreExterP
     private int lastFirstVisibleItem = -1;
     private int type = -1;
 
+    private void initViewBind() {
+        findViewById(R.id.iv_left);
+        findViewById(R.id.tv_left);
+        findViewById(R.id.left_LL);
+        findViewById(R.id.tv_title);
+        findViewById(R.id.tv_right);
+        findViewById(R.id.right_LL);
+        findViewById(R.id.rl_title);
+        findViewById(R.id.filter_edit);
+        findViewById(R.id.country_lvcountry);
+        findViewById(R.id.title_layout_no_friends);
+        findViewById(R.id.title_layout_catalog);
+        findViewById(R.id.title_layout);
+        findViewById(R.id.iv_right);
+        findViewById(R.id.dialog);
+        findViewById(R.id.sidrbar);
+        findViewById(R.id.left_LL).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ExternalContactsActivity.this.finish();
+            }
+        });
+        findViewById(R.id.iv_right).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                MoreExterPopWindow morePopWindow = new MoreExterPopWindow(ExternalContactsActivity.this);
+                morePopWindow.setmGo(ExternalContactsActivity.this);
+                morePopWindow.showPopupWindow(iv_right);
+            }
+        });
+
+
+    }
+
     @Override
     protected void initView(Bundle savedInstanceState) {
         super.initView(savedInstanceState);
         setContentView(R.layout.layout_external);
+        initViewBind();
         tvTitle.setText("外部联系人");
         type = getIntent().getIntExtra("type", 0);
         if (type == 0) {
@@ -217,9 +234,9 @@ public class ExternalContactsActivity extends BaseActivity implements MoreExterP
     }
 
     /* 根据输入框中的值来过滤数据并更新ListView
-    *
-            * @param filterStr
-    */
+     *
+     * @param filterStr
+     */
     private void filterData(String filterStr) {
         List<ExternalContactEntity> filterDateList = new ArrayList<ExternalContactEntity>();
 
@@ -344,20 +361,10 @@ public class ExternalContactsActivity extends BaseActivity implements MoreExterP
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        ButterKnife.bind(this);
     }
 
-    @OnClick(R.id.left_LL)
-    public void onClick() {
-        ExternalContactsActivity.this.finish();
-    }
 
-    @OnClick(R.id.iv_right)
-    public void right() {
-        MoreExterPopWindow morePopWindow = new MoreExterPopWindow(ExternalContactsActivity.this);
-        morePopWindow.setmGo(ExternalContactsActivity.this);
-        morePopWindow.showPopupWindow(iv_right);
-    }
+
 
     @Override
     public void add() {

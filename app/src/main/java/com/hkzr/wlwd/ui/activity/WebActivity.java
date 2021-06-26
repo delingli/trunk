@@ -4,6 +4,7 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.view.KeyEvent;
+import android.view.View;
 import android.webkit.JsPromptResult;
 import android.webkit.JsResult;
 import android.webkit.WebChromeClient;
@@ -16,30 +17,35 @@ import android.widget.TextView;
 import com.hkzr.wlwd.R;
 import com.hkzr.wlwd.ui.base.BaseActivity;
 
-import butterknife.Bind;
-import butterknife.OnClick;
-
 /**
  * WebView基类
  */
 
 public class WebActivity extends BaseActivity {
 
-    @Bind(R.id.web)
     WebView webView;
-    @Bind(R.id.tv_title)
     TextView tv_title;
 
 
-    @OnClick(R.id.left_LL)
     public void back() {
         this.finish();
     }
 
+    private void initViewBind() {
+        webView = findViewById(R.id.web);
+        tv_title = findViewById(R.id.tv_title);
+        findViewById(R.id.left_LL).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                back();
+            }
+        });
+    }
 
     @Override
     protected void initView(Bundle savedInstanceState) {
         setContentView(R.layout.activity_webview);
+        initViewBind();
         String title = getIntent().getStringExtra("title");
         tv_title.setText(title);
         String url = getIntent().getStringExtra("url");

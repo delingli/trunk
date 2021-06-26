@@ -30,25 +30,17 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import butterknife.Bind;
-import butterknife.OnClick;
 
 /**
  * 添加好友
  */
 
-public class AddFriendsActivity extends BaseActivity {
-    @Bind(R.id.tv_right)
+public class AddFriendsActivity extends BaseActivity implements View.OnClickListener {
     TextView tv_right;
-    @Bind(R.id.left_LL)
     LinearLayout leftLL;
-    @Bind(R.id.tv_title)
     TextView tvTitle;
-    @Bind(R.id.tv_search)
     EditText tvSearch;
-    @Bind(R.id.lv_friends)
     MyListView lvFriends;
-    @Bind(R.id.ll_ed)
     LinearLayout ll_ed;
 
     List<FriendListEntity> list;
@@ -60,6 +52,7 @@ public class AddFriendsActivity extends BaseActivity {
     protected void initView(Bundle savedInstanceState) {
         super.initView(savedInstanceState);
         setContentView(R.layout.activity_add_friends);
+        initViewBind();
         ll_ed.setFocusable(true);
         ll_ed.setFocusableInTouchMode(true);
         tvTitle.setText("我的好友");
@@ -72,9 +65,36 @@ public class AddFriendsActivity extends BaseActivity {
             }
         };
         lvFriends.setAdapter(mMyAdapter);
+
         initData();
 
         initListener();
+    }
+
+    private void initViewBind() {
+        tv_right = findViewById(R.id.tv_right);
+        leftLL = findViewById(R.id.left_LL);
+        tvTitle = findViewById(R.id.tv_title);
+        tvSearch = findViewById(R.id.tv_search);
+        lvFriends = findViewById(R.id.lv_friends);
+        ll_ed = findViewById(R.id.ll_ed);
+
+        findViewById(R.id.tv_search).setOnClickListener(this);
+        findViewById(R.id.left_LL).setOnClickListener(this);
+        findViewById(R.id.right_LL).setOnClickListener(this);
+
+    }
+
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.left_LL:
+                this.finish();
+                break;
+            case R.id.right_LL:
+                jumpTo(InsidContactActivity.class);
+                break;
+        }
     }
 
     private void initListener() {
@@ -125,18 +145,6 @@ public class AddFriendsActivity extends BaseActivity {
         }, true, false);
     }
 
-
-    @OnClick({R.id.tv_search, R.id.left_LL, R.id.right_LL})
-    public void onViewClicked(View v) {
-        switch (v.getId()) {
-            case R.id.left_LL:
-                this.finish();
-                break;
-            case R.id.right_LL:
-                jumpTo(InsidContactActivity.class);
-                break;
-        }
-    }
 
     class FriendHolder implements IHolder<FriendListEntity> {
         TextView tv_name, tv_des, tv_yes, tv_end;

@@ -28,25 +28,17 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import butterknife.Bind;
-import butterknife.OnClick;
 
 /**
  * 添加好友
  */
 
-public class WaitVerifyActivity extends BaseActivity {
-    @Bind(R.id.tv_right)
+public class WaitVerifyActivity extends BaseActivity implements View.OnClickListener {
     TextView tv_right;
-    @Bind(R.id.left_LL)
     LinearLayout leftLL;
-    @Bind(R.id.tv_title)
     TextView tvTitle;
-    @Bind(R.id.tv_search)
     EditText tvSearch;
-    @Bind(R.id.lv_friends)
     MyListView lvFriends;
-    @Bind(R.id.ll_ed)
     LinearLayout ll_ed;
 
     List<VerifierEntity> list;
@@ -56,11 +48,24 @@ public class WaitVerifyActivity extends BaseActivity {
 
     String mGroupId = null;
 
+    private void initViewBind() {
+        tv_right = findViewById(R.id.tv_right);
+        leftLL = findViewById(R.id.left_LL);
+        tvTitle = findViewById(R.id.tv_title);
+        tvSearch = findViewById(R.id.tv_search);
+        lvFriends = findViewById(R.id.lv_friends);
+        ll_ed = findViewById(R.id.ll_ed);
+        findViewById(R.id.tv_search).setOnClickListener(this);
+        findViewById(R.id.left_LL).setOnClickListener(this);
+        findViewById(R.id.right_LL).setOnClickListener(this);
+
+    }
+
     @Override
     protected void initView(Bundle savedInstanceState) {
         super.initView(savedInstanceState);
         setContentView(R.layout.activity_wait_verify);
-
+        initViewBind();
         mGroupId = getIntent().getStringExtra("groupId");
 
         ll_ed.setFocusable(true);
@@ -121,10 +126,9 @@ public class WaitVerifyActivity extends BaseActivity {
         }, true, false);
     }
 
-
-    @OnClick({R.id.tv_search, R.id.left_LL, R.id.right_LL})
-    public void onViewClicked(View v) {
-        switch (v.getId()) {
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()) {
             case R.id.left_LL:
                 this.finish();
                 break;
@@ -150,8 +154,8 @@ public class WaitVerifyActivity extends BaseActivity {
 
         @Override
         public void bindModel(int position, final VerifierEntity bean) {
-            tv_name.setText(""+bean.getUserCn());
-            tv_des.setText("申请加入"+ bean.getGroupName());
+            tv_name.setText("" + bean.getUserCn());
+            tv_des.setText("申请加入" + bean.getGroupName());
 
             if (!TextUtils.isEmpty(bean.getPhotoUrl())) {
                 Picasso.with(WaitVerifyActivity.this).load(bean.getPhotoUrl()).into(iv_icon);

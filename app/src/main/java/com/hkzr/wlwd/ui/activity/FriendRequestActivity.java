@@ -15,21 +15,15 @@ import com.hkzr.wlwd.ui.utils.LogUtils;
 import java.util.HashMap;
 import java.util.Map;
 
-import butterknife.Bind;
-import butterknife.OnClick;
 
 /**
  * 好友申请
  */
 
-public class FriendRequestActivity extends BaseActivity {
-    @Bind(R.id.left_LL)
+public class FriendRequestActivity extends BaseActivity implements View.OnClickListener {
     LinearLayout leftLL;
-    @Bind(R.id.tv_title)
     TextView tvTitle;
-    @Bind(R.id.ed_info)
     EditText edInfo;
-    @Bind(R.id.tv_send)
     TextView tvSend;
     String userid;
 
@@ -37,12 +31,22 @@ public class FriendRequestActivity extends BaseActivity {
     protected void initView(Bundle savedInstanceState) {
         super.initView(savedInstanceState);
         setContentView(R.layout.activity_friendrequest);
+        initViewBind();
         tvTitle.setText("好友申请");
         userid = getIntent().getStringExtra("userid");
     }
 
-    @OnClick({R.id.left_LL, R.id.tv_send})
-    public void OnClick(View v) {
+    private void initViewBind() {
+        leftLL = findViewById(R.id.left_LL);
+        tvTitle = findViewById(R.id.tv_title);
+        edInfo =findViewById (R.id.ed_info);
+        tvSend =findViewById (R.id.tv_send);
+        findViewById(R.id.left_LL).setOnClickListener(this);
+        findViewById(R.id.tv_send).setOnClickListener(this);
+    }
+
+    @Override
+    public void onClick(View v) {
         switch (v.getId()) {
             case R.id.left_LL:
                 this.finish();
@@ -53,6 +57,7 @@ public class FriendRequestActivity extends BaseActivity {
                 break;
         }
     }
+
 
     private void addFriends(String ed) {
         Map<String, String> mParams = new HashMap<String, String>();

@@ -25,27 +25,19 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-import butterknife.Bind;
-import butterknife.OnClick;
 
 /**
  * 考勤组设置
  */
 
-public class SignSettingActivity extends BaseActivity {
+public class SignSettingActivity extends BaseActivity implements View.OnClickListener {
     public static final int REQUESTCODE = 7023;
 
-    @Bind(R.id.tv_title)
     TextView tvTitle;
-    @Bind(R.id.lv_wifi)
     MyListView lvWifi;
-    @Bind(R.id.tv_add_wifi)
     TextView tvAddWifi;
-    @Bind(R.id.lv_address)
     MyListView lvAddress;
-    @Bind(R.id.tv_add_address)
     TextView tvAddAddress;
-    @Bind(R.id.tv_group_name)
     TextView tv_group_name;
 
 
@@ -54,11 +46,23 @@ public class SignSettingActivity extends BaseActivity {
     SignSettingLocationAdapter signSettingLocationAdapter;
     SignSettingWiFiAdapter signSettingWiFiAdapter;
     String mCurrentWifiMac;
+private void initViewBind(){
+    tvTitle=findViewById(R.id.tv_title);
+    lvWifi=findViewById(R.id.lv_wifi);
+    tvAddWifi=findViewById(R.id.tv_add_wifi);
+    lvAddress=findViewById(R.id.lv_address);
+    tvAddAddress=findViewById(R.id.tv_add_address);
+    tv_group_name=findViewById(R.id.tv_group_name);
+    findViewById(R.id.left_LL).setOnClickListener(this);
+    findViewById(R.id.tv_add_wifi).setOnClickListener(this);
+    findViewById(R.id.tv_add_address).setOnClickListener(this);
 
+}
     @Override
     protected void initView(Bundle savedInstanceState) {
         super.initView(savedInstanceState);
         setContentView(R.layout.acitivty_sign_setting);
+        initViewBind();
         tvTitle.setText("考勤组设置");
         UnitID = getIntent().getStringExtra("id");
         name = getIntent().getStringExtra("name");
@@ -133,8 +137,8 @@ public class SignSettingActivity extends BaseActivity {
         mCurrentWifiMac = info.getBSSID();
     }
 
-    @OnClick({R.id.left_LL, R.id.tv_add_wifi, R.id.tv_add_address})
-    public void onViewClicked(View view) {
+    @Override
+    public void onClick(View view) {
         switch (view.getId()) {
             case R.id.left_LL:
                 this.finish();
@@ -157,7 +161,6 @@ public class SignSettingActivity extends BaseActivity {
                 break;
         }
     }
-
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);

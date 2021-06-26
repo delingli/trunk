@@ -20,29 +20,34 @@ import com.hkzr.wlwd.ui.base.BaseActivity;
 import com.hkzr.wlwd.ui.fragment.FieldFragment;
 import com.hkzr.wlwd.ui.fragment.WebFragment;
 
-import butterknife.Bind;
-import butterknife.OnClick;
 
 /**
  * 外勤签到
  */
 
-public class OutsideSignActivity extends BaseActivity {
-    @Bind(R.id.tv_title)
+public class OutsideSignActivity extends BaseActivity implements View.OnClickListener {
     TextView tvTitle;
-    @Bind(R.id.iv_right)
     ImageView iv_right;
-    @Bind(R.id.right_LL)
     LinearLayout right_LL;
-    @Bind(R.id.btn_check)
     Button btnCheck;
-    @Bind(R.id.btn_footprint)
     Button btnFootprint;
-    @Bind(R.id.fragment_container)
     FrameLayout fragmentContainer;
     private FragmentManager fm;
     private FragmentTransaction ft;
     public static int index = 0;
+
+    private void initViewBind() {
+        tvTitle = findViewById(R.id.tv_title);
+        iv_right = findViewById(R.id.iv_right);
+        right_LL = findViewById(R.id.right_LL);
+        btnCheck = findViewById(R.id.btn_check);
+        btnFootprint = findViewById(R.id.btn_footprint);
+        fragmentContainer = findViewById(R.id.fragment_container);
+    findViewById(R.id.left_LL).setOnClickListener(this);
+    findViewById(R.id.btn_check).setOnClickListener(this);
+    findViewById(R.id.btn_footprint).setOnClickListener(this);
+    findViewById(R.id.right_LL).setOnClickListener(this);
+    }
 
     /**
      * bottom tab button
@@ -51,6 +56,7 @@ public class OutsideSignActivity extends BaseActivity {
     protected void initView(Bundle savedInstanceState) {
         super.initView(savedInstanceState);
         setContentView(R.layout.activity_outside_sign);
+        initViewBind();
         tvTitle.setText("外勤签到");
         iv_right.setImageResource(R.drawable.help);
         fm = getSupportFragmentManager();
@@ -69,8 +75,8 @@ public class OutsideSignActivity extends BaseActivity {
         btnCheck.setSelected(true);
     }
 
-    @OnClick({R.id.left_LL, R.id.btn_check, R.id.btn_footprint, R.id.right_LL})
-    public void onViewClicked(View view) {
+    @Override
+    public void onClick(View view) {
         switch (view.getId()) {
             case R.id.left_LL:
                 this.finish();
@@ -99,9 +105,10 @@ public class OutsideSignActivity extends BaseActivity {
             case R.id.right_LL:
                 Intent intent = new Intent(this, SDK_WebView.class);
                 intent.putExtra("title", "签到帮助");
-                intent.putExtra("url", App.getInstance().getH5Url() + ReqUrl.SysHelp_qiandao+ UserInfoCache.init().getTokenid());
+                intent.putExtra("url", App.getInstance().getH5Url() + ReqUrl.SysHelp_qiandao + UserInfoCache.init().getTokenid());
                 startActivity(intent);
                 break;
         }
     }
+
 }

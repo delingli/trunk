@@ -49,21 +49,15 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import butterknife.Bind;
-import butterknife.OnClick;
 
 /**
  * 地图微调
  */
 
-public class MapActivity extends BaseActivity implements OnGetPoiSearchResultListener {
-    @Bind(R.id.tv_title)
+public class MapActivity extends BaseActivity implements OnGetPoiSearchResultListener, View.OnClickListener {
     TextView tvTitle;
-    @Bind(R.id.tv_right)
     TextView tvRight;
-    @Bind(R.id.map)
     MapView map;
-    @Bind(R.id.lv_address)
     PullToRefreshListView lvAddress;
     int type = -1;// 1添加位置 2 地图微调
     public LocationClient mLocationClient = null;
@@ -85,11 +79,22 @@ public class MapActivity extends BaseActivity implements OnGetPoiSearchResultLis
         }
     };
 
+    private void initViewBind() {
+
+        tvTitle = findViewById(R.id.tv_title);
+        tvRight = findViewById(R.id.tv_right);
+        map = findViewById(R.id.map);
+        lvAddress = findViewById(R.id.lv_address);
+        findViewById(R.id.left_LL).setOnClickListener(this);
+        findViewById(R.id.right_LL).setOnClickListener(this);
+
+    }
 
     @Override
     protected void initView(Bundle savedInstanceState) {
         super.initView(savedInstanceState);
         setContentView(R.layout.activity_map);
+        initViewBind();
         tvTitle.setText("地图微调");
         tvRight.setText("完成");
         initListener();
@@ -188,8 +193,8 @@ public class MapActivity extends BaseActivity implements OnGetPoiSearchResultLis
         });
     }
 
-    @OnClick({R.id.left_LL, R.id.right_LL})
-    public void onViewClicked(View view) {
+    @Override
+    public void onClick(View view) {
         switch (view.getId()) {
             case R.id.left_LL:
                 this.finish();
@@ -267,7 +272,7 @@ public class MapActivity extends BaseActivity implements OnGetPoiSearchResultLis
         }
     }
 
- 
+
     @Override
     public void onGetPoiDetailResult(PoiDetailResult poiDetailResult) {
 
@@ -275,7 +280,7 @@ public class MapActivity extends BaseActivity implements OnGetPoiSearchResultLis
 
     @Override
     public void onGetPoiDetailResult(PoiDetailSearchResult poiDetailSearchResult) {
-        
+
     }
 
     @Override

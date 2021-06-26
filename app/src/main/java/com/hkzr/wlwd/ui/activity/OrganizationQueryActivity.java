@@ -26,22 +26,16 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import butterknife.Bind;
-import butterknife.OnClick;
 
 /**
  * 组织查询
  */
 
-public class OrganizationQueryActivity extends BaseActivity implements OrganizationRecyleViewAdapter.MyItemClickListener {
+public class OrganizationQueryActivity extends BaseActivity implements OrganizationRecyleViewAdapter.MyItemClickListener,View.OnClickListener {
 
-    @Bind(R.id.tv_title)
     TextView tvTitle;
-    @Bind(R.id.rv_organization)
     RecyclerView rv_organization;
-    @Bind(R.id.viewpager)
     NoScrollViewPager viewpager;
-    @Bind(R.id.iv_home)
     ImageView iv_home;
 
 
@@ -52,10 +46,21 @@ public class OrganizationQueryActivity extends BaseActivity implements Organizat
     List<String> title = new ArrayList<>();
     OrganizationRecyleViewAdapter myRecyclerAdapter;
 
+    private void initViewBind() {
+        tvTitle = findViewById(R.id.tv_title);
+        rv_organization = findViewById(R.id.rv_organization);
+        viewpager = findViewById(R.id.viewpager);
+        iv_home = findViewById(R.id.iv_home);
+        findViewById(R.id.iv_back).setOnClickListener(this);
+        findViewById(R.id.iv_close).setOnClickListener(this);
+        findViewById(R.id.iv_home).setOnClickListener(this);
+    }
+
     @Override
     protected void initView(Bundle savedInstanceState) {
         super.initView(savedInstanceState);
         setContentView(R.layout.activity_organization);
+        initViewBind();
         tvTitle.setText("组织查询");
         orgid = getIntent().getStringExtra("orgId");
         if (TextUtils.isEmpty(orgid)) {
@@ -103,9 +108,9 @@ public class OrganizationQueryActivity extends BaseActivity implements Organizat
         }, true, false);
     }
 
-    @OnClick({R.id.iv_back, R.id.iv_close, R.id.iv_home})
-    public void OnClick(View v) {
-        switch (v.getId()) {
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()) {
             case R.id.iv_back:
                 int current = viewpager.getCurrentItem();
                 currentItem = current - 1;

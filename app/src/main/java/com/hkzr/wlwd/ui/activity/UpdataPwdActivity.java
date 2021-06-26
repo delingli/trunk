@@ -20,46 +20,52 @@ import com.hkzr.wlwd.ui.utils.TimeCount;
 import java.util.HashMap;
 import java.util.Map;
 
-import butterknife.Bind;
-import butterknife.OnClick;
 import cn.jpush.android.api.JPushInterface;
 
 /**
  * 修改密码
  */
-public class UpdataPwdActivity extends BaseActivity {
-    @Bind(R.id.iv_left)
+public class UpdataPwdActivity extends BaseActivity implements View.OnClickListener {
     ImageView ivLeft;
-    @Bind(R.id.tv_left)
     TextView tvLeft;
-    @Bind(R.id.left_LL)
     LinearLayout leftLL;
-    @Bind(R.id.tv_title)
     TextView tvTitle;
-    @Bind(R.id.iv_right)
     ImageView ivRight;
-    @Bind(R.id.tv_right)
     TextView tvRight;
-    @Bind(R.id.right_LL)
     LinearLayout rightLL;
-    @Bind(R.id.rl_title)
     RelativeLayout rlTitle;
-    @Bind(R.id.et_sjh)
     EditText etSjh;
-    @Bind(R.id.et_mm)
     EditText etMm;
-    @Bind(R.id.tv_yzm)
     TextView tvYzm;
-    @Bind(R.id.et_xmm)
     EditText etXmm;
-    @Bind(R.id.et_qxmm)
     EditText etQxmm;
-    @Bind(R.id.tv_qr)
     TextView tvQr;
+
+    private void initViewBind() {
+        ivLeft = findViewById(R.id.iv_left);
+        tvLeft = findViewById(R.id.tv_left);
+        leftLL = findViewById(R.id.left_LL);
+        tvTitle = findViewById(R.id.tv_title);
+        ivRight = findViewById(R.id.iv_right);
+        tvRight = findViewById(R.id.tv_right);
+        rightLL = findViewById(R.id.right_LL);
+        rlTitle = findViewById(R.id.rl_title);
+        etSjh = findViewById(R.id.et_sjh);
+        etMm = findViewById(R.id.et_mm);
+        tvYzm = findViewById(R.id.tv_yzm);
+        etXmm = findViewById(R.id.et_xmm);
+        etQxmm = findViewById(R.id.et_qxmm);
+        tvQr = findViewById(R.id.tv_qr);
+        findViewById(R.id.left_LL).setOnClickListener(this);
+        findViewById(R.id.tv_yzm).setOnClickListener(this);
+        findViewById(R.id.tv_qr).setOnClickListener(this);
+
+    }
 
     @Override
     protected void initView(Bundle savedInstanceState) {
         setContentView(R.layout.activity_updatapw);
+        initViewBind();
         //初始化需要初始化的控件、赋值等操作
         initViewDatas();
     }
@@ -81,8 +87,7 @@ public class UpdataPwdActivity extends BaseActivity {
         tvTitle.setText(R.string.xgmm);
     }
 
-
-    @OnClick({R.id.left_LL, R.id.tv_yzm, R.id.tv_qr})
+    @Override
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.left_LL:
@@ -95,7 +100,9 @@ public class UpdataPwdActivity extends BaseActivity {
                 updata();
                 break;
         }
+
     }
+
 
     TimeCount timeCount;
 

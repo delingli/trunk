@@ -46,46 +46,26 @@ import java.io.InputStream;
 import java.util.HashMap;
 import java.util.Map;
 
-import butterknife.Bind;
-import butterknife.OnClick;
 
-public class MineInfoActivity extends BaseActivity {
+public class MineInfoActivity extends BaseActivity implements View.OnClickListener{
 
-    @Bind(R.id.iv_left)
     ImageView ivLeft;
-    @Bind(R.id.tv_left)
     TextView tvLeft;
-    @Bind(R.id.left_LL)
     LinearLayout leftLL;
-    @Bind(R.id.tv_title)
     TextView tvTitle;
-    @Bind(R.id.iv_right)
     ImageView ivRight;
-    @Bind(R.id.tv_right)
     TextView tvRight;
-    @Bind(R.id.right_LL)
     LinearLayout rightLL;
-    @Bind(R.id.rl_title)
     RelativeLayout rlTitle;
-    @Bind(R.id.iv_head)
     XCRoundRectImageView ivHead;
-    @Bind(R.id.tv_yx)
     TextView tvYx;
-    @Bind(R.id.tv_sj)
     TextView tvSj;
-    @Bind(R.id.tv_qq)
     TextView tvQq;
-    @Bind(R.id.tv_wx)
     TextView tvWx;
-    @Bind(R.id.tv_zj)
     TextView tvZj;
-    @Bind(R.id.tv_dw)
     TextView tvDw;
-    @Bind(R.id.tv_bm)
     TextView tvBm;
-    @Bind(R.id.tv_gw)
     TextView tvGw;
-    @Bind(R.id.cb_1)
     CheckBox cb_1;
     PicturePicker picturePicker = null;
     private static final String IMAGE_FILE_LOCATION = "file:///sdcard/icon.jpg";// temp
@@ -93,10 +73,42 @@ public class MineInfoActivity extends BaseActivity {
     private String headPath = "";
     private File tempFile;
 
+    private void initViewBind() {
+        ivLeft = findViewById(R.id.iv_left);
+        tvLeft = findViewById(R.id.tv_left);
+        leftLL = findViewById(R.id.left_LL);
+        tvTitle = findViewById(R.id.tv_title);
+        ivRight = findViewById(R.id.iv_right);
+        tvRight = findViewById(R.id.tv_right);
+        rightLL = findViewById(R.id.right_LL);
+        rlTitle = findViewById(R.id.rl_title);
+        ivHead = findViewById(R.id.iv_head);
+        tvYx = findViewById(R.id.tv_yx);
+        tvSj = findViewById(R.id.tv_sj);
+        tvQq = findViewById(R.id.tv_qq);
+        tvWx = findViewById(R.id.tv_wx);
+        tvZj = findViewById(R.id.tv_zj);
+        tvDw = findViewById(R.id.tv_dw);
+        tvBm = findViewById(R.id.tv_bm);
+        tvGw = findViewById(R.id.tv_gw);
+        cb_1 = findViewById(R.id.cb_1);
+        findViewById(R.id.left_LL).setOnClickListener(this);
+        findViewById(R.id.tv_yx).setOnClickListener(this);
+        findViewById(R.id.iv_head).setOnClickListener(this);
+        findViewById(R.id.tv_qq).setOnClickListener(this);
+        findViewById(R.id.tv_wx).setOnClickListener(this);
+        findViewById(R.id.tv_zj).setOnClickListener(this);
+        findViewById(R.id.tv_dw).setOnClickListener(this);
+        findViewById(R.id.tv_bm).setOnClickListener(this);
+        findViewById(R.id.tv_gw).setOnClickListener(this);
+
+
+    }
 
     @Override
     protected void initView(Bundle savedInstanceState) {
         setContentView(R.layout.activity_mine_info);
+        initViewBind();
         //初始化需要初始化的控件、赋值等操作
         initViewDatas();
     }
@@ -139,7 +151,7 @@ public class MineInfoActivity extends BaseActivity {
     }
 
 
-    @OnClick({R.id.left_LL, R.id.tv_yx, R.id.iv_head, R.id.tv_qq, R.id.tv_wx, R.id.tv_zj, R.id.tv_dw, R.id.tv_bm, R.id.tv_gw})
+    @Override
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.left_LL:
@@ -179,7 +191,6 @@ public class MineInfoActivity extends BaseActivity {
                 break;
         }
     }
-
 
     //获取访问相机,相册权限
     private void getPermission() {

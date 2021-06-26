@@ -48,9 +48,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import butterknife.Bind;
-import butterknife.ButterKnife;
-import butterknife.OnClick;
 
 /**
  * 考勤签到
@@ -58,35 +55,20 @@ import butterknife.OnClick;
 
 public class AttendanceSignFragment extends BaseFragment {
 
-    @Bind(R.id.lv_sign)
     MyListView lvSign;
-    @Bind(R.id.iv_icon)
     CircleImageView ivIcon;
-    @Bind(R.id.tv_name)
     TextView tvName;
-    @Bind(R.id.tv_kqz)
     TextView tvKqz;
-    @Bind(R.id.tv_date)
     TextView tvDate;
-    @Bind(R.id.ll)
     LinearLayout ll;
-    @Bind(R.id.view_top)
     View viewTop;
-    @Bind(R.id.tv_anniu)
     TextView tvAnniu;
-    @Bind(R.id.tv_time)
     TextView tvTime;
-    @Bind(R.id.ll_anniu)
     LinearLayout llAnniu;
-    @Bind(R.id.iv_tip)
     ImageView ivTip;
-    @Bind(R.id.tv_tip)
     TextView tvTip;
-    @Bind(R.id.tv_state)
     TextView tv_state;
-    @Bind(R.id.tv)
     TextView tv;
-    @Bind(R.id.rl_top)
     RelativeLayout rl_top;
 
     List<String> list;
@@ -142,6 +124,37 @@ public class AttendanceSignFragment extends BaseFragment {
         intentFilter.addAction(LOCATION);
         getActivity().registerReceiver(receiver, intentFilter);
         mLocationClient.start();
+    }
+
+    @Override
+    public void findView(View parent) {
+        lvSign = parent.findViewById(R.id.lv_sign);
+        ivIcon = parent.findViewById(R.id.iv_icon);
+        tvName = parent.findViewById(R.id.tv_name);
+        tvKqz = parent.findViewById(R.id.tv_kqz);
+        tvDate = parent.findViewById(R.id.tv_date);
+        ll = parent.findViewById(R.id.ll);
+        viewTop = parent.findViewById(R.id.view_top);
+        tvAnniu = parent.findViewById(R.id.tv_anniu);
+        tvTime = parent.findViewById(R.id.tv_time);
+        llAnniu = parent.findViewById(R.id.ll_anniu);
+        ivTip = parent.findViewById(R.id.iv_tip);
+        tv_state = parent.findViewById(R.id.tv_state);
+        tv = parent.findViewById(R.id.tv);
+        rl_top = parent.findViewById(R.id.rl_top);
+ parent.findViewById(R.id.ll_anniu).setOnClickListener(new View.OnClickListener() {
+     @Override
+     public void onClick(View view) {
+         if (isSign && !isWai) { //考勤打卡
+             sign(null);
+         } else if (isSign && isWai) { //外勤打卡
+             Intent intent = new Intent(getActivity(), FieldSignActivity.class);
+             intent.putExtra("time", mCurrentTime);
+             startActivityForResult(intent, REQUEST);
+         }
+     }
+ });
+
     }
 
     @Override
@@ -285,20 +298,10 @@ public class AttendanceSignFragment extends BaseFragment {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        ButterKnife.unbind(this);
     }
 
 
-    @OnClick(R.id.ll_anniu)
-    public void onViewClicked() {
-        if (isSign && !isWai) { //考勤打卡
-            sign(null);
-        } else if (isSign && isWai) { //外勤打卡
-            Intent intent = new Intent(getActivity(), FieldSignActivity.class);
-            intent.putExtra("time", mCurrentTime);
-            startActivityForResult(intent, REQUEST);
-        }
-    }
+
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {

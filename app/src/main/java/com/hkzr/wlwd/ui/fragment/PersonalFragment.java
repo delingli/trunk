@@ -38,9 +38,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import butterknife.Bind;
-import butterknife.ButterKnife;
-import butterknife.OnClick;
 import cn.jpush.android.api.JPushInterface;
 
 /**
@@ -48,21 +45,14 @@ import cn.jpush.android.api.JPushInterface;
  *
  * @author zl
  */
-public class PersonalFragment extends BaseFragment implements AdapterView.OnItemClickListener {
+public class PersonalFragment extends BaseFragment implements AdapterView.OnItemClickListener , View.OnClickListener {
 
-    @Bind(R.id.rl_head)
     RelativeLayout rlhead;
-    @Bind(R.id.iv_head)
     XCRoundRectImageView ivHead;
-    @Bind(R.id.tv_name)
     TextView tvName;
-    @Bind(R.id.tv_phone)
     TextView tvPhone;
-    @Bind(R.id.lv_mine)
     MyListView lv_mine;
-    @Bind(R.id.tv_xtsz)
     TextView tvXtsz;
-    @Bind(R.id.tv_tcdl)
     TextView tvTcdl;
     OpenAdapter mMyAdapter;
     List<MineList> list;
@@ -70,6 +60,22 @@ public class PersonalFragment extends BaseFragment implements AdapterView.OnItem
     @Override
     public int getViewId() {
         return R.layout.layout_mine;
+    }
+
+    @Override
+    public void findView(View parent) {
+        rlhead=  parent.findViewById(R.id.rl_head);
+        ivHead=  parent.findViewById(R.id.iv_head);
+        tvName=  parent.findViewById(R.id.tv_name);
+        tvPhone=  parent.findViewById(R.id.tv_phone);
+        lv_mine=  parent.findViewById(R.id.lv_mine);
+        tvXtsz=  parent.findViewById(R.id.tv_xtsz);
+        tvTcdl=  parent.findViewById(R.id.tv_tcdl);
+        parent.findViewById(R.id.rl_head).setOnClickListener(this);
+        parent.findViewById(R.id.tv_xtsz).setOnClickListener(this);
+        parent.findViewById(R.id.tv_tcdl).setOnClickListener(this);
+//        @OnClick({R.id.rl_head,/* R.id.tv_xgmm, R.id.tv_xtbz, R.id.tv_gywm, R.id.tv_yjfk,*/ R.id.tv_xtsz, R.id.tv_tcdl})
+
     }
 
     @Override
@@ -109,10 +115,9 @@ public class PersonalFragment extends BaseFragment implements AdapterView.OnItem
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        ButterKnife.unbind(this);
     }
 
-    @OnClick({R.id.rl_head,/* R.id.tv_xgmm, R.id.tv_xtbz, R.id.tv_gywm, R.id.tv_yjfk,*/ R.id.tv_xtsz, R.id.tv_tcdl})
+    @Override
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.rl_head:
@@ -120,7 +125,7 @@ public class PersonalFragment extends BaseFragment implements AdapterView.OnItem
                 break;
 //            case R.id.tv_pyq:
 //                jump(FriendCircleActivity.class);
-//                
+//
 //                break;
 //            case R.id.tv_wdrc:
 //                bundle = new Bundle();
@@ -163,6 +168,8 @@ public class PersonalFragment extends BaseFragment implements AdapterView.OnItem
                 break;
         }
     }
+
+
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {

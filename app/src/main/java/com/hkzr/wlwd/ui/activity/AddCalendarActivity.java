@@ -37,53 +37,31 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import butterknife.Bind;
-import butterknife.OnClick;
 
 /**
  * 添加日程
  */
 
-public class AddCalendarActivity extends BaseActivity {
-    @Bind(R.id.tv_title)
+public class AddCalendarActivity extends BaseActivity implements View.OnClickListener {
     TextView tvTitle;
-    @Bind(R.id.tv_calendar_title)
     EditText tvCalendarTitle;
-    @Bind(R.id.cb)
     CheckBox cb;
-    @Bind(R.id.tv_start_time)
     TextView tvStartTime;
-    @Bind(R.id.tv_end_time)
     TextView tvEndTime;
-    @Bind(R.id.tv_remind)
     TextView tvRemind;
-    @Bind(R.id.tv_repeat)
     TextView tvRepeat;
-    @Bind(R.id.tv_account)
     TextView tvAccount;
-    @Bind(R.id.ed_address)
     EditText edAddress;
-    @Bind(R.id.ed_remarks)
     EditText edRemarks;
-    @Bind(R.id.rg_gk)
     RadioGroup rg_gk;
-    @Bind(R.id.rb_mr)
     RadioButton rb_mr;
-    @Bind(R.id.rb_sm)
     RadioButton rb_sm;
-    @Bind(R.id.tv_end_repeat)
     TextView tv_end_repeat;
-    @Bind(R.id.ll_end_repeat)
     LinearLayout ll_end_repeat;
-    @Bind(R.id.view_end_repeat)
     View view_end_repeat;
-    @Bind(R.id.ll_account)
     LinearLayout ll_account;
-    @Bind(R.id.tv_right)
     TextView tvRight;
-    @Bind(R.id.ll_repeat)
     LinearLayout ll_repeat;
-    @Bind(R.id.view_repeat)
     View view_repeat;
 
     private static final int REQUESTCODE = 0x1211;
@@ -114,10 +92,113 @@ public class AddCalendarActivity extends BaseActivity {
     boolean isChange = true;
     String mListCurrentDate = ""; //当前选中日期
 
+    private void initViewBind() {
+        tvTitle = findViewById(R.id.tv_title);
+        tvCalendarTitle = findViewById(R.id.tv_calendar_title);
+        cb = findViewById(R.id.cb);
+        tvStartTime = findViewById(R.id.tv_start_time);
+        tvEndTime = findViewById(R.id.tv_end_time);
+        tvRemind = findViewById(R.id.tv_remind);
+        tvAccount = findViewById(R.id.tv_account);
+        edAddress = findViewById(R.id.ed_address);
+        edRemarks = findViewById(R.id.ed_remarks);
+        rg_gk = findViewById(R.id.rg_gk);
+        rb_mr = findViewById(R.id.rb_mr);
+        rb_sm = findViewById(R.id.rb_sm);
+        tv_end_repeat = findViewById(R.id.tv_end_repeat);
+        ll_end_repeat = findViewById(R.id.ll_end_repeat);
+        view_end_repeat = findViewById(R.id.view_end_repeat);
+        ll_account = findViewById(R.id.ll_account);
+        tvRight = findViewById(R.id.tv_right);
+        ll_repeat = findViewById(R.id.ll_repeat);
+        view_repeat = findViewById(R.id.view_repeat);
+
+        findViewById(R.id.left_LL).setOnClickListener(this);
+        findViewById(R.id.ll_start_time).setOnClickListener(this);
+        findViewById(R.id.tv_select_address).setOnClickListener(this);
+        findViewById(R.id.ll_end_time).setOnClickListener(this);
+        findViewById(R.id.ll_remind).setOnClickListener(this);
+        findViewById(R.id.ll_end_repeat).setOnClickListener(this);
+        findViewById(R.id.ll_repeat).setOnClickListener(this);
+        findViewById(R.id.ll_account).setOnClickListener(this);
+        findViewById(R.id.right_LL).setOnClickListener(this);
+    }
+
+    @Override
+    public void onClick(View view) {
+        HideKeyboard(view);
+        Bundle bundle = new Bundle();
+        switch (view.getId()) {
+            case R.id.left_LL:
+                this.finish();
+                break;
+            case R.id.ll_start_time:
+                /*选择日期时间*/
+                DialogUtil.showDateTime(this, startDate, new TimePickerView.OnTimeSelectListener() {
+                    @Override
+                    public void onTimeSelect(Date date, View v) {
+                        if (date.getTime() >= mCurrentdate.getTime()) {
+                            startDate = date;
+                            if (startDate.getTime() > endDate.getTime()) {
+                                endDate = TimeUtil.long2Date(startDate.getTime() + 3600000, TimeUtil.FORMAT_DATE_TIME);
+                            }
+                            switchTime();
+                        }
+                    }
+                }, !isDay).show();
+                break;
+
+            case R.id.ll_end_time:
+                /*选择日期时间*/
+                DialogUtil.showDateTime(this, endDate, new TimePickerView.OnTimeSelectListener() {
+                    @Override
+                    public void onTimeSelect(Date date, View v) {
+                        if (date.getTime() >= mCurrentdate.getTime()) {
+                            if (date.getTime() >= startDate.getTime()) {
+                                endDate = date;
+                                switchTime();
+                            }
+                        }
+
+                    }
+                }, !isDay).show();
+                break;
+            case R.id.ll_remind:
+                bundle.putInt("type", isDay ? 3 : 0);
+                bundle.putInt("index", RemindIndex);
+                jumpTo(CalendarOptionActivity.class, bundle, 111);
+                break;
+            case R.id.ll_end_repeat:
+                bundle.putInt("type", 2);
+                bundle.putString("date", end_repeat);
+                jumpTo(CalendarOptionActivity.class, bundle, 111);
+                break;
+            case R.id.ll_repeat:
+                bundle.putInt("type", 1);
+                bundle.putInt("index", repeatIndex);
+                bundle.putString("date", TimeUtil.date2String(startDate, TimeUtil.FORMAT_DATE));
+                jumpTo(CalendarOptionActivity.class, bundle, 111);
+                break;
+            case R.id.ll_account:
+                alertDialog.show();
+                break;
+            case R.id.right_LL:
+                checkData();
+                break;
+            case R.id.tv_select_address:
+                Intent intent = new Intent(this, MapLocationActivity.class);
+                intent.putExtra("type", 2);
+                startActivityForResult(intent, REQUESTCODE);
+                break;
+
+        }
+    }
+
     @Override
     protected void initView(Bundle savedInstanceState) {
         super.initView(savedInstanceState);
         setContentView(R.layout.activity_add_calendar);
+        initViewBind();
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
         type = getIntent().getIntExtra("type", 0);
         mCurrentdate = new Date();
@@ -334,74 +415,6 @@ public class AddCalendarActivity extends BaseActivity {
         }
     }
 
-
-    @OnClick({R.id.left_LL, R.id.ll_start_time, R.id.tv_select_address, R.id.ll_end_time, R.id.ll_remind, R.id.ll_end_repeat, R.id.ll_repeat, R.id.ll_account, R.id.right_LL})
-    public void onViewClicked(View view) {
-        HideKeyboard(view);
-        Bundle bundle = new Bundle();
-        switch (view.getId()) {
-            case R.id.left_LL:
-                this.finish();
-                break;
-            case R.id.ll_start_time:
-                     /*选择日期时间*/
-                DialogUtil.showDateTime(this, startDate, new TimePickerView.OnTimeSelectListener() {
-                    @Override
-                    public void onTimeSelect(Date date, View v) {
-                        if (date.getTime() >= mCurrentdate.getTime()) {
-                            startDate = date;
-                            if (startDate.getTime() > endDate.getTime()) {
-                                endDate = TimeUtil.long2Date(startDate.getTime() + 3600000, TimeUtil.FORMAT_DATE_TIME);
-                            }
-                            switchTime();
-                        }
-                    }
-                }, !isDay).show();
-                break;
-            case R.id.ll_end_time:
-                  /*选择日期时间*/
-                DialogUtil.showDateTime(this, endDate, new TimePickerView.OnTimeSelectListener() {
-                    @Override
-                    public void onTimeSelect(Date date, View v) {
-                        if (date.getTime() >= mCurrentdate.getTime()) {
-                            if (date.getTime() >= startDate.getTime()) {
-                                endDate = date;
-                                switchTime();
-                            }
-                        }
-
-                    }
-                }, !isDay).show();
-                break;
-            case R.id.ll_remind:
-                bundle.putInt("type", isDay ? 3 : 0);
-                bundle.putInt("index", RemindIndex);
-                jumpTo(CalendarOptionActivity.class, bundle, 111);
-                break;
-            case R.id.ll_end_repeat:
-                bundle.putInt("type", 2);
-                bundle.putString("date", end_repeat);
-                jumpTo(CalendarOptionActivity.class, bundle, 111);
-                break;
-            case R.id.ll_repeat:
-                bundle.putInt("type", 1);
-                bundle.putInt("index", repeatIndex);
-                bundle.putString("date", TimeUtil.date2String(startDate, TimeUtil.FORMAT_DATE));
-                jumpTo(CalendarOptionActivity.class, bundle, 111);
-                break;
-            case R.id.ll_account:
-                alertDialog.show();
-                break;
-            case R.id.right_LL:
-                checkData();
-                break;
-            case R.id.tv_select_address:
-                Intent intent = new Intent(this, MapLocationActivity.class);
-                intent.putExtra("type", 2);
-                startActivityForResult(intent, REQUESTCODE);
-                break;
-        }
-    }
 
     //隐藏虚拟键盘
     public static void HideKeyboard(View v) {

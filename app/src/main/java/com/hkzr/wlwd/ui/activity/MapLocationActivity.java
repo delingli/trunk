@@ -42,23 +42,13 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import butterknife.Bind;
-import butterknife.OnClick;
-
-public class MapLocationActivity extends BaseActivity {
-    @Bind(R.id.tv_title)
+public class MapLocationActivity extends BaseActivity implements View.OnClickListener {
     TextView tvTitle;
-    @Bind(R.id.tv_right)
     TextView tvRight;
-    @Bind(R.id.map)
     MapView mMapView;
-    @Bind(R.id.imageView)
     ImageView imageView;
-    @Bind(R.id.tv_tip)
     TextView tv_tip;
-    @Bind(R.id.view)
     View view;
-    @Bind(R.id.lv_address)
     ListView Maplistview;
     BaiduMap baiduMap;
     //当前经纬度
@@ -75,11 +65,24 @@ public class MapLocationActivity extends BaseActivity {
     BitmapDescriptor bdA = BitmapDescriptorFactory
             .fromResource(R.drawable.location);
     int type = 0;
+private void initViewBind(){
+    tvTitle=   findViewById(R.id.tv_title);
+    tvRight=   findViewById(R.id.tv_right);
+    mMapView=   findViewById(R.id.map);
+    imageView=   findViewById(R.id.imageView);
+    tv_tip=   findViewById(R.id.tv_tip);
+    view=   findViewById(R.id.view);
+    Maplistview=   findViewById(R.id.lv_address);
+    findViewById(R.id.tv_right).setOnClickListener(this);
+    findViewById(R.id.left_LL).setOnClickListener(this);
 
+
+}
     @Override
     protected void initView(Bundle savedInstanceState) {
         super.initView(savedInstanceState);
         setContentView(R.layout.activity_rong_map);
+        initViewBind();
         tvTitle.setText("地图");
         type = getIntent().getIntExtra("type", 0);
 
@@ -105,6 +108,29 @@ public class MapLocationActivity extends BaseActivity {
         initListener();
         initBaidu();
         setLocationOption();
+    }
+
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.tv_right:
+                if (type == 0 || type == 2) {
+                    Uri uri = Uri.parse("http://api.map.baidu.com/staticimage?width=500&height=330&center=" + mCurentInfo.location.longitude + "," + mCurentInfo.location.latitude + "&zoom=17&markers=" + mCurentInfo.location.longitude + "," + mCurentInfo.location.latitude + "&markerStyles=m,A");
+                    Intent intent = new Intent();
+                    intent.putExtra("latitude", mCurentInfo.location.latitude);
+                    intent.putExtra("longitude", mCurentInfo.location.longitude);
+                    intent.putExtra("address", mCurentInfo.address);
+                    intent.putExtra("locuri", uri.toString());
+                    setResult(RESULT_CODE, intent);
+                    finish();
+                } else if (type == 1) {
+                    toAddLoc(mCurentInfo);
+                }
+                break;
+            case R.id.left_LL:
+                finish();
+                break;
+        }
     }
 
     private void initListener() {
@@ -143,28 +169,6 @@ public class MapLocationActivity extends BaseActivity {
         locationClient.start(); // 开始定位
     }
 
-    @OnClick({R.id.tv_right, R.id.left_LL})
-    public void Onclick(View v) {
-        switch (v.getId()) {
-            case R.id.tv_right:
-                if (type == 0 || type == 2) {
-                    Uri uri = Uri.parse("http://api.map.baidu.com/staticimage?width=500&height=330&center=" + mCurentInfo.location.longitude + "," + mCurentInfo.location.latitude + "&zoom=17&markers=" + mCurentInfo.location.longitude + "," + mCurentInfo.location.latitude + "&markerStyles=m,A");
-                    Intent intent = new Intent();
-                    intent.putExtra("latitude", mCurentInfo.location.latitude);
-                    intent.putExtra("longitude", mCurentInfo.location.longitude);
-                    intent.putExtra("address", mCurentInfo.address);
-                    intent.putExtra("locuri", uri.toString());
-                    setResult(RESULT_CODE, intent);
-                    finish();
-                } else if (type == 1) {
-                    toAddLoc(mCurentInfo);
-                }
-                break;
-            case R.id.left_LL:
-                finish();
-                break;
-        }
-    }
 
 
     private void toAddLoc(PoiInfo poiInfo) {

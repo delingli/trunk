@@ -44,34 +44,20 @@ import com.hkzr.wlwd.ui.utils.TimeUtil;
 import java.util.HashMap;
 import java.util.Map;
 
-import butterknife.Bind;
-import butterknife.ButterKnife;
-import butterknife.OnClick;
-
 /**
  * 外勤签到
  */
 
-public class FieldFragment extends BaseFragment {
-    @Bind(R.id.tv_date)
+public class FieldFragment extends BaseFragment implements View.OnClickListener {
     TextView tvDate;
-    @Bind(R.id.tv_address)
     TextView tvAddress;
-    @Bind(R.id.tv_map)
     TextView tvMap;
-    @Bind(R.id.map)
     MapView mMapView;
-    @Bind(R.id.ed_info)
     EditText edInfo;
-    @Bind(R.id.tv_anniu)
     TextView tvAnniu;
-    @Bind(R.id.tv_time)
     TextView tvTime;
-    @Bind(R.id.ll_anniu)
     LinearLayout llAnniu;
-    @Bind(R.id.tv_tip)
     TextView tv_tip;
-    @Bind(R.id.ll_tip)
     LinearLayout llTip;
     BaiduMap mBaiduMap;
     public LocationClient mLocationClient = null;
@@ -96,6 +82,24 @@ public class FieldFragment extends BaseFragment {
     String custno;
     String custcn;
     boolean isClean = true;
+
+    @Override
+    public void findView(View parent) {
+        tvDate=     parent.findViewById(R.id.tv_date);
+        tvAddress=     parent.findViewById(R.id.tv_address);
+        tvMap=     parent.findViewById(R.id.tv_map);
+        mMapView=     parent.findViewById(R.id.map);
+        edInfo=     parent.findViewById(R.id.ed_info);
+        tvAnniu=     parent.findViewById(R.id.tv_anniu);
+        tvTime=     parent.findViewById(R.id.tv_time);
+        llAnniu=     parent.findViewById(R.id.ll_anniu);
+        tv_tip=     parent.findViewById(R.id.tv_tip);
+        llTip=     parent.findViewById(R.id.ll_tip);
+        parent.findViewById(R.id.tv_map).setOnClickListener(this);
+        parent.findViewById(R.id.tv_select).setOnClickListener(this);
+        parent.findViewById(R.id.ll_anniu).setOnClickListener(this);
+
+    }
 
     @Override
     public void initWidget(View parent) {
@@ -179,7 +183,6 @@ public class FieldFragment extends BaseFragment {
         mBaiduMap.setMyLocationEnabled(false);
         mMapView.onDestroy();
         mMapView = null;
-        ButterKnife.unbind(this);
         getActivity().unregisterReceiver(receiver);
     }
 
@@ -246,8 +249,8 @@ public class FieldFragment extends BaseFragment {
         mBaiduMap.animateMapStatus(MapStatusUpdateFactory.newMapStatus(builder.build()));
     }
 
-    @OnClick({R.id.tv_map, R.id.tv_select, R.id.ll_anniu})
-    public void onViewClicked(View view) {
+    @Override
+    public void onClick(View view) {
         Intent intent = new Intent();
         switch (view.getId()) {
             case R.id.tv_map:
@@ -279,6 +282,8 @@ public class FieldFragment extends BaseFragment {
                 break;
         }
     }
+
+
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {

@@ -8,7 +8,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
-import butterknife.ButterKnife;
 
 public abstract class BaseV4Fragment extends Fragment {
 
@@ -48,7 +47,6 @@ public abstract class BaseV4Fragment extends Fragment {
 	 * @param parent
 	 */
 	protected void findView(View parent){
-		ButterKnife.bind(this,parent);
 	}
 
 	/**

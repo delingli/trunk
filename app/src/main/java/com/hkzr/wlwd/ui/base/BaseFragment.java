@@ -12,14 +12,14 @@ import com.android.volley.RequestQueue;
 import com.hkzr.wlwd.ui.app.App;
 import com.hkzr.wlwd.ui.app.UserInfoCache;
 
-import butterknife.ButterKnife;
 
 public abstract class BaseFragment extends Fragment {
     protected UserInfoCache mUserInfoCache = null;
+
     public abstract int getViewId();
 
     public abstract void initWidget(View parent);
-    
+
 
     /**
      * 数据相关
@@ -30,7 +30,7 @@ public abstract class BaseFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         mUserInfoCache = UserInfoCache.init();
-        
+
         View mFragment = getView(inflater, container, savedInstanceState);
         queue = App.getInstance().getRequestQueue();
         initWidget(mFragment);
@@ -61,9 +61,7 @@ public abstract class BaseFragment extends Fragment {
      *
      * @param parent
      */
-    protected void findView(View parent) {
-        ButterKnife.bind(this, parent);
-    }
+    public abstract void findView(View parent);
 
     /**
      * jump to target activity without bundle data
@@ -85,7 +83,6 @@ public abstract class BaseFragment extends Fragment {
     public void jump(Class<?> targetClz, Bundle data) {
         startActivity(new Intent(getActivity(), targetClz).putExtras(data));
     }
-
 
 
 }

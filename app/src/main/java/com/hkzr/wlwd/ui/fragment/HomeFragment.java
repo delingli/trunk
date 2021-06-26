@@ -28,8 +28,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import butterknife.Bind;
-import butterknife.ButterKnife;
 
 /**
  * Created by admin on 2017/4/24.
@@ -37,7 +35,6 @@ import butterknife.ButterKnife;
  */
 public class HomeFragment extends BaseFragment {
 
-    @Bind(R.id.expandableListView)
     ExpandableListView expandableListView;
     LinearLayout ll_top;
     MyAdGallery adgallery;
@@ -49,6 +46,11 @@ public class HomeFragment extends BaseFragment {
     @Override
     public int getViewId() {
         return R.layout.layout_app;
+    }
+
+    @Override
+    public void findView(View parent) {
+        expandableListView=  parent.findViewById(R.id.expandableListView);
     }
 
     @Override
@@ -175,6 +177,5 @@ public class HomeFragment extends BaseFragment {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        ButterKnife.unbind(this);
     }
 }

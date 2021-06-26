@@ -52,27 +52,18 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import butterknife.Bind;
-import butterknife.OnClick;
 
 /**
  * 外勤签到
  */
 
-public class FieldSignActivity extends BaseActivity {
-    @Bind(R.id.mapview)
+public class FieldSignActivity extends BaseActivity implements View.OnClickListener{
     MapView mapview;
-    @Bind(R.id.ll_location)
     LinearLayout llLocation;
-    @Bind(R.id.tv_address)
     TextView tvAddress;
-    @Bind(R.id.ed)
     EditText ed;
-    @Bind(R.id.iv_xj)
     ImageView ivXj;
-    @Bind(R.id.btn_field_sign)
     Button btnFieldSign;
-    @Bind(R.id.tv_title)
     TextView tvTitle;
     BaiduMap mBaiduMap;
     BitmapDescriptor bdA = BitmapDescriptorFactory
@@ -91,12 +82,28 @@ public class FieldSignActivity extends BaseActivity {
     protected void initView(Bundle savedInstanceState) {
         super.initView(savedInstanceState);
         setContentView(R.layout.activity_field_sign);
+        initViewBind();
         tvTitle.setText("外勤签到");
         initBaidu();
         mCurrenTime = getIntent().getLongExtra("time", 0);
         initData();
         timerThread = new TimerThread();
         timerThread.start();
+    }
+
+    private void initViewBind() {
+        mapview = findViewById(R.id.mapview);
+        llLocation = findViewById(R.id.ll_location);
+        tvAddress = findViewById(R.id.tv_address);
+        ed = findViewById(R.id.ed);
+        ivXj = findViewById(R.id.iv_xj);
+        btnFieldSign = findViewById(R.id.btn_field_sign);
+        tvTitle = findViewById(R.id.tv_title);
+        findViewById(R.id.iv_xj).setOnClickListener(this);
+        findViewById(R.id.btn_field_sign).setOnClickListener(this);
+        findViewById(R.id.left_LL).setOnClickListener(this);
+        findViewById(R.id.ll_location).setOnClickListener(this);
+
     }
 
     @Override
@@ -140,9 +147,8 @@ public class FieldSignActivity extends BaseActivity {
         tvAddress.setText(address);
     }
 
-
-    @OnClick({R.id.iv_xj, R.id.btn_field_sign, R.id.left_LL, R.id.ll_location})
-    public void onViewClicked(View view) {
+    @Override
+    public void onClick(View view) {
         switch (view.getId()) {
             case R.id.iv_xj:
                 getPermission();
@@ -159,7 +165,6 @@ public class FieldSignActivity extends BaseActivity {
                 break;
         }
     }
-
     private void sign() {
         Map<String, String> mParams = new HashMap<String, String>();
         mParams.put("type", "5");

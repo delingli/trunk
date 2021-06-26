@@ -25,14 +25,11 @@ import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
-import butterknife.Bind;
-
 /**
  * 组织机构子fragment
  */
 
 public class OrganizationFragment extends BaseFragment {
-    @Bind(R.id.lv_organization)
     ListView lv_organization;
 
     @Override
@@ -65,6 +62,11 @@ public class OrganizationFragment extends BaseFragment {
     OrganizationQueryActivity organizationQueryActivity;
     List<OrganizationQueryBean.SubListBean> list;
     OpenAdapter mMyAdapter;
+
+    @Override
+    public void findView(View parent) {
+        lv_organization = parent.findViewById(R.id.lv_organization);
+    }
 
     @Override
     public void initWidget(View parent) {

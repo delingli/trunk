@@ -30,20 +30,14 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import butterknife.Bind;
-import butterknife.OnClick;
 
 /**
  * 通讯录
  */
-public class ContactFragment extends BaseFragment {
-    @Bind(R.id.lv_friends)
+public class ContactFragment extends BaseFragment implements View.OnClickListener {
     MyListView lv_friends;
-    @Bind(R.id.lv_top)
     MyListView lv_top;
-    @Bind(R.id.ll_top)
     LinearLayout ll_top;
-    @Bind(R.id.ll_search)
     LinearLayout ll_search;
 
     OpenAdapter mMyAdapter;
@@ -57,6 +51,15 @@ public class ContactFragment extends BaseFragment {
     ContactEntity contactEntity;
     List<ContactEntity.LinklistBean> list;
     List<ContactEntity.OrglistBean> orglistBeen;
+
+    @Override
+    public void findView(View parent) {
+        lv_friends = parent.findViewById(R.id.lv_friends);
+        lv_top = parent.findViewById(R.id.lv_top);
+        ll_top = parent.findViewById(R.id.ll_top);
+        ll_search = parent.findViewById(R.id.ll_search);
+        parent.findViewById(R.id.ll_search).setOnClickListener(this);
+    }
 
     @Override
     public void initWidget(View parent) {
@@ -104,9 +107,9 @@ public class ContactFragment extends BaseFragment {
         getContact();
     }
 
-    @OnClick({R.id.ll_search})
-    public void OnClick(View v) {
-        switch (v.getId()) {
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()) {
             case R.id.ll_search:
                 jump(SearchContactsActivity.class);
                 break;

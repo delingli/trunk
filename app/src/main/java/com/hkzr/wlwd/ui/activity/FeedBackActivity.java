@@ -12,40 +12,43 @@ import android.widget.TextView;
 import com.hkzr.wlwd.R;
 import com.hkzr.wlwd.ui.base.BaseActivity;
 
-import butterknife.Bind;
-import butterknife.OnClick;
 
 /**
  * 意见反馈
  */
-public class FeedBackActivity extends BaseActivity {
+public class FeedBackActivity extends BaseActivity implements View.OnClickListener{
 
 
-    @Bind(R.id.iv_left)
     ImageView ivLeft;
-    @Bind(R.id.tv_left)
     TextView tvLeft;
-    @Bind(R.id.left_LL)
     LinearLayout leftLL;
-    @Bind(R.id.tv_title)
     TextView tvTitle;
-    @Bind(R.id.iv_right)
     ImageView ivRight;
-    @Bind(R.id.tv_right)
     TextView tvRight;
-    @Bind(R.id.right_LL)
     LinearLayout rightLL;
-    @Bind(R.id.rl_title)
     RelativeLayout rlTitle;
-    @Bind(R.id.et_feedback)
     EditText etFeedback;
-    @Bind(R.id.tv_tjfk)
     TextView tvTjfk;
 
     @Override
     protected void initView(Bundle savedInstanceState) {
         setContentView(R.layout.activity_feedback);
+        initViewBind();
         initViewDatas();
+    }
+    private void initViewBind(){
+        ivLeft=findViewById(R.id.iv_left);
+        tvLeft=findViewById(R.id.tv_left);
+        leftLL=findViewById(R.id.left_LL);
+        tvTitle=findViewById(R.id.tv_title);
+        ivRight=findViewById(R.id.iv_right);
+        tvRight=findViewById(R.id.tv_right);
+        rightLL=findViewById(R.id.right_LL);
+        rlTitle=findViewById(R.id.rl_title);
+        etFeedback=findViewById(R.id.et_feedback);
+        tvTjfk=findViewById(R.id.tv_tjfk);
+        findViewById(R.id.left_LL).setOnClickListener(this);
+        findViewById(R.id.tv_tjfk).setOnClickListener(this);
     }
 
     private void initViewDatas() {
@@ -53,9 +56,8 @@ public class FeedBackActivity extends BaseActivity {
 
     }
 
-  
 
-    @OnClick({R.id.left_LL, R.id.tv_tjfk})
+    @Override
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.left_LL:

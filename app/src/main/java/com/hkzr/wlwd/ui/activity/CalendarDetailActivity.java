@@ -23,39 +23,24 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import butterknife.Bind;
-import butterknife.OnClick;
 
 /**
  * 日程详情
  */
 
-public class CalendarDetailActivity extends BaseActivity implements MoreCalendarPopWindow.Go {
-    @Bind(R.id.iv_right)
+public class CalendarDetailActivity extends BaseActivity implements MoreCalendarPopWindow.Go, View.OnClickListener {
     ImageView ivRight;
-    @Bind(R.id.iv_more)
     ImageView ivMore;
-    @Bind(R.id.tv_title)
     TextView tvTitle;
-    @Bind(R.id.tv_time)
     TextView tvTime;
-    @Bind(R.id.tv_address)
     TextView tvAddress;
-    @Bind(R.id.tv_calendar)
     TextView tvCalendar;
-    @Bind(R.id.tv_remind)
     TextView tvRemind;
-    @Bind(R.id.view_remark)
     View viewRemark;
-    @Bind(R.id.tv_remark)
     TextView tvRemark;
-    @Bind(R.id.ll_remark)
     LinearLayout llRemark;
-    @Bind(R.id.view_address)
     View view_address;
-    @Bind(R.id.rl_address)
     LinearLayout rl_address;
-    @Bind(R.id.tvtitle)
     TextView tvtitle;
 
     String EventId;
@@ -72,6 +57,7 @@ public class CalendarDetailActivity extends BaseActivity implements MoreCalendar
     protected void initView(Bundle savedInstanceState) {
         super.initView(savedInstanceState);
         setContentView(R.layout.activity_calendar_derail);
+        initViewBind();
         EventId = getIntent().getStringExtra("EventId");
         date = getIntent().getStringExtra("date");
         ivRight.setImageResource(R.drawable.web_more);
@@ -81,6 +67,24 @@ public class CalendarDetailActivity extends BaseActivity implements MoreCalendar
         initData();
     }
 
+    private void initViewBind() {
+        ivRight = findViewById(R.id.iv_right);
+        ivMore = findViewById(R.id.iv_more);
+        tvTitle = findViewById(R.id.tv_title);
+        tvTime = findViewById(R.id.tv_time);
+        tvAddress = findViewById(R.id.tv_address);
+        tvCalendar = findViewById(R.id.tv_calendar);
+        tvRemind = findViewById(R.id.tv_remind);
+        viewRemark = findViewById(R.id.view_remark);
+        tvRemark = findViewById(R.id.tv_remark);
+        llRemark = findViewById(R.id.ll_remark);
+        view_address = findViewById(R.id.view_address);
+        rl_address = findViewById(R.id.rl_address);
+        tvtitle = findViewById(R.id.tvtitle);
+        findViewById(R.id.left_LL).setOnClickListener(this);
+        findViewById(R.id.right_LL).setOnClickListener(this);
+
+    }
 
     private void initData() {
         Map<String, String> mParams = new HashMap<String, String>();
@@ -159,8 +163,8 @@ public class CalendarDetailActivity extends BaseActivity implements MoreCalendar
         }, true, false);
     }
 
-    @OnClick({R.id.left_LL, R.id.right_LL})
-    public void onViewClicked(View view) {
+    @Override
+    public void onClick(View view) {
         switch (view.getId()) {
             case R.id.left_LL:
                 this.finish();
@@ -170,6 +174,7 @@ public class CalendarDetailActivity extends BaseActivity implements MoreCalendar
                 break;
         }
     }
+
 
     @Override
     public void setting() {

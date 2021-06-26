@@ -29,35 +29,22 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import butterknife.Bind;
-import butterknife.OnClick;
 
 /**
  * Created by admin on 2017/7/5.
  */
 
 public class LeftFragment extends BaseFragment {
-    @Bind(R.id.ll_left)
     LinearLayout ll_left;
-    @Bind(R.id.iv_share)
     ImageView ivShare;
-    @Bind(R.id.tv_company)
     TextView tvCompany;
-    @Bind(R.id.iv_icon)
     XCRoundRectImageView ivIcon;
-    @Bind(R.id.tv_name)
     TextView tvName;
-    @Bind(R.id.tv_occupation)
     TextView tvOccupation;
-    @Bind(R.id.tv_email)
     TextView tvEmail;
-    @Bind(R.id.tv_mobile)
     TextView tvMobile;
-    @Bind(R.id.gv_top)
     GridView gvTop;
-    @Bind(R.id.lv_group)
     ListView lvGroup;
-    @Bind(R.id.lv_app)
     ListView lvApp;
 
     private LeftGroupBean leftGroupBean;
@@ -74,6 +61,28 @@ public class LeftFragment extends BaseFragment {
     }
 
     @Override
+    public void findView(View parent) {
+        ll_left = parent.findViewById(R.id.ll_left);
+        ivShare = parent.findViewById(R.id.iv_share);
+        tvCompany = parent.findViewById(R.id.tv_company);
+        ivIcon = parent.findViewById(R.id.iv_icon);
+        tvName = parent.findViewById(R.id.tv_name);
+        tvOccupation = parent.findViewById(R.id.tv_occupation);
+        tvEmail = parent.findViewById(R.id.tv_email);
+        tvMobile = parent.findViewById(R.id.tv_mobile);
+        gvTop = parent.findViewById(R.id.gv_top);
+        lvGroup = parent.findViewById(R.id.lv_group);
+        lvApp = parent.findViewById(R.id.lv_app);
+        parent.findViewById(R.id.iv_icon).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                jump(MineInfoActivity.class);
+            }
+        });
+
+    }
+
+    @Override
     public void initWidget(View parent) {
         findView(parent);
         ivShare.setVisibility(View.GONE);
@@ -83,11 +92,6 @@ public class LeftFragment extends BaseFragment {
         initLeftData();
     }
 
-    @OnClick(R.id.iv_icon)
-    public void toInfo() {
-        jump(MineInfoActivity.class);
-
-    }
 
     private void initListener() {
         gvTop.setOnItemClickListener(new AdapterView.OnItemClickListener() {

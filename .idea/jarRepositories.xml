@@ -61,5 +61,10 @@
       <option name="name" value="maven5" />
       <option name="url" value="file:/$PROJECT_DIR$/freshlibrary/%20https:/maven.aliyun.com/repository/gradle-plugin" />
     </remote-repository>
+    <remote-repository>
+      <option name="id" value="maven3" />
+      <option name="name" value="maven3" />
+      <option name="url" value="https://maven.aliyun.com/repository/gradle-plugin" />
+    </remote-repository>
   </component>
 </project>

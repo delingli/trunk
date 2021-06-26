@@ -25,7 +25,7 @@
       </configuration>
     </facet>
   </component>
-  <component name="NewModuleRootManager" LANGUAGE_LEVEL="JDK_1_7">
+  <component name="NewModuleRootManager" LANGUAGE_LEVEL="JDK_1_8">
     <output url="file://$MODULE_DIR$/../../../app/build/intermediates/javac/debug/classes" />
     <output-test url="file://$MODULE_DIR$/../../../app/build/intermediates/javac/debugUnitTest/classes" />
     <exclude-output />
@@ -45,7 +45,6 @@
     <orderEntry type="library" name="Gradle: org.apache.http.legacy" level="project" />
     <orderEntry type="library" name="Gradle: ./app/libs/afinal_0.5.1_bin.jar" level="project" />
     <orderEntry type="library" name="Gradle: ./app/libs/alipayutdid.jar" level="project" />
-    <orderEntry type="library" name="Gradle: ./app/libs/butterknife-7.0.1.jar" level="project" />
     <orderEntry type="library" name="Gradle: ./app/libs/core-3.0.0.jar" level="project" />
     <orderEntry type="library" name="Gradle: ./app/libs/fastjson-1.1.45.jar" level="project" />
     <orderEntry type="library" name="Gradle: ./app/libs/jcore-android-2.1.6.jar" level="project" />
@@ -145,7 +144,7 @@
     <orderEntry type="library" name="Gradle: :weex_gcanvas-release:@aar" level="project" />
     <orderEntry type="library" name="Gradle: :weex_livepusher-release:@aar" level="project" />
     <orderEntry type="library" name="Gradle: :weex_videoplayer-release:@aar" level="project" />
-    <orderEntry type="module" module-name="trunk.library" />
     <orderEntry type="module" module-name="trunk.freshlibrary" />
+    <orderEntry type="module" module-name="trunk.library" />
   </component>
 </module>

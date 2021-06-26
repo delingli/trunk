@@ -46,28 +46,17 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import butterknife.Bind;
-import butterknife.ButterKnife;
-import butterknife.OnClick;
-
 /**
  * 填写签到信息
  */
 
-public class OutSignActivity extends BaseActivity {
-    @Bind(R.id.tv_title)
+public class OutSignActivity extends BaseActivity implements View.OnClickListener {
     TextView tvTitle;
-    @Bind(R.id.tv_time)
     TextView tvTime;
-    @Bind(R.id.tv_address)
     TextView tvAddress;
-    @Bind(R.id.tv_person)
     TextView tvPerson;
-    @Bind(R.id.ed)
     EditText ed;
-    @Bind(R.id.gv_image)
     MyGridView gvImage;
-    @Bind(R.id.tv_submit)
     TextView tvSubmit;
 
 
@@ -82,10 +71,24 @@ public class OutSignActivity extends BaseActivity {
     String path;
     Dialog dialog;
 
+    private void initViewBind() {
+        tvTitle = findViewById(R.id.tv_title);
+        tvTime = findViewById(R.id.tv_time);
+        tvAddress = findViewById(R.id.tv_address);
+        tvPerson = findViewById(R.id.tv_person);
+        ed = findViewById(R.id.ed);
+        gvImage = findViewById(R.id.gv_image);
+        tvSubmit = findViewById(R.id.tv_submit);
+        findViewById(R.id.left_LL).setOnClickListener(this);
+        findViewById(R.id.tv_submit).setOnClickListener(this);
+
+    }
+
     @Override
     protected void initView(Bundle savedInstanceState) {
         super.initView(savedInstanceState);
         setContentView(R.layout.activity_out_sign);
+        initViewBind();
         tvTitle.setText("外勤签到");
         time = getIntent().getStringExtra("time");
         address = getIntent().getStringExtra("address");
@@ -153,8 +156,8 @@ public class OutSignActivity extends BaseActivity {
         }
     }
 
-    @OnClick({R.id.left_LL, R.id.tv_submit})
-    public void onViewClicked(View view) {
+    @Override
+    public void onClick(View view) {
         switch (view.getId()) {
             case R.id.left_LL:
                 this.finish();
@@ -234,7 +237,6 @@ public class OutSignActivity extends BaseActivity {
         super.onDestroy();
         dialog.dismiss();
         handler.removeCallbacks(null);
-        ButterKnife.unbind(this);
     }
 
     //获取访问相机,相册权限
@@ -271,7 +273,7 @@ public class OutSignActivity extends BaseActivity {
             } catch (IOException e) {
                 e.printStackTrace();
             }
-        }       
+        }
 
         Uri fileUri = Uri.fromFile(f);
         intent.putExtra(MediaStore.EXTRA_OUTPUT, fileUri);

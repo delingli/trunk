@@ -35,45 +35,29 @@ import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 import java.util.ArrayList;
 import java.util.List;
 
-import butterknife.Bind;
-import butterknife.OnClick;
+
 import me.leolin.shortcutbadger.ShortcutBadger;
 
 /**
  * main page
  */
-public class MainActivity extends BaseActivity implements MorePopWindow.Go {
-    @Bind(R.id.title_left)
+public class MainActivity extends BaseActivity implements MorePopWindow.Go,View.OnClickListener {
     ImageView title_left;
-    @Bind(R.id.tv_title)
     TextView tv_title;
-    @Bind(R.id.ac_iv_search)
     ImageView ac_iv_search;
-    @Bind(R.id.seal_more)
     ImageView seal_more;
-    @Bind(R.id.seal_refush)
     ImageView seal_refush;
-    @Bind(R.id.btn_mine)
     Button btn_mine;
-    @Bind(R.id.btn_home)
     Button btn_home;
 
-    @Bind(R.id.btn_app)
     Button btn_app;
-    @Bind(R.id.btn_message)
     TextView btn_message;
-    @Bind(R.id.btn_contacts)
     Button btn_contacts;
-    @Bind(R.id.fragment_container)
     FrameLayout fragmentContainer;
-    @Bind(R.id.tv_count)
     TextView tv_count;
 
-    @Bind(R.id.title)
     RelativeLayout title;
-    @Bind(R.id.layout_main_bottom)
     LinearLayout layoutMainBottom;
-    @Bind(R.id.line1)
     View line1;
     private FragmentManager fm;
     private FragmentTransaction ft;
@@ -87,10 +71,41 @@ public class MainActivity extends BaseActivity implements MorePopWindow.Go {
     private int currentTabIndex;
     public static int index = 0;
     public final static String RECEIVED = "com.hkzr.wlwd.ui.MainActivity";
+private void initViewBind(){
+    title_left= findViewById(R.id.title_left);
+    tv_title= findViewById(R.id.tv_title);
+    ac_iv_search= findViewById(R.id.ac_iv_search);
+    seal_more= findViewById(R.id.seal_more);
+    seal_refush= findViewById(R.id.seal_refush);
+    btn_mine= findViewById(R.id.btn_mine);
+    btn_home= findViewById(R.id.btn_home);
+    btn_app= findViewById(R.id.btn_app);
+    btn_message= findViewById(R.id.btn_message);
+    btn_contacts= findViewById(R.id.btn_contacts);
+    fragmentContainer= findViewById(R.id.fragment_container);
+    tv_count= findViewById(R.id.tv_count);
+    title= findViewById(R.id.title);
+    layoutMainBottom= findViewById(R.id.layout_main_bottom);
+    line1= findViewById(R.id.line1);
 
+    findViewById(R.id.btn_home).setOnClickListener(this);
+    findViewById(R.id.btn_message).setOnClickListener(this);
+    findViewById(R.id.btn_contacts).setOnClickListener(this);
+    findViewById(R.id.btn_app).setOnClickListener(this);
+    findViewById(R.id.btn_mine).setOnClickListener(this);
+    findViewById(R.id.title_left).setOnClickListener(this);
+    findViewById(R.id.ac_iv_search).setOnClickListener(this);
+    findViewById(R.id.seal_more).setOnClickListener(this);
+    findViewById(R.id.seal_refush).setOnClickListener(this);
+
+
+
+
+}
     @Override
     protected void initView(Bundle savedInstanceState) {
         setContentView(R.layout.activity_main);
+        initViewBind();
         fm = getSupportFragmentManager();
         btnTabs = new View[4];
         btnTabs[0] = btn_home;
@@ -173,8 +188,7 @@ public class MainActivity extends BaseActivity implements MorePopWindow.Go {
         }
     }
 
-
-    @OnClick({R.id.btn_home, R.id.btn_message, R.id.btn_contacts, R.id.btn_app, R.id.btn_mine})
+    @Override
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.btn_home:
@@ -189,14 +203,6 @@ public class MainActivity extends BaseActivity implements MorePopWindow.Go {
             case R.id.btn_mine:
                 index = 3;
                 break;
-        }
-        SwitchSkip();
-        SwitchTitle();
-    }
-
-    @OnClick({R.id.title_left, R.id.ac_iv_search, R.id.seal_more, R.id.seal_refush})
-    public void titleClick(View v) {
-        switch (v.getId()) {
             case R.id.title_left:
                 localSlidingMenu.toggle();
                 break;
@@ -208,7 +214,13 @@ public class MainActivity extends BaseActivity implements MorePopWindow.Go {
                 morePopWindow.showPopupWindow(seal_more);
                 break;
         }
+        SwitchSkip();
+        SwitchTitle();
     }
+
+
+
+
 
     private void SwitchTitle() {
         switch (index) {

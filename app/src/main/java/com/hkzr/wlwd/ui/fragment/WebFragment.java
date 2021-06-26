@@ -13,14 +13,12 @@ import com.hkzr.wlwd.ui.app.App;
 import com.hkzr.wlwd.ui.app.UserInfoCache;
 import com.hkzr.wlwd.ui.base.BaseFragment;
 
-import butterknife.Bind;
 
 /**
  * web  通用fragment
  */
 
 public class WebFragment extends BaseFragment {
-    @Bind(R.id.webview)
     WebView mWebview;
 
     public WebFragment() {
@@ -37,6 +35,11 @@ public class WebFragment extends BaseFragment {
     }
 
     @Override
+    public void findView(View parent) {
+        mWebview = parent.findViewById(R.id.webview);
+    }
+
+    @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
@@ -49,6 +52,7 @@ public class WebFragment extends BaseFragment {
         super.onResume();
 
     }
+
     public boolean isBack() {
         return mWebview.canGoBack();
     }
@@ -56,6 +60,7 @@ public class WebFragment extends BaseFragment {
     public void back() {
         mWebview.goBack();
     }
+
     @Override
     public int getViewId() {
         return R.layout.fragment_web;

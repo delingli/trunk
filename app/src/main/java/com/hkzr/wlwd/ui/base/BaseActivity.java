@@ -25,7 +25,6 @@ import com.hkzr.wlwd.ui.utils.StatusBarUtil;
 import java.util.Observable;
 import java.util.Observer;
 
-import butterknife.ButterKnife;
 
 public class BaseActivity extends AppCompatActivity implements Observer {
     protected RequestQueue queue = null;
@@ -71,19 +70,16 @@ public class BaseActivity extends AppCompatActivity implements Observer {
     @Override
     public void setContentView(int layoutResID) {
         super.setContentView(layoutResID);
-        ButterKnife.bind(this);
     }
 
     @Override
     public void setContentView(View view) {
         super.setContentView(view);
-        ButterKnife.bind(this);
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        ButterKnife.unbind(this);
     }
 
     public boolean isStatusBar() {

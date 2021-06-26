@@ -33,37 +33,42 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import butterknife.Bind;
-import butterknife.OnClick;
 
 /**
  * 他人日程
  */
 
-public class OrderCalendarActivity extends BaseActivity implements OrderCalendarExpandableListAdapter.OnChildClickListener {
+public class OrderCalendarActivity extends BaseActivity implements OrderCalendarExpandableListAdapter.OnChildClickListener ,View.OnClickListener{
 
-    @Bind(R.id.tv_title)
     TextView tvTitle;
-    @Bind(R.id.tv_month)
     TextView tvMonth;
-    @Bind(R.id.tv_day)
     TextView tvDay;
-    @Bind(R.id.tv_year)
     TextView tvYear;
-    @Bind(R.id.mcvCalendar)
     MonthCalendarView mcvCalendar;
-    @Bind(R.id.expandableListView)
     MyExpandableListView expandableListView;
     List<CalendarDayEventBean.GroupsBean> mCurrentCalendar;
     OrderCalendarExpandableListAdapter mAdapter;
     private int mCurrentSelectYear, mCurrentSelectMonth, mCurrentSelectDay;
     String type = "";
     CalendarTypeBean calendarTypeBean;
+private void initViewBind(){
+    tvTitle=findViewById(R.id.tv_title);
+    tvMonth=findViewById(R.id.tv_month);
+    tvDay=findViewById(R.id.tv_day);
+    tvYear=findViewById(R.id.tv_year);
+    mcvCalendar=findViewById(R.id.mcvCalendar);
+    expandableListView=findViewById(R.id.expandableListView);
+    findViewById(R.id.rl_date).setOnClickListener(this);
+    findViewById(R.id.left_LL).setOnClickListener(this);
+    findViewById(R.id.tv_today).setOnClickListener(this);
 
+
+}
     @Override
     protected void initView(Bundle savedInstanceState) {
         super.initView(savedInstanceState);
         setContentView(R.layout.layout_order_calendar);
+        initViewBind();
         mcvCalendar.setFocusable(true);
         mcvCalendar.setFocusableInTouchMode(true);
         mcvCalendar.requestFocus();
@@ -127,9 +132,8 @@ public class OrderCalendarActivity extends BaseActivity implements OrderCalendar
         }
     };
 
-
-    @OnClick({R.id.rl_date, R.id.left_LL, R.id.tv_today})
-    public void onViewClicked(View view) {
+    @Override
+    public void onClick(View view) {
         switch (view.getId()) {
             case R.id.rl_date:
                 /*
@@ -155,6 +159,7 @@ public class OrderCalendarActivity extends BaseActivity implements OrderCalendar
                 break;
         }
     }
+
 
     /**
      * 跳转某一天

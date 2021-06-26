@@ -24,47 +24,31 @@ import com.squareup.picasso.Picasso;
 import java.util.HashMap;
 import java.util.Map;
 
-import butterknife.Bind;
-import butterknife.OnClick;
 
 /**
  * 好友信息
  */
 
-public class FriendsInfoActivity extends BaseActivity {
-    @Bind(R.id.tv_title)
+public class FriendsInfoActivity extends BaseActivity implements View.OnClickListener {
     TextView tv_title;
-    @Bind(R.id.iv_right)
     ImageView iv_right;
-    @Bind(R.id.iv_icon)
     XCRoundRectImageView iv_icon;
-    @Bind(R.id.tv_name)
     TextView tv_name;
-    @Bind(R.id.tv_tel)
     TextView tv_tel;
-    @Bind(R.id.tv_email)
     TextView tv_email;
-    @Bind(R.id.tv_weixin)
     TextView tv_weixin;
-    @Bind(R.id.tv_qq)
     TextView tv_qq;
-    @Bind(R.id.tv_officephone)
     TextView tv_officephone;
-    @Bind(R.id.tv_company)
     TextView tv_company;
-    @Bind(R.id.tv_deptname)
     TextView tv_deptname;
-    @Bind(R.id.tv_posname)
     TextView tv_posname;
-//    @Bind(R.id.tv_add)
+    //    @Bind(R.id.tv_add)
 //    TextView tv_add;
 //    @Bind(R.id.tv_send_message)
 //    TextView tv_send_message;
 //    @Bind(R.id.tv_del)
 //    TextView tv_del;
-    @Bind(R.id.ll_mobile)
     LinearLayout ll_mobile;
-    @Bind(R.id.view_mobile)
     View view_mobil;
     String userid;
     String openId;
@@ -75,6 +59,7 @@ public class FriendsInfoActivity extends BaseActivity {
     protected void initView(Bundle savedInstanceState) {
         super.initView(savedInstanceState);
         setContentView(R.layout.activity_friends_info);
+        initViewBind();
         tv_title.setText("好友详情");
         iv_right.setImageResource(R.drawable.shoucang);
         userid = getIntent().getStringExtra("userid");
@@ -83,10 +68,41 @@ public class FriendsInfoActivity extends BaseActivity {
             initData();
     }
 
-    @OnClick({R.id.left_LL, R.id.right_LL, R.id.tv_call, R.id.tv_send, R.id.tv_send_email, R.id.tv_create_richeng })
-    public void OnClick(View v) {
+    private void initViewBind() {
+        tv_title = findViewById(R.id.tv_title);
+        iv_right = findViewById(R.id.iv_right);
+        iv_icon = findViewById(R.id.iv_icon);
+        tv_name = findViewById(R.id.tv_name);
+        tv_tel = findViewById(R.id.tv_tel);
+        tv_email = findViewById(R.id.tv_email);
+        tv_weixin = findViewById(R.id.tv_weixin);
+        tv_qq = findViewById(R.id.tv_qq);
+        tv_officephone = findViewById(R.id.tv_officephone);
+        tv_company = findViewById(R.id.tv_company);
+        tv_deptname = findViewById(R.id.tv_deptname);
+        tv_posname = findViewById(R.id.tv_posname);
+        ll_mobile = findViewById(R.id.ll_mobile);
+        view_mobil = findViewById(R.id.view_mobile);
+//    @Bind(R.id.tv_add)
+//    TextView tv_add;
+//    @Bind(R.id.tv_send_message)
+//    TextView tv_send_message;
+//    @Bind(R.id.tv_del)
+//    TextView tv_del;
+
+
+        findViewById(R.id.left_LL).setOnClickListener(this);
+        findViewById(R.id.right_LL).setOnClickListener(this);
+        findViewById(R.id.tv_call).setOnClickListener(this);
+        findViewById(R.id.tv_send).setOnClickListener(this);
+        findViewById(R.id.tv_send_email).setOnClickListener(this);
+        findViewById(R.id.tv_create_richeng).setOnClickListener(this);
+    }
+
+    @Override
+    public void onClick(View view) {
         Intent intent = new Intent();
-        switch (v.getId()) {
+        switch (view.getId()) {
             case R.id.left_LL:
                 this.finish();
                 break;
@@ -113,6 +129,7 @@ public class FriendsInfoActivity extends BaseActivity {
                 break;
         }
     }
+
 
     private void initCalendarLimit() {
         Map<String, String> mParams = new HashMap<String, String>();
@@ -245,7 +262,7 @@ public class FriendsInfoActivity extends BaseActivity {
             IsMyContact = 0;
             iv_right.setImageResource(R.drawable.shoucang);
         }
-        
+
     }
 
 }

@@ -37,31 +37,20 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import butterknife.Bind;
-import butterknife.ButterKnife;
-import butterknife.OnClick;
 
 /**
  * Created by born on 2017/5/25.
  * 内部联系人通讯录
  */
-public class InsidContactActivity extends BaseActivity implements SectionIndexer {
-    @Bind(R.id.tv_title)
+public class InsidContactActivity extends BaseActivity implements SectionIndexer ,View.OnClickListener{
     TextView tv_title;
-    @Bind(R.id.filter_edit)
     ClearEditText mClearEditText;
-    @Bind(R.id.country_lvcountry)
     ListView sortListView;
     List<InsidContactEntity> list;
-    @Bind(R.id.title_layout_no_friends)
     TextView tvNofriends;
-    @Bind(R.id.title_layout)
     LinearLayout titleLayout;
-    @Bind(R.id.title_layout_catalog)
     TextView title;
-    @Bind(R.id.dialog)
     TextView dialog;
-    @Bind(R.id.sidrbar)
     SideBar sidrbar;
     /**
      * 上次第一个可见元素，用于滚动时记录标识。
@@ -78,11 +67,23 @@ public class InsidContactActivity extends BaseActivity implements SectionIndexer
      * 根据拼音来排列ListView里面的数据类
      */
     private PinyinComparator pinyinComparator;
-
+private void initViewBind(){
+    tv_title=findViewById(R.id.tv_title);
+    mClearEditText=findViewById(R.id.filter_edit);
+    sortListView=findViewById(R.id.country_lvcountry);
+    tvNofriends=findViewById(R.id.title_layout_no_friends);
+    titleLayout=findViewById(R.id.title_layout);
+    title=findViewById(R.id.title_layout_catalog);
+    dialog=findViewById(R.id.dialog);
+    sidrbar=findViewById(R.id.sidrbar);
+    findViewById(R.id.left_LL).setOnClickListener(this);
+    findViewById(R.id.tv_search).setOnClickListener(this);
+}
     @Override
     protected void initView(Bundle savedInstanceState) {
         super.initView(savedInstanceState);
         setContentView(R.layout.layout_insidecontact);
+        initViewBind();
         tv_title.setText("内部联系人");
         list = new ArrayList<>();
         initListener();
@@ -340,9 +341,9 @@ public class InsidContactActivity extends BaseActivity implements SectionIndexer
 
     }
 
-    @OnClick({R.id.left_LL, R.id.tv_search})
-    public void OnClick(View v) {
-        switch (v.getId()) {
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()) {
             case R.id.left_LL:
                 this.finish();
                 break;
@@ -404,17 +405,16 @@ public class InsidContactActivity extends BaseActivity implements SectionIndexer
     }
 
     class ViewHolder {
-        @Bind(R.id.tv_name)
         TextView tv_name;
-        @Bind(R.id.tv_code)
         TextView tv_code;
-        @Bind(R.id.iv_icon)
         ImageView iv_icon;
-        @Bind(R.id.iv_sex)
         ImageView iv_sex;
 
         public ViewHolder(View view) {
-            ButterKnife.bind(this, view);
+            tv_name=   view.findViewById(R.id.tv_name);
+            tv_code=   view.findViewById(R.id.tv_code);
+            iv_icon=   view.findViewById(R.id.iv_icon);
+            iv_sex=   view.findViewById(R.id.iv_sex);
         }
     }
 }

@@ -33,30 +33,37 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import butterknife.Bind;
-import butterknife.OnClick;
 
 /**
  * 搜索通讯录
  */
 
 public class SearchContactsActivity extends BaseActivity {
-    @Bind(R.id.ed_search)
     EditText edSearch;
-    @Bind(R.id.lv)
     ListView lv;
     List<ContactEntity.LinklistBean> beanList;
     OpenAdapter mMyAdapter;
-    @Bind(R.id.tv_title)
     TextView tvTitle;
-    @Bind(R.id.tv_no)
     TextView tv_no;
 
+    private void initViewBind() {
+        edSearch = findViewById(R.id.ed_search);
+        lv = findViewById(R.id.lv);
+        tvTitle = findViewById(R.id.tv_title);
+        tv_no = findViewById(R.id.tv_no);
+        findViewById(R.id.left_LL).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
+    }
 
     @Override
     protected void initView(Bundle savedInstanceState) {
         super.initView(savedInstanceState);
         setContentView(R.layout.activity_search_contact);
+        initViewBind();
         tvTitle.setText("搜索");
         KeyBoardUtils.KeyBoard(this, "open");
         initListener();
@@ -141,12 +148,6 @@ public class SearchContactsActivity extends BaseActivity {
 //                ToastUtil.t("接口请求失败");
             }
         }, true, false);
-    }
-
-
-    @OnClick(R.id.left_LL)
-    public void onViewClicked() {
-        finish();
     }
 
 

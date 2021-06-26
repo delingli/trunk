@@ -23,8 +23,6 @@ import com.hkzr.wlwd.ui.base.BaseActivity;
 import com.hkzr.wlwd.ui.utils.DialogUtil;
 import com.hkzr.wlwd.ui.utils.StatusBarUtil;
 
-import butterknife.Bind;
-import butterknife.OnClick;
 import io.dcloud.EntryProxy;
 import io.dcloud.common.DHInterface.ICore;
 import io.dcloud.common.DHInterface.ICore.ICoreStatusListener;
@@ -36,18 +34,12 @@ import io.dcloud.feature.internal.sdk.SDK;
 /**
  * 本demo为以webview控件方式集成5+ sdk，
  */
-public class SDK_WebView extends BaseActivity {
-    @Bind(R.id.ll_root)
+public class SDK_WebView extends BaseActivity implements View.OnClickListener {
     LinearLayout ll_root;
-    @Bind(R.id.iv_back)
     ImageView iv_back;
-    @Bind(R.id.iv_close)
     ImageView iv_close;
-    @Bind(R.id.tv_title)
     TextView tv_title;
-    @Bind(R.id.iv_more)
     ImageView iv_more;
-    @Bind(R.id.framelayout)
     FrameLayout framelayout;
 
     boolean doHardAcc = true;
@@ -84,11 +76,24 @@ public class SDK_WebView extends BaseActivity {
 
     }
 
+    private void initBind() {
+        ll_root = findViewById(R.id.ll_root);
+        iv_back = findViewById(R.id.iv_back);
+        iv_close = findViewById(R.id.iv_close);
+        tv_title = findViewById(R.id.tv_title);
+        iv_more = findViewById(R.id.iv_more);
+        framelayout = findViewById(R.id.framelayout);
+        iv_back.setOnClickListener(this);
+        iv_close.setOnClickListener(this);
+        iv_more.setOnClickListener(this);
+    }
+
     @Override
     protected void initView(Bundle savedInstanceState) {
         setContentView(R.layout.activity_web);
 //        StatusBarUtil.StatusBarLightMode(this);
 //        StatusBarUtil.setStatusBarColor(this, R.color.color_0095DE);
+        initBind();
         String title = getIntent().getStringExtra("title");
         if (!TextUtils.isEmpty(title)) {
             tv_title.setText(title);
@@ -202,9 +207,9 @@ public class SDK_WebView extends BaseActivity {
     WebView webviewInstance;
     IWebview webview = null;
 
-    @OnClick({R.id.iv_back, R.id.iv_close, R.id.iv_more})
-    public void OnClick(View v) {
-        switch (v.getId()) {
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()) {
             case R.id.iv_back:
                 if (!isBack) {
                     if (webviewInstance != null) {

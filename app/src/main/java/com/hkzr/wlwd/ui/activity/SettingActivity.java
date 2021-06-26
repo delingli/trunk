@@ -18,44 +18,26 @@ import com.hkzr.wlwd.ui.utils.UpdataDialog;
 
 import java.io.File;
 
-import butterknife.Bind;
-import butterknife.OnClick;
-
 /**
  * 系统设置
  */
-public class SettingActivity extends BaseActivity {
-    @Bind(R.id.rl_title)
+public class SettingActivity extends BaseActivity implements View.OnClickListener {
     RelativeLayout rl_title;
     String nativeVersion;//本地当前版本号
     public static final String STORE_PATH = Environment.getExternalStorageDirectory().getPath() + File.separator + "XHW.apk";
-    @Bind(R.id.tv_bz)
     TextView tvBz;
-    @Bind(R.id.ll_xxxtx)
     LinearLayout llXxxtx;
-    @Bind(R.id.tv_qchc)
     TextView tvQchc;
-    @Bind(R.id.ll_qchc)
     LinearLayout llQchc;
-    @Bind(R.id.tv_bbsj)
     TextView tvBbsj;
-    @Bind(R.id.ll_bbsj)
     LinearLayout llBbsj;
-    @Bind(R.id.iv_left)
     ImageView ivLeft;
-    @Bind(R.id.tv_left)
     TextView tvLeft;
-    @Bind(R.id.left_LL)
     LinearLayout leftLL;
-    @Bind(R.id.tv_title)
     TextView tvTitle;
-    @Bind(R.id.iv_right)
     ImageView ivRight;
-    @Bind(R.id.tv_right)
     TextView tvRight;
-    @Bind(R.id.right_LL)
     LinearLayout rightLL;
-    @Bind(R.id.iv_new)
     ImageView iv_new;
 
     private ProgressDialog progressDialog;
@@ -64,9 +46,33 @@ public class SettingActivity extends BaseActivity {
     private String cacheSize; // 缓存大小
     private File file;
 
+    private void initViewBind() {
+        tvBz = findViewById(R.id.tv_bz);
+        rl_title = findViewById(R.id.rl_title);
+        llXxxtx = findViewById(R.id.ll_xxxtx);
+        tvQchc = findViewById(R.id.tv_qchc);
+        llQchc = findViewById(R.id.ll_qchc);
+        tvBbsj = findViewById(R.id.tv_bbsj);
+        llBbsj = findViewById(R.id.ll_bbsj);
+        ivLeft = findViewById(R.id.iv_left);
+        tvLeft = findViewById(R.id.tv_left);
+        leftLL = findViewById(R.id.left_LL);
+        tvTitle = findViewById(R.id.tv_title);
+        ivRight = findViewById(R.id.iv_right);
+        rightLL = findViewById(R.id.right_LL);
+        iv_new = findViewById(R.id.iv_new);
+        findViewById(R.id.ll_xxxtx).setOnClickListener(this);
+        findViewById(R.id.ll_qchc).setOnClickListener(this);
+        findViewById(R.id.ll_bbsj).setOnClickListener(this);
+        findViewById(R.id.left_LL).setOnClickListener(this);
+
+
+    }
+
     @Override
     protected void initView(Bundle savedInstanceState) {
         setContentView(R.layout.activity_setting);
+        initViewBind();
         initViewDatas();
     }
 
@@ -88,8 +94,7 @@ public class SettingActivity extends BaseActivity {
         }
     }
 
-
-    @OnClick({R.id.ll_xxxtx, R.id.ll_qchc, R.id.ll_bbsj, R.id.left_LL })
+    @Override
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.ll_xxxtx:
@@ -111,5 +116,6 @@ public class SettingActivity extends BaseActivity {
                 break;
         }
     }
+
 
 }

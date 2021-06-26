@@ -29,8 +29,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import butterknife.Bind;
-import butterknife.ButterKnife;
 
 /**
  * Created by admin on 2017/4/24.
@@ -38,7 +36,6 @@ import butterknife.ButterKnife;
  */
 public class ApplicationFragment extends BaseFragment {
 
-    @Bind(R.id.expandableListView)
     ExpandableListView expandableListView;
     //    LinearLayout llGd;
 //    LinearLayout llSp;
@@ -50,6 +47,11 @@ public class ApplicationFragment extends BaseFragment {
     RelativeLayout rl_banner;
     View headerView;
     MyGridView gv_top;
+
+    @Override
+    public void findView(View parent) {
+        expandableListView=    parent.findViewById(R.id.expandableListView);
+    }
 
     @Override
     public int getViewId() {
@@ -200,7 +202,6 @@ public class ApplicationFragment extends BaseFragment {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        ButterKnife.unbind(this);
     }
 
 //    @Override
