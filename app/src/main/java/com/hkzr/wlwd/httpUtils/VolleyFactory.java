@@ -23,6 +23,7 @@ import com.hkzr.wlwd.ui.app.UserInfoCache;
 import com.hkzr.wlwd.ui.utils.DesUtil;
 import com.hkzr.wlwd.ui.utils.GsonInstance;
 import com.hkzr.wlwd.ui.utils.Log;
+import com.hkzr.wlwd.ui.utils.LogUtil;
 import com.hkzr.wlwd.ui.utils.LogUtils;
 import com.hkzr.wlwd.ui.utils.ToastUtil;
 
@@ -101,11 +102,6 @@ public class VolleyFactory {
 
     ServiceEntity userEntity;
 
-    /**
-     * 网络请求 Method : POST
-     *
-     * @param <T>
-     */
     public <T> void post(final Context c,
                          final Map<String, String> reqObject, final Class<T> repClass,
                          final BaseRequest<T> baseRequest, final boolean needDialog,
@@ -253,6 +249,58 @@ public class VolleyFactory {
         requestQueue.add(jsonObjectRequest);
     }
 
+    public void xcbfPost(final Context c,
+                         final JSONObject mmap,
+                         final AbsBaseRequest baseRequest) {
+        if (requestQueue == null) {
+            requestQueue = Volley.newRequestQueue(c);
+        }
+         String url = App.getInstance().getRootUrl();
+        String urls = url.substring(0, url.lastIndexOf("/"));
+        LogUtil.d("LDL", urls);
+        urls = urls + "/mesapi.aspx";
+        Log.e("request url : " + urls);
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, urls, mmap, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject jsonStr) {
+                if (jsonStr != null) {
+                    LogUtils.d("xiaoman", jsonStr.toString());
+                    try {
+                        String ResultCode = jsonStr.optString("ResultCode");
+                        if (ResultCode.equals("0")) {
+                            if (baseRequest != null) {
+                                baseRequest.requestSucceed(jsonStr.toString());
+                            }
+                        } else {
+                            String msg = jsonStr.optString("msg");
+                            if (baseRequest != null) {
+                                baseRequest.requestFailed(msg);
+                            }
+                        }
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                if (!TextUtils.isEmpty(error.getMessage())) {
+                    LogUtils.e(error.getMessage());
+                    Log.e(error.toString());
+                }
+                ToastUtil.toast(c, "网络异常，请检查网络环境");
+                if (baseRequest != null) {
+                    baseRequest.requestFailed(error.getMessage());
+
+                }
+            }
+        });
+
+        jsonObjectRequest.setRetryPolicy(RetryPolicyretryPolicy);
+        requestQueue.add(jsonObjectRequest);
+    }
+
     /**
      * 网络请求 Method : POST
      *
@@ -333,7 +381,7 @@ public class VolleyFactory {
                     try {
                         if (repObject != null) {
                             if ("0000".equals(repObject.ResultCode)
-                                    /*&& repObject.Successs*/) { // 正常响应码
+                                /*&& repObject.Successs*/) { // 正常响应码
                                 // 0000
                                 if (repObject.ReturnData == null) {
                                     Log.e("返回(明文) : " + jsonStr);
@@ -406,6 +454,19 @@ public class VolleyFactory {
          * 请求失败
          */
         public void requestFailed();
+
+    }
+
+    public interface AbsBaseRequest {
+        /**
+         * 请求成功
+         */
+        public void requestSucceed(String string);
+
+        /**
+         * 请求失败
+         */
+        public void requestFailed(String msg);
 
     }
 

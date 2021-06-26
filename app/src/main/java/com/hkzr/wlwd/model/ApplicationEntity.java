@@ -281,6 +281,17 @@ public class ApplicationEntity {
             this.list = list;
         }
 
+        @Override
+        public String toString() {
+            return "GroupsBean{" +
+                    "GroupCode='" + GroupCode + '\'' +
+                    ", GroupTitle='" + GroupTitle + '\'' +
+                    ", Layout='" + Layout + '\'' +
+                    ", MoreUrl='" + MoreUrl + '\'' +
+                    ", list=" + list +
+                    '}';
+        }
+
         public static class ListBeanXX {
             /**
              * FunCode :
@@ -301,6 +312,21 @@ public class ApplicationEntity {
             private String State;
             private String ToTime;
             private String SubTitle;
+
+            @Override
+            public String toString() {
+                return "ListBeanXX{" +
+                        "FunCode='" + FunCode + '\'' +
+                        ", FunIcon='" + FunIcon + '\'' +
+                        ", FunLink='" + FunLink + '\'' +
+                        ", FunName='" + FunName + '\'' +
+                        ", FunType='" + FunType + '\'' +
+                        ", Stamp='" + Stamp + '\'' +
+                        ", State='" + State + '\'' +
+                        ", ToTime='" + ToTime + '\'' +
+                        ", SubTitle='" + SubTitle + '\'' +
+                        '}';
+            }
 
             public String getToTime() {
                 return ToTime == null ? "" : ToTime;

@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.os.Handler;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
@@ -13,6 +14,7 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.alibaba.fastjson.JSONObject;
 import com.google.zxing.BarcodeFormat;
@@ -21,13 +23,17 @@ import com.google.zxing.Result;
 import com.hkzr.wlwd.R;
 import com.hkzr.wlwd.SDK_WebView;
 import com.hkzr.wlwd.httpUtils.VolleyFactory;
+import com.hkzr.wlwd.model.LiaoCarData;
 import com.hkzr.wlwd.model.SYSBean;
 import com.hkzr.wlwd.ui.app.User;
 import com.hkzr.wlwd.ui.app.UserInfoCache;
 import com.hkzr.wlwd.ui.base.BaseActivity;
 import com.hkzr.wlwd.ui.utils.JumpSelect;
+import com.hkzr.wlwd.ui.utils.LogUtil;
+import com.hkzr.wlwd.ui.utils.ToastUtil;
 import com.hkzr.wlwd.zxing.camera.CameraManager;
 import com.hkzr.wlwd.zxing.view.ViewfinderView;
+import com.nostra13.dcloudimageloader.utils.L;
 
 import java.io.IOException;
 import java.util.Collection;
@@ -41,11 +47,18 @@ import java.util.regex.Pattern;
  * 然后在扫描成功的时候覆盖扫描结果
  */
 public final class CaptureActivity extends BaseActivity implements
-        SurfaceHolder.Callback {
-
+        SurfaceHolder.Callback, View.OnClickListener {
+    public static final String xcbf = "XCBF";
+    public static final String tag = "tag";
+    public static final String zljc = "ZLJC";
+    public static final String cprk = "CPRK";
     private static final String TAG = CaptureActivity.class.getSimpleName();
-
+    private LiaoCarData liaoCarData;
+    private XingCaiPro mXingCaiPro;
     // 相机控制
+    private TextView tv_sure;
+    private TextView tv_cancel;
+    private TextView tv_liao_value;
     private CameraManager cameraManager;
     private CaptureActivityHandler handler;
     private ViewfinderView viewfinderView;
@@ -59,7 +72,9 @@ public final class CaptureActivity extends BaseActivity implements
     // 声音、震动控制
     private BeepManager beepManager;
 
-    private LinearLayout left_LL,ll_material_layout;
+    private LinearLayout left_LL, ll_material_layout;
+    private String tagss;
+    private String bianma;
 
     public ViewfinderView getViewfinderView() {
         return viewfinderView;
@@ -99,8 +114,13 @@ public final class CaptureActivity extends BaseActivity implements
 
         inactivityTimer = new InactivityTimer(this);
         beepManager = new BeepManager(this);
-
+        if (getIntent() != null) {
+            tagss = getIntent().getStringExtra(CaptureActivity.tag);
+        }
         left_LL = (LinearLayout) findViewById(R.id.left_LL);
+        tv_sure = findViewById(R.id.tv_sure);
+        tv_cancel = findViewById(R.id.tv_cancel);
+        tv_liao_value = findViewById(R.id.tv_liao_value);
         ll_material_layout = (LinearLayout) findViewById(R.id.ll_material_layout);
         left_LL.setOnClickListener(new View.OnClickListener() {
 
@@ -109,12 +129,32 @@ public final class CaptureActivity extends BaseActivity implements
                 finish();
             }
         });
+        tv_sure.setOnClickListener(this);
+        tv_cancel.setOnClickListener(this);
+    }
+
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.tv_sure:
+                //请求
+                toSubmitXingCai(bianma, mXingCaiPro.DistLJID);
+                break;
+            case R.id.tv_cancel:
+                ll_material_layout.setVisibility(View.GONE);
+                resumeCamera();
+                break;
+        }
+
     }
 
     @Override
     protected void onResume() {
         super.onResume();
+        resumeCamera();
+    }
 
+    private void resumeCamera() {
         // CameraManager必须在这里初始化，而不是在onCreate()中。
         // 这是必须的，因为当我们第一次进入时需要显示帮助页，我们并不想打开Camera,测量屏幕大小
         // 当扫描框的尺寸不正确时会出现bug
@@ -146,6 +186,11 @@ public final class CaptureActivity extends BaseActivity implements
 
     @Override
     protected void onPause() {
+        pauseCamera();
+        super.onPause();
+    }
+
+    private void pauseCamera() {
         if (handler != null) {
             handler.quitSynchronously();
             handler = null;
@@ -158,7 +203,6 @@ public final class CaptureActivity extends BaseActivity implements
             SurfaceHolder surfaceHolder = surfaceView.getHolder();
             surfaceHolder.removeCallback(this);
         }
-        super.onPause();
     }
 
     @Override
@@ -200,8 +244,7 @@ public final class CaptureActivity extends BaseActivity implements
         //这里处理解码完成后的结果，此处将参数回传到Activity处理
         if (fromLiveScan) {
             beepManager.playBeepSoundAndVibrate();
-
-//            Toast.makeText(this, "扫描成功", Toast.LENGTH_SHORT).show();
+            LogUtil.d("ALL", rawResult.getText());
             if (isURL(rawResult.getText())) {
                 Intent intent = new Intent(this, SDK_WebView.class);
                 String url = rawResult.getText();
@@ -213,14 +256,27 @@ public final class CaptureActivity extends BaseActivity implements
                 intent.putExtra("isShowRight", false);
                 startActivity(intent);
             } else {
-//                Toast.makeText(this, rawResult.getText(), Toast.LENGTH_SHORT).show();
-                scancode(rawResult.getText());
+                bianma = rawResult.getText();
+                if (tagss.equals(xcbf)) {
+                    if (bianma.length() >= 36) {
+                        toLiaoCar(rawResult.getText());//料车
+                    } else if (bianma.length() == 12) {
+                        toXingCai(rawResult.getText()); //型材
+                    }
+                } else if (tagss.equals(zljc)) {
+
+                } else if (tagss.equals(cprk)) {
+
+                } else {
+                    scancode(rawResult.getText());
+                    finish();
+                }
             }
 //            Intent intent = getIntent();
 //            intent.putExtra("codedContent", rawResult.getText());
 //            intent.putExtra("codedBitmap", barcode);
 //            setResult(RESULT_OK, intent);
-            finish();
+
         }
 
     }
@@ -322,5 +378,209 @@ public final class CaptureActivity extends BaseActivity implements
 //                ToastUtil.t("接口请求失败");
             }
         }, false, false);
+    }
+
+    /*---------------------------------------------------*/
+    private void toLiaoCar(String data) {
+        Map<String, String> mParams = new HashMap<String, String>();
+        mParams.put("action", "profile_scan_car");
+        mParams.put("tokenId", UserInfoCache.init().getTokenid());
+        mParams.put("data", data);
+        org.json.JSONObject object = new org.json.JSONObject(mParams);
+        VolleyFactory.instance().xcbfPost(CaptureActivity.this, object, new VolleyFactory.AbsBaseRequest() {
+            @Override
+            public void requestFailed(String msg) {
+                if (null != msg) {
+                    ToastUtil.showToast(msg);
+                    LogUtil.d("ldl", msg);
+                }
+            }
+
+            @Override
+            public void requestSucceed(String string) {
+                LogUtil.d("ldl", string);
+                parseLiatChe(string);
+            }
+        });
+/*        VolleyFactory.instance().xcbfPost(CaptureActivity.this, mParams, new VolleyFactory.AbsBaseRequest<User>() {
+            @Override
+            public void requestSucceed(String object) {
+                SYSBean sysBean = JSONObject.parseObject(object.toString(), SYSBean.class);
+                if (sysBean != null) {
+                    JumpSelect.jump(CaptureActivity.this, sysBean.getFunType(), sysBean.getFunLink());
+                    finish();
+                }
+            }
+
+            @Override
+            public void requestFailed() {
+//                ToastUtil.t("接口请求失败");
+            }
+        }, false, false);*/
+    }
+
+    private void toXingCai(String data) {
+//        {"action":"profile_scan","tokenId":"","data":{"carid":"9801d824-9c67-4d94-b391-715b7215b152","code":"018F00090033"}}
+        if (liaoCarData == null || TextUtils.isEmpty(liaoCarData.ID)) {
+            ToastUtil.showToast("请先扫料车码");
+            pauseCamera();
+            resumeCamera();
+            return;
+        }
+        Map<String, Object> mParams = new HashMap<String, Object>();
+        Map<String, String> mParam2 = new HashMap<String, String>();
+        mParam2.put("carid", liaoCarData.ID);
+        mParam2.put("code", data);
+        mParams.put("action", "profile_scan");
+        mParams.put("tokenId", UserInfoCache.init().getTokenid());
+        mParams.put("data", mParam2);
+
+        org.json.JSONObject object = new org.json.JSONObject(mParams);
+        LogUtil.d("ABC", object.toString());
+        VolleyFactory.instance().xcbfPost(CaptureActivity.this, object, new VolleyFactory.AbsBaseRequest() {
+            @Override
+            public void requestFailed(String msg) {
+                if (null != msg) {
+                    ToastUtil.showToast(msg);
+                }
+                resumeCamera();
+            }
+
+            @Override
+            public void requestSucceed(String string) {
+                LogUtil.d("ldlPP", string);
+                parseXingCai(string);
+            }
+        });
+    }
+
+    private void toSubmitXingCai(String code, String DistLJID) {
+//        {"action":"profile_save","tokenId":"","data":{"lwid":"761f301b-6921-8f26-6a5c-5bfbbc5b8b01","code":"018F00090035"}}
+
+        if (liaoCarData == null || TextUtils.isEmpty(liaoCarData.ID)) {
+            ToastUtil.showToast("请先扫料车码");
+            pauseCamera();
+            resumeCamera();
+            return;
+        }
+        Map<String, Object> mParams = new HashMap<String, Object>();
+        Map<String, String> mParam2 = new HashMap<String, String>();
+        mParam2.put("lwid", DistLJID);
+        mParam2.put("code", code);
+
+        mParams.put("action", "profile_save");
+        mParams.put("tokenId", UserInfoCache.init().getTokenid());
+        mParams.put("data", mParam2);
+
+        org.json.JSONObject object = new org.json.JSONObject(mParams);
+        LogUtil.d("ABC", object.toString());
+        VolleyFactory.instance().xcbfPost(CaptureActivity.this, object, new VolleyFactory.AbsBaseRequest() {
+            @Override
+            public void requestFailed(String msg) {
+                if (null != msg) {
+                    ToastUtil.showToast(msg);
+                }
+                ll_material_layout.setVisibility(View.GONE);
+                resumeCamera();
+            }
+
+            @Override
+            public void requestSucceed(String string) {
+                LogUtil.d("ldlPP", string);
+                parseSubmitData(string);
+                resumeCamera();
+
+            }
+        });
+    }
+
+    private void parseSubmitData(String str) {
+        try {
+            if (!TextUtils.isEmpty(str)) {
+                org.json.JSONObject object = new org.json.JSONObject(str);
+                boolean sucess = object.optBoolean("Success", false);
+                String Message = object.optString("Message");
+                if (sucess) {
+                    ToastUtil.showToast("提交成功");
+                } else {
+                    ToastUtil.showToast(Message);
+
+                }
+                ll_material_layout.setVisibility(View.GONE);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+
+    }
+
+    private void parseXingCai(String xingcai) {
+        try {
+            if (!TextUtils.isEmpty(xingcai)) {
+                org.json.JSONObject object = new org.json.JSONObject(xingcai);
+                boolean sucess = object.optBoolean("Success", false);
+                String Message = object.optString("Message");
+                if (sucess) {
+                    mXingCaiPro = new XingCaiPro();
+                    org.json.JSONObject objectData = object.optJSONObject("ReturnData");
+                    mXingCaiPro.OrderId = objectData.optString("OrderId");
+                    mXingCaiPro.Barcode = objectData.optString("Barcode");
+                    mXingCaiPro.ID = objectData.optString("ID");
+                    mXingCaiPro.CZID = objectData.optString("CZID");
+                    mXingCaiPro.KSID = objectData.optString("KSID");
+                    mXingCaiPro.Length = objectData.optInt("Length");
+                    mXingCaiPro.FinishDescription = objectData.optString("FinishDescription");
+                    mXingCaiPro.Name = objectData.optString("Name");
+                    mXingCaiPro.DistLJID = objectData.optString("DistLJID");
+                    mXingCaiPro.DistLJBM = objectData.optString("DistLJBM");
+                    //todo 显示弹窗
+                    ll_material_layout.setVisibility(View.VISIBLE);
+                    tv_liao_value.setText(mXingCaiPro.DistLJBM);
+                } else {
+                    ToastUtil.showToast(Message);
+                    resumeCamera();
+                }
+
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    private void parseLiatChe(String ss) {
+        try {
+            org.json.JSONObject jsonObject = new org.json.JSONObject(ss);
+            org.json.JSONObject returnData = jsonObject.getJSONObject("ReturnData");
+            String liaoName = returnData.getString("Name");
+            liaoCarData = new LiaoCarData();
+            liaoCarData.Code = returnData.getString("Code");
+            liaoCarData.ID = returnData.getString("ID");
+            liaoCarData.Name = liaoName;
+            liaoCarData.QRCodeFileID = returnData.getString("QRCodeFileID");
+            liaoCarData.Capacity = returnData.getInt("Capacity");
+            if (!TextUtils.isEmpty(liaoName)) {
+                ToastUtil.showToast("扫码" + liaoName + "成功" + "请扫型材码");
+                pauseCamera();
+                resumeCamera();
+
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    class XingCaiPro {
+        public String OrderId;
+        public String Barcode;
+        public String ID;
+        public String CZID;
+        public String KSID;
+        public int Length;
+        public String FinishDescription;
+        public String Name;
+        public String DistLJID;
+        public String DistLJBM;
     }
 }

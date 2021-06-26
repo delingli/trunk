@@ -21,6 +21,7 @@ import com.hkzr.wlwd.ui.app.App;
 import com.hkzr.wlwd.ui.app.UserInfoCache;
 import com.hkzr.wlwd.ui.base.BaseFragment;
 import com.hkzr.wlwd.ui.utils.JumpSelect;
+import com.hkzr.wlwd.ui.utils.LogUtil;
 import com.hkzr.wlwd.ui.utils.LogUtils;
 import com.hkzr.wlwd.ui.view.MyGridView;
 import com.hkzr.wlwd.ui.widget.MyAdGallery;
@@ -50,7 +51,7 @@ public class ApplicationFragment extends BaseFragment {
 
     @Override
     public void findView(View parent) {
-        expandableListView=    parent.findViewById(R.id.expandableListView);
+        expandableListView = parent.findViewById(R.id.expandableListView);
     }
 
     @Override
@@ -128,6 +129,7 @@ public class ApplicationFragment extends BaseFragment {
             @Override
             public void requestSucceed(String object) {
                 LogUtils.e(object.toString());
+                LogUtil.d("ldl", object.toString());
                 entity = JSON.parseObject(object.toString(), ApplicationEntity.class);
                 initDataView();
             }
@@ -174,6 +176,7 @@ public class ApplicationFragment extends BaseFragment {
         }
         if (group_list != null) {
             AppExpandableListAdapter appExpandableListAdapter = new AppExpandableListAdapter(getActivity(), group_list);
+//            LogUtil.d("ldl",group_list.toString());
             expandableListView.setAdapter(appExpandableListAdapter);
             appExpandableListAdapter.setOnChildClickListener(new AppExpandableListAdapter.OnChildClickListener() {
                 @Override
@@ -189,7 +192,11 @@ public class ApplicationFragment extends BaseFragment {
 //                        intent.putExtra("title", group_list.get(groupPosition).getList().get(childPosition).getFunName());
 //                        intent.putExtra("url", url);
 //                        startActivity(intent);
-                    JumpSelect.jump(getActivity(), group_list.get(groupPosition).getList().get(childPosition).getFunType(), group_list.get(groupPosition).getList().get(childPosition).getFunLink());
+                    JumpSelect.jump(getActivity(),
+                            group_list.get(groupPosition).getList().get(childPosition).getFunType(),
+                            group_list.get(groupPosition).getList().get(childPosition).getFunLink(),
+                            group_list.get(groupPosition).getList().get(childPosition).getFunCode()
+                    );
 //                    }
                 }
             });

@@ -20,7 +20,7 @@
             android:textColor="@color/assist_color_five" />
 
         <TextView
-            android:id="@+id/tv_value"
+            android:id="@+id/tv_liao_value"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"

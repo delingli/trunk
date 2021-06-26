@@ -40,6 +40,7 @@ import com.hkzr.wlwd.ui.base.BaseActivity;
 import com.hkzr.wlwd.ui.utils.DateUtils;
 import com.hkzr.wlwd.ui.utils.DisplayUtil;
 import com.hkzr.wlwd.ui.utils.ExampleUtil;
+import com.hkzr.wlwd.ui.utils.LogUtil;
 import com.hkzr.wlwd.ui.utils.LogUtils;
 import com.hkzr.wlwd.ui.utils.SPUtil;
 import com.hkzr.wlwd.ui.utils.StatusBarUtil;
@@ -280,7 +281,9 @@ public class LoginActivity extends BaseActivity implements PopupWindow.OnDismiss
                 LoginActivity.this.fwbhStr = fwbhStr;
                 targetUrl = entity.getTargetUrl();
                 CustName = entity.getCustName();
+
                 App.getInstance().setRootUrl(targetUrl);
+                LogUtil.d("LoginActivity",targetUrl);
                 App.getInstance().setH5Url(entity.getAppRoot());
                 App.getInstance().setDownloadUrl(entity.getDownUrl());
                 App.getInstance().setVersionCode(entity.getVersion());

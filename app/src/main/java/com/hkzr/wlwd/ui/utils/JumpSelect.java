@@ -34,7 +34,7 @@ public class JumpSelect {
      * @param FunType 类型  url  /app
      * @param FunLink url是为H5   app时为原生应用
      */
-    public static void jump(Context context, String FunType, String FunLink) {
+    public static void jump(Context context, String FunType, String FunLink, String... FunCode) {
         Intent intent = new Intent();
         if ("app".equals(FunType)) {
             switch (FunLink) {
@@ -70,12 +70,26 @@ public class JumpSelect {
             }
             context.startActivity(intent);
         } else if ("url".equals(FunType)) {
-            intent.setClass(context, SDK_WebView.class);
-            if (FunLink.contains("{tokenid}")) {
-                FunLink = FunLink.replace("{tokenid}", UserInfoCache.init().getTokenid());
+            if (FunCode != null && FunCode[0].equals(CaptureActivity.xcbf)) {
+                intent.setClass(context, CaptureActivity.class);
+                intent.putExtra(CaptureActivity.tag, CaptureActivity.xcbf);
+                context.startActivity(intent);
+            } else if (FunCode != null && FunCode[0].equals(CaptureActivity.zljc)) {
+                intent.setClass(context, CaptureActivity.class);
+                intent.putExtra(CaptureActivity.tag, CaptureActivity.zljc);
+                context.startActivity(intent);
+            } else if (FunCode != null && FunCode[0].equals(CaptureActivity.cprk)) {
+                intent.setClass(context, CaptureActivity.class);
+                intent.putExtra(CaptureActivity.tag, CaptureActivity.cprk);
+                context.startActivity(intent);
+            } else {
+                intent.setClass(context, SDK_WebView.class);
+                if (FunLink.contains("{tokenid}")) {
+                    FunLink = FunLink.replace("{tokenid}", UserInfoCache.init().getTokenid());
+                }
+                intent.putExtra("url", FunLink);
+                context.startActivity(intent);
             }
-            intent.putExtra("url", FunLink);
-            context.startActivity(intent);
         } else if ("friend_apply".equals(FunType)) {
             intent.setClass(context, AddFriendsActivity.class);
             context.startActivity(intent);
@@ -84,7 +98,7 @@ public class JumpSelect {
             intent.putExtra("groupId", systemMessageGroup.getGroupId());
             intent.setClass(context, WaitVerifyActivity.class);
             context.startActivity(intent);
-        }  else if ("schedule_alert".equals(FunType)) {
+        } else if ("schedule_alert".equals(FunType)) {
             JumpCalendarBean bean = JSONObject.parseObject(FunLink, JumpCalendarBean.class);
             intent.putExtra("EventId", bean.getEventId());
             intent.putExtra("date", bean.getDate());
