@@ -2,6 +2,7 @@ package com.hkzr.wlwd.zxing.android;
 
 
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
@@ -16,7 +17,6 @@ import android.view.WindowManager;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.alibaba.fastjson.JSONObject;
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.DecodeHintType;
 import com.google.zxing.Result;
@@ -28,12 +28,17 @@ import com.hkzr.wlwd.model.SYSBean;
 import com.hkzr.wlwd.ui.app.User;
 import com.hkzr.wlwd.ui.app.UserInfoCache;
 import com.hkzr.wlwd.ui.base.BaseActivity;
+import com.hkzr.wlwd.ui.productlist.Product;
 import com.hkzr.wlwd.ui.utils.JumpSelect;
 import com.hkzr.wlwd.ui.utils.LogUtil;
 import com.hkzr.wlwd.ui.utils.ToastUtil;
 import com.hkzr.wlwd.zxing.camera.CameraManager;
 import com.hkzr.wlwd.zxing.view.ViewfinderView;
+import com.iflytek.thirdparty.P;
 import com.nostra13.dcloudimageloader.utils.L;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.IOException;
 import java.util.Collection;
@@ -103,6 +108,8 @@ public final class CaptureActivity extends BaseActivity implements
 ////        window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 //
 //    }
+    private Context mContext;
+
     @Override
     protected void initView(Bundle savedInstanceState) {
         super.initView(savedInstanceState);
@@ -114,6 +121,7 @@ public final class CaptureActivity extends BaseActivity implements
 
         inactivityTimer = new InactivityTimer(this);
         beepManager = new BeepManager(this);
+        this.mContext = this;
         if (getIntent() != null) {
             tagss = getIntent().getStringExtra(CaptureActivity.tag);
         }
@@ -246,6 +254,12 @@ public final class CaptureActivity extends BaseActivity implements
             beepManager.playBeepSoundAndVibrate();
             LogUtil.d("ALL", rawResult.getText());
             if (isURL(rawResult.getText())) {
+                if (zljc.equals(tagss)) {
+                    toRequestZljc(rawResult.getText());
+                    return;
+                }
+
+
                 Intent intent = new Intent(this, SDK_WebView.class);
                 String url = rawResult.getText();
                 if (url.contains("{tokenid}")) {
@@ -256,6 +270,7 @@ public final class CaptureActivity extends BaseActivity implements
                 intent.putExtra("isShowRight", false);
                 startActivity(intent);
                 finish();
+
             } else {
                 bianma = rawResult.getText();
                 if (xcbf.equals(tagss)) {
@@ -265,6 +280,7 @@ public final class CaptureActivity extends BaseActivity implements
                         toXingCai(rawResult.getText()); //型材
                     }
                 } else if (zljc.equals(tagss)) {
+                    toRequestZljc(rawResult.getText());
 
                 } else if (cprk.equals(tagss)) {
 
@@ -280,6 +296,64 @@ public final class CaptureActivity extends BaseActivity implements
 
         }
 
+    }
+
+    private void toRequestZljc(String text) {
+//        {"action":"chk_scan_product","tokenId":"","data":"931794070711"}
+        Map<String, String> mParams = new HashMap<String, String>();
+        mParams.put("action", "chk_scan_product");
+        mParams.put("tokenId", UserInfoCache.init().getTokenid());
+        mParams.put("data", text);
+
+        JSONObject object = new JSONObject(mParams);
+        LogUtil.d("ABC", object.toString());
+        VolleyFactory.instance().xcbfPost(CaptureActivity.this, object, new VolleyFactory.AbsBaseRequest() {
+            @Override
+            public void requestFailed(String msg) {
+                if (null != msg) {
+                    ToastUtil.show(mContext, msg);
+                }
+                setResult(RESULT_OK, null);
+                finish();
+            }
+
+            @Override
+            public void requestSucceed(String ss) {
+                LogUtil.d("ldlPP", ss);
+                parseZljc(ss);
+                finish();
+            }
+        });
+
+    }
+
+    private void parseZljc(String ss) {
+        try {
+            JSONObject obj = new JSONObject(ss);
+            boolean success = obj.optBoolean("Success", false);
+            String Message = obj.optString("Message");
+            if (!success) {
+                ToastUtil.show(this, Message);
+                finish();
+            }
+            JSONObject returnObj = obj.optJSONObject("ReturnData");
+            String id = returnObj.optString("ID");
+            String ProductType = returnObj.optString("ProductType");
+            String Assembly = returnObj.optString("Assembly");
+            String FramePart = returnObj.optString("FramePart");
+            Product pro = new Product();
+            pro.Assembly = Assembly;
+            pro.FramePart = FramePart;
+            pro.id = id;
+            pro.producttype = ProductType;
+            Intent intent = new Intent();
+            intent.putExtra("product", pro);
+            setResult(RESULT_OK, intent);
+
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
     }
 
     /**
@@ -367,7 +441,8 @@ public final class CaptureActivity extends BaseActivity implements
         VolleyFactory.instance().post(CaptureActivity.this, mParams, User.class, new VolleyFactory.BaseRequest<User>() {
             @Override
             public void requestSucceed(String object) {
-                SYSBean sysBean = JSONObject.parseObject(object.toString(), SYSBean.class);
+
+                SYSBean sysBean = com.alibaba.fastjson.JSONObject.parseObject(object.toString(), SYSBean.class);
                 if (sysBean != null) {
                     JumpSelect.jump(CaptureActivity.this, sysBean.getFunType(), sysBean.getFunLink());
                     finish();
@@ -392,7 +467,7 @@ public final class CaptureActivity extends BaseActivity implements
             @Override
             public void requestFailed(String msg) {
                 if (null != msg) {
-                    ToastUtil.showToast(msg);
+                    ToastUtil.show(mContext, msg);
                     LogUtil.d("ldl", msg);
                 }
             }
@@ -423,7 +498,7 @@ public final class CaptureActivity extends BaseActivity implements
     private void toXingCai(String data) {
 //        {"action":"profile_scan","tokenId":"","data":{"carid":"9801d824-9c67-4d94-b391-715b7215b152","code":"018F00090033"}}
         if (liaoCarData == null || TextUtils.isEmpty(liaoCarData.ID)) {
-            ToastUtil.showToast("请先扫料车码");
+            ToastUtil.show(mContext, "请先扫料车码");
             pauseCamera();
             resumeCamera();
             return;
@@ -442,7 +517,7 @@ public final class CaptureActivity extends BaseActivity implements
             @Override
             public void requestFailed(String msg) {
                 if (null != msg) {
-                    ToastUtil.showToast(msg);
+                    ToastUtil.show(mContext, msg);
                 }
                 resumeCamera();
             }
@@ -459,7 +534,7 @@ public final class CaptureActivity extends BaseActivity implements
 //        {"action":"profile_save","tokenId":"","data":{"lwid":"761f301b-6921-8f26-6a5c-5bfbbc5b8b01","code":"018F00090035"}}
 
         if (liaoCarData == null || TextUtils.isEmpty(liaoCarData.ID)) {
-            ToastUtil.showToast("请先扫料车码");
+            ToastUtil.show(mContext, "请先扫料车码");
             pauseCamera();
             resumeCamera();
             return;
@@ -479,7 +554,7 @@ public final class CaptureActivity extends BaseActivity implements
             @Override
             public void requestFailed(String msg) {
                 if (null != msg) {
-                    ToastUtil.showToast(msg);
+                    ToastUtil.show(mContext, msg);
                 }
                 ll_material_layout.setVisibility(View.GONE);
                 resumeCamera();
@@ -502,9 +577,9 @@ public final class CaptureActivity extends BaseActivity implements
                 boolean sucess = object.optBoolean("Success", false);
                 String Message = object.optString("Message");
                 if (sucess) {
-                    ToastUtil.showToast("提交成功");
+                    ToastUtil.show(mContext, "提交成功");
                 } else {
-                    ToastUtil.showToast(Message);
+                    ToastUtil.show(mContext, Message);
 
                 }
                 ll_material_layout.setVisibility(View.GONE);
@@ -539,7 +614,7 @@ public final class CaptureActivity extends BaseActivity implements
                     ll_material_layout.setVisibility(View.VISIBLE);
                     tv_liao_value.setText(mXingCaiPro.DistLJBM);
                 } else {
-                    ToastUtil.showToast(Message);
+                    ToastUtil.show(mContext, Message);
                     resumeCamera();
                 }
 
@@ -562,7 +637,7 @@ public final class CaptureActivity extends BaseActivity implements
             liaoCarData.QRCodeFileID = returnData.getString("QRCodeFileID");
             liaoCarData.Capacity = returnData.getInt("Capacity");
             if (!TextUtils.isEmpty(liaoName)) {
-                ToastUtil.showToast("扫码" + liaoName + "成功" + "请扫型材码");
+                ToastUtil.show(mContext, "扫码" + liaoName + "成功" + "请扫型材码");
                 pauseCamera();
                 resumeCamera();
 

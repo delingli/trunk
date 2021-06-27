@@ -9,7 +9,15 @@
         <item name="colorAccent">@color/white_ffffff</item>
         <item name="actionOverflowButtonStyle">@style/OverflowButtonStyle</item>
         <item name="windowNoTitle">true</item>
+        <item name="android:datePickerDialogTheme" tools:ignore="NewApi">
+            @style/MyDatePickerDialogTheme
+        </item>
     </style>
+
+    <style name="MyDatePickerDialogTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="android:colorAccent" tools:ignore="NewApi">@color/color_2d2d2e</item>
+    </style>
+
 
     <style name="translucent" parent="AppBaseTheme">
         <item name="android:windowBackground">@color/transparency_50</item>

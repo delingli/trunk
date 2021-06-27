@@ -16,4 +16,20 @@
         <item name="android:colorAccent">@color/main_color</item>
     </style>
 
+    <style name="AppBaseTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- customize the color palette -->
+        <item name="colorPrimary">@color/white_ffffff</item>
+        <item name="colorPrimaryDark">@color/main_color</item>
+        <item name="android:windowBackground">@color/color_F5F6F8</item>
+        <item name="colorAccent">@color/white_ffffff</item>
+        <item name="android:datePickerDialogTheme">@style/MyDatePickerDialogTheme</item>
+        <item name="actionOverflowButtonStyle">@style/OverflowButtonStyle</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="MyDatePickerDialogTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="android:colorAccent">@color/color_2d2d2e</item>
+    </style>
+
+
 </resources>
