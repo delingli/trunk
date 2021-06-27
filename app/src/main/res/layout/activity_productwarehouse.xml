@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/gray_eeeeee"
     android:orientation="vertical">
 
     <include layout="@layout/activity_title" />
@@ -11,6 +12,15 @@
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:background="@color/color_cccccc" />
+
+    <TextView
+        android:id="@+id/tv_sacn_lib"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@color/white"
+        android:gravity="center"
+        android:text="扫描库房>>"
+        android:textColor="@color/main_color" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -26,13 +36,95 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:gravity="center"
-            android:text="名称"
+            android:text="库房名称"
             android:textColor="@color/color_575859"
             android:textSize="14dp" />
 
 
         <TextView
             android:id="@+id/tv_checkItemName"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="库房编号"
+            android:textColor="@color/color_575859"
+            android:textSize="14dp" />
+
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="@color/color_919294" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/gray_e5e5e5"
+        android:orientation="horizontal"
+        android:paddingTop="12dp"
+        android:paddingBottom="12dp">
+
+        <TextView
+            android:id="@+id/tv_lib_value"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="---"
+            android:textColor="@color/color_575859"
+            android:textSize="14dp" />
+
+
+        <TextView
+            android:id="@+id/tv_lib_code"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="---"
+            android:textColor="@color/color_575859"
+            android:textSize="14dp" />
+
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="@color/color_919294" />
+
+    <TextView
+        android:id="@+id/tv_scan_product"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginTop="25dp"
+        android:background="@color/white"
+        android:gravity="center"
+        android:text="扫描产品>>"
+        android:textColor="@color/main_color" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/gray_e5e5e5"
+        android:orientation="horizontal"
+        android:paddingTop="12dp"
+        android:paddingBottom="12dp">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="名称"
+            android:textColor="@color/color_575859"
+            android:textSize="14dp" />
+
+
+        <TextView
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
@@ -46,19 +138,19 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:gravity="center"
-            android:text="宽高"
+            android:text="产品类"
             android:textColor="@color/color_575859"
             android:textSize="14dp" />
 
         <TextView
-            android:id="@+id/tc_checkMethod"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:gravity="center"
-            android:text="产品类"
+            android:text="宽高"
             android:textColor="@color/color_575859"
             android:textSize="14dp" />
+
 
     </LinearLayout>
 
@@ -72,7 +164,7 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:background="@color/gray_e5e5e5" />
+        android:background="@color/gray_eeeeee" />
 
     <View
         android:layout_width="match_parent"
@@ -152,14 +244,6 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal">
 
-        <TextView
-            android:id="@+id/tv_toLook"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:text="查看检查项目>>"
-            android:textColor="@color/main_color" />
 
         <Button
             android:id="@+id/btn_submit"

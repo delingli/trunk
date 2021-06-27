@@ -15,6 +15,7 @@ import android.widget.TextView;
 import com.hkzr.wlwd.R;
 import com.hkzr.wlwd.httpUtils.VolleyFactory;
 import com.hkzr.wlwd.ui.base.BaseActivity;
+import com.hkzr.wlwd.ui.profilecheck.ProfileCheckActivity;
 import com.hkzr.wlwd.ui.utils.LogUtil;
 import com.hkzr.wlwd.ui.utils.ToastUtil;
 import com.hkzr.wlwd.zxing.android.CaptureActivity;
@@ -29,15 +30,17 @@ import java.util.List;
 import java.util.Map;
 
 public class ProductListActivity extends BaseActivity {
-
+    private String jOrdername = "";
+    private String jOrderId = "";
     private TextView tv_title;
     private RecyclerView mRecyclerView;
     private ProductListAdaptersz mRecycleAdaptersz;
     private Button mBtnSubmit;
     private TextView tv_right;
     private static int REQUEST_CODE = 101;
-    private TextView mTv_date;
+    private TextView mTv_date, tv_jOrderName;
     private List<UploadProductParams> mProductList;
+    private TextView mTvToLook;
 
     public void showDatePickDlg() {
         Calendar calendar = Calendar.getInstance();
@@ -52,6 +55,7 @@ public class ProductListActivity extends BaseActivity {
 
     }
 
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         if (requestCode == REQUEST_CODE && resultCode == RESULT_OK) {
@@ -60,6 +64,11 @@ public class ProductListActivity extends BaseActivity {
                 if (mProduct != null) {
                     //todo 去重
                     mRecycleAdaptersz.addList(mProduct);
+                    if (TextUtils.isEmpty(jOrdername)) {
+                        jOrdername = mProduct.JOdrName;
+                        jOrderId = mProduct.JOdrId;
+                        tv_jOrderName.setText(jOrdername);
+                    }
                 }
             }
         }
@@ -84,6 +93,8 @@ public class ProductListActivity extends BaseActivity {
 
     private void initViewBind() {
         mTv_date = findViewById(R.id.tv_date);
+        tv_jOrderName = findViewById(R.id.tv_jOrderName);
+        mTvToLook = findViewById(R.id.tv_toLook);
 
         mRecyclerView = findViewById(R.id.recyclerView);
         tv_right = findViewById(R.id.tv_right);
@@ -117,13 +128,28 @@ public class ProductListActivity extends BaseActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(ProductListActivity.this, CaptureActivity.class);
                 intent.putExtra(CaptureActivity.tag, CaptureActivity.zljc);
+
+                if (!TextUtils.isEmpty(jOrderId)) {
+                    intent.putExtra(CaptureActivity.JOrderID, jOrderId);
+                }
                 startActivityForResult(intent, REQUEST_CODE);
+            }
+        });
+        mTvToLook.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(ProductListActivity.this, ProfileCheckActivity.class);
+                startActivity(intent);
             }
         });
     }
 
     public void toSubmit() {
 //        {"action":"chk_saves","tokenId":"","data":[{"id":"761f301b-6921-8f26-6a5c-5bfbbc5b8b01","producttype":"1"}]}
+        if (mProductList == null || mProductList.isEmpty()) {
+            ToastUtil.show(this, "请先扫码添加检测产品");
+            return;
+        }
         if (mRecycleAdaptersz != null && mRecycleAdaptersz.getList() != null && !mRecycleAdaptersz.getList().isEmpty()) {
             mProductList = new ArrayList<>();
             List<Product> list = mRecycleAdaptersz.getList();
@@ -134,10 +160,7 @@ public class ProductListActivity extends BaseActivity {
                 mProductList.add(uploadProductParams);
             }
         }
-        if (mProductList == null || mProductList.isEmpty()) {
-            ToastUtil.show(this, "请先扫码添加检测产品");
-            return;
-        }
+
         Map<String, Object> mParams = new HashMap<String, Object>();
         Map<String, Object> mParam2 = new HashMap<String, Object>();
         mParam2.put("chkdate", mTv_date.getText().toString());

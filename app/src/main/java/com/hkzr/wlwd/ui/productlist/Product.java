@@ -12,15 +12,22 @@ public class Product implements Parcelable {
     public String producttype;
     public String Assembly;
     public String FramePart;
+    public String JOdrId;
+    public String JOdrName;
+    public String WH;
 
     public Product() {
     }
+
 
     protected Product(Parcel in) {
         id = in.readString();
         producttype = in.readString();
         Assembly = in.readString();
         FramePart = in.readString();
+        JOdrId = in.readString();
+        JOdrName = in.readString();
+        WH = in.readString();
     }
 
     public static final Creator<Product> CREATOR = new Creator<Product>() {
@@ -48,6 +55,7 @@ public class Product implements Parcelable {
         return Objects.hash(id);
     }
 
+
     @Override
     public int describeContents() {
         return 0;
@@ -59,5 +67,8 @@ public class Product implements Parcelable {
         parcel.writeString(producttype);
         parcel.writeString(Assembly);
         parcel.writeString(FramePart);
+        parcel.writeString(JOdrId);
+        parcel.writeString(JOdrName);
+        parcel.writeString(WH);
     }
 }

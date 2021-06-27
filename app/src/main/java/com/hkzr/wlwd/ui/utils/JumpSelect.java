@@ -20,6 +20,7 @@ import com.hkzr.wlwd.ui.activity.UpdataPwdActivity;
 import com.hkzr.wlwd.ui.activity.WaitVerifyActivity;
 import com.hkzr.wlwd.ui.app.UserInfoCache;
 import com.hkzr.wlwd.ui.productlist.ProductListActivity;
+import com.hkzr.wlwd.ui.productwarehouse.ProductWareHouseActivity;
 import com.hkzr.wlwd.ui.profilecheck.ProfileCheckActivity;
 import com.hkzr.wlwd.zxing.android.CaptureActivity;
 
@@ -80,8 +81,7 @@ public class JumpSelect {
                 intent.setClass(context, ProductListActivity.class);
                 context.startActivity(intent);
             } else if (FunCode != null && FunCode.length > 0 && FunCode[0].equals(CaptureActivity.cprk)) {
-                intent.setClass(context, CaptureActivity.class);
-                intent.putExtra(CaptureActivity.tag, CaptureActivity.cprk);
+                intent.setClass(context, ProductWareHouseActivity.class);
                 context.startActivity(intent);
             } else {
                 intent.setClass(context, SDK_WebView.class);

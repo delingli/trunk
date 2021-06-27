@@ -42,7 +42,7 @@ public class ProductListAdaptersz extends RecyclerView.Adapter<ProductListHolder
             Product itemBean = list.get(position);
             recycleHolder.tv_checkProgram.setText(itemBean.FramePart);
             recycleHolder.tv_checkItemName.setText(itemBean.Assembly);
-
+            recycleHolder.tv_wh.setText(itemBean.WH);
             recycleHolder.tc_checkMethod.setText("1".equals(itemBean.producttype) ? "半成品" : "成品");
 
         }

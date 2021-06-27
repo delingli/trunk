@@ -194,6 +194,9 @@
         <activity
             android:name=".ui.productlist.ProductListActivity"
             android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.productwarehouse.ProductWareHouseActivity"
+            android:screenOrientation="portrait" />
 
 
         <activity

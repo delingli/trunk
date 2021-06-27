@@ -29,6 +29,7 @@ import com.hkzr.wlwd.ui.app.User;
 import com.hkzr.wlwd.ui.app.UserInfoCache;
 import com.hkzr.wlwd.ui.base.BaseActivity;
 import com.hkzr.wlwd.ui.productlist.Product;
+import com.hkzr.wlwd.ui.productwarehouse.HouseData;
 import com.hkzr.wlwd.ui.utils.JumpSelect;
 import com.hkzr.wlwd.ui.utils.LogUtil;
 import com.hkzr.wlwd.ui.utils.ToastUtil;
@@ -55,8 +56,10 @@ public final class CaptureActivity extends BaseActivity implements
         SurfaceHolder.Callback, View.OnClickListener {
     public static final String xcbf = "XCBF";
     public static final String tag = "tag";
+    public static final String JOrderID = "JOrderID";
     public static final String zljc = "ZLJC";
     public static final String cprk = "CPRK";
+    public static final String kufang = "KUFANG";
     private static final String TAG = CaptureActivity.class.getSimpleName();
     private LiaoCarData liaoCarData;
     private XingCaiPro mXingCaiPro;
@@ -80,6 +83,7 @@ public final class CaptureActivity extends BaseActivity implements
     private LinearLayout left_LL, ll_material_layout;
     private String tagss;
     private String bianma;
+    private String jOdrId = "";
 
     public ViewfinderView getViewfinderView() {
         return viewfinderView;
@@ -124,6 +128,11 @@ public final class CaptureActivity extends BaseActivity implements
         this.mContext = this;
         if (getIntent() != null) {
             tagss = getIntent().getStringExtra(CaptureActivity.tag);
+            jOdrId = getIntent().getStringExtra(CaptureActivity.JOrderID);
+            if (TextUtils.isEmpty(jOdrId)) {
+                jOdrId = "";
+            }
+
         }
         left_LL = (LinearLayout) findViewById(R.id.left_LL);
         tv_sure = findViewById(R.id.tv_sure);
@@ -255,11 +264,13 @@ public final class CaptureActivity extends BaseActivity implements
             LogUtil.d("ALL", rawResult.getText());
             if (isURL(rawResult.getText())) {
                 if (zljc.equals(tagss)) {
-                    toRequestZljc(rawResult.getText());
+                    toRequestZljc(jOdrId, rawResult.getText());
                     return;
                 }
-
-
+                if (cprk.equals(tagss)) {
+                    toRequestCprk(jOdrId, rawResult.getText());
+                    return;
+                }
                 Intent intent = new Intent(this, SDK_WebView.class);
                 String url = rawResult.getText();
                 if (url.contains("{tokenid}")) {
@@ -280,10 +291,12 @@ public final class CaptureActivity extends BaseActivity implements
                         toXingCai(rawResult.getText()); //型材
                     }
                 } else if (zljc.equals(tagss)) {
-                    toRequestZljc(rawResult.getText());
+                    toRequestZljc(jOdrId, rawResult.getText());
 
                 } else if (cprk.equals(tagss)) {
-
+                    toRequestCprk(jOdrId, rawResult.getText());
+                } else if (kufang.equals(tagss)) {
+                    toRequestKufang(rawResult.getText());
                 } else {
                     scancode(rawResult.getText());
                     finish();
@@ -298,12 +311,15 @@ public final class CaptureActivity extends BaseActivity implements
 
     }
 
-    private void toRequestZljc(String text) {
-//        {"action":"chk_scan_product","tokenId":"","data":"931794070711"}
-        Map<String, String> mParams = new HashMap<String, String>();
-        mParams.put("action", "chk_scan_product");
+    private void toRequestCprk(String jOdrId, String text) {
+//        {"action":"cprk_scan_product","tokenId":"","data":{"jodrid":"","code":"931794070711"} }
+        Map<String, Object> mParams = new HashMap<String, Object>();
+        Map<String, String> param = new HashMap<String, String>();
+        param.put("jodrid", jOdrId);
+        param.put("code", text);
+        mParams.put("action", "cprk_scan_product");
         mParams.put("tokenId", UserInfoCache.init().getTokenid());
-        mParams.put("data", text);
+        mParams.put("data", param);
 
         JSONObject object = new JSONObject(mParams);
         LogUtil.d("ABC", object.toString());
@@ -320,14 +336,13 @@ public final class CaptureActivity extends BaseActivity implements
             @Override
             public void requestSucceed(String ss) {
                 LogUtil.d("ldlPP", ss);
-                parseZljc(ss);
+                parseCprk(ss);
                 finish();
             }
         });
-
     }
 
-    private void parseZljc(String ss) {
+    private void parseCprk(String ss) {
         try {
             JSONObject obj = new JSONObject(ss);
             boolean success = obj.optBoolean("Success", false);
@@ -338,10 +353,16 @@ public final class CaptureActivity extends BaseActivity implements
             }
             JSONObject returnObj = obj.optJSONObject("ReturnData");
             String id = returnObj.optString("ID");
+            String JOdrId = returnObj.optString("JOdrId");
             String ProductType = returnObj.optString("ProductType");
             String Assembly = returnObj.optString("Assembly");
             String FramePart = returnObj.optString("FramePart");
+            String JOdrName = returnObj.optString("JOdrName");
+            String WH = returnObj.optString("WH");
             Product pro = new Product();
+            pro.JOdrName = JOdrName;
+            pro.WH = WH;
+            pro.JOdrId = JOdrId;
             pro.Assembly = Assembly;
             pro.FramePart = FramePart;
             pro.id = id;
@@ -355,6 +376,90 @@ public final class CaptureActivity extends BaseActivity implements
             e.printStackTrace();
         }
     }
+
+    private void toRequestKufang(String text) {
+//        {"action":"cprk_scan_storageroom","tokenId":"","data":"03a282a6-f15b-401b-96ca-de5be591f2ce" }
+        Map<String, Object> mParams = new HashMap<String, Object>();
+
+        mParams.put("action", "cprk_scan_storageroom");
+        mParams.put("tokenId", UserInfoCache.init().getTokenid());
+        mParams.put("data", text);
+        JSONObject object = new JSONObject(mParams);
+        LogUtil.d("ABC", object.toString());
+        VolleyFactory.instance().xcbfPost(CaptureActivity.this, object, new VolleyFactory.AbsBaseRequest() {
+            @Override
+            public void requestFailed(String msg) {
+                if (null != msg) {
+                    ToastUtil.show(mContext, msg);
+                }
+                setResult(RESULT_OK, null);
+                finish();
+            }
+
+            @Override
+            public void requestSucceed(String ss) {
+                LogUtil.d("ldlPP", ss);
+                parseKufang(ss);
+
+            }
+        });
+    }
+
+    private void parseKufang(String ss) {
+        try {
+            JSONObject obj = new JSONObject(ss);
+            boolean success = obj.optBoolean("Success", false);
+            String Message = obj.optString("Message");
+            if (!success) {
+                ToastUtil.show(this, Message);
+                finish();
+            }
+            JSONObject returnObj = obj.optJSONObject("ReturnData");
+            HouseData houseData = new HouseData();
+            houseData.ID = returnObj.optString("ID");
+            houseData.Name = returnObj.optString("Name");
+            houseData.Code = returnObj.optString("Code");
+            Intent data = new Intent();
+            data.putExtra("house", houseData);
+            setResult(RESULT_OK, data);
+            finish();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void toRequestZljc(String jodrid, String text) {
+//        {"action":"chk_scan_product","tokenId":"","data":"931794070711"}
+        Map<String, Object> mParams = new HashMap<String, Object>();
+        Map<String, String> param = new HashMap<String, String>();
+        param.put("jodrid", jodrid);
+        param.put("code", text);
+        mParams.put("action", "chk_scan_product");
+        mParams.put("tokenId", UserInfoCache.init().getTokenid());
+        mParams.put("data", param);
+
+        JSONObject object = new JSONObject(mParams);
+        LogUtil.d("ABC", object.toString());
+        VolleyFactory.instance().xcbfPost(CaptureActivity.this, object, new VolleyFactory.AbsBaseRequest() {
+            @Override
+            public void requestFailed(String msg) {
+                if (null != msg) {
+                    ToastUtil.show(mContext, msg);
+                }
+                setResult(RESULT_OK, null);
+                finish();
+            }
+
+            @Override
+            public void requestSucceed(String ss) {
+                LogUtil.d("ldlPP", ss);
+                parseCprk(ss);
+                finish();
+            }
+        });
+
+    }
+
 
     /**
      * 初始化Camera

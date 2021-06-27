@@ -30,6 +30,15 @@
             android:textColor="@color/group_list_gray"
             android:textSize="12dp"
             tools:text="111" />
+        <TextView
+            android:id="@+id/tv_wh"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:textColor="@color/group_list_gray"
+            android:textSize="12dp"
+            tools:text="111" />
 
         <TextView
             android:id="@+id/tc_checkMethod"
