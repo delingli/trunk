@@ -12,6 +12,7 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.TextView;
 
+import com.google.gson.Gson;
 import com.hkzr.wlwd.R;
 import com.hkzr.wlwd.httpUtils.VolleyFactory;
 import com.hkzr.wlwd.ui.base.BaseActivity;
@@ -21,6 +22,7 @@ import com.hkzr.wlwd.ui.utils.ToastUtil;
 import com.hkzr.wlwd.zxing.android.CaptureActivity;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
@@ -146,63 +148,67 @@ public class ProductListActivity extends BaseActivity {
 
     public void toSubmit() {
 //        {"action":"chk_saves","tokenId":"","data":[{"id":"761f301b-6921-8f26-6a5c-5bfbbc5b8b01","producttype":"1"}]}
-        if (mProductList == null || mProductList.isEmpty()) {
+        if (mRecycleAdaptersz == null || mRecycleAdaptersz.getList() == null || mRecycleAdaptersz.getList().isEmpty()) {
             ToastUtil.show(this, "请先扫码添加检测产品");
             return;
         }
         if (mRecycleAdaptersz != null && mRecycleAdaptersz.getList() != null && !mRecycleAdaptersz.getList().isEmpty()) {
             mProductList = new ArrayList<>();
             List<Product> list = mRecycleAdaptersz.getList();
-            UploadProductParams uploadProductParams = new UploadProductParams();
+            UploadProductParams uploadProductParams;
             for (Product pp : list) {
+                uploadProductParams = new UploadProductParams();
                 uploadProductParams.id = pp.id;
                 uploadProductParams.producttype = pp.producttype;
                 mProductList.add(uploadProductParams);
             }
         }
 
-        Map<String, Object> mParams = new HashMap<String, Object>();
-        Map<String, Object> mParam2 = new HashMap<String, Object>();
-        mParam2.put("chkdate", mTv_date.getText().toString());
-        mParam2.put("productlist", mProductList);
-
-        mParams.put("action", "chk_saves");
-        mParams.put("tokenId", "");
-        mParams.put("data", mParam2);
-
-
-        JSONObject object = new JSONObject(mParams);
-        String ss = object.toString();
-        LogUtil.d("ABC", ss);
-        VolleyFactory.instance().xcbfPost(ProductListActivity.this, object, new VolleyFactory.AbsBaseRequest() {
-            @Override
-            public void requestFailed(String msg) {
-                if (null != msg) {
-                    ToastUtil.show(ProductListActivity.this, msg);
-                }
-                finish();
-            }
-
-            @Override
-            public void requestSucceed(String str) {
-                LogUtil.d("ldlPP", str);
-                try {
-                    JSONObject jsonObject = new JSONObject(str);
-                    String Message = jsonObject.optString("Message");
-
-                    if (jsonObject.optBoolean("Success")) {
-                        ToastUtil.show(ProductListActivity.this, "提交成功");
-                        finish();
-                    } else {
-                        if (!TextUtils.isEmpty(Message)) {
-                            ToastUtil.show(ProductListActivity.this, Message);
-                        }
+        try {
+            SaveProductParams saveProductParams = new SaveProductParams();
+            SaveProductParams.Databean databean = new SaveProductParams.Databean();
+            databean.chkdate = mTv_date.getText().toString();
+            databean.productlist = mProductList;
+            saveProductParams.action = "chk_saves";
+            saveProductParams.tokenId = "";
+            saveProductParams.data = databean;
+            Gson gson = new Gson();
+            String ss = gson.toJson(saveProductParams);
+            LogUtil.d("ABC", ss);
+            JSONObject object = new JSONObject(ss);
+            VolleyFactory.instance().xcbfPost(ProductListActivity.this, object, new VolleyFactory.AbsBaseRequest() {
+                @Override
+                public void requestFailed(String msg) {
+                    if (null != msg) {
+                        ToastUtil.show(ProductListActivity.this, msg);
                     }
                     finish();
-                } catch (Exception e) {
-                    e.printStackTrace();
                 }
-            }
-        });
+
+                @Override
+                public void requestSucceed(String str) {
+                    LogUtil.d("ldlPP", str);
+                    try {
+                        JSONObject jsonObject = new JSONObject(str);
+                        String Message = jsonObject.optString("Message");
+
+                        if (jsonObject.optBoolean("Success")) {
+                            ToastUtil.show(ProductListActivity.this, "提交成功");
+                            finish();
+                        } else {
+                            if (!TextUtils.isEmpty(Message)) {
+                                ToastUtil.show(ProductListActivity.this, Message);
+                            }
+                        }
+                        finish();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+            });
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
     }
 }
